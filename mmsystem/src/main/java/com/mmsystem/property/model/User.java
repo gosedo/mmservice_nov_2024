@@ -13,12 +13,12 @@ import jakarta.persistence.Table;
 
 
 @Entity  
-@Table(name="mmsuser")  
+@Table(name="mmsusers")  
 public class User{  
     @Id  
     @GeneratedValue(strategy=GenerationType.IDENTITY) 
     @Column(name = "userId")
-    private int UserId; 
+    private int userId; 
     
     @Column(name = "userEmail")
     private String userEmail;
@@ -41,11 +41,11 @@ public class User{
     
 	
 	public int getUserId() {
-		return UserId;
+		return userId;
 	}
 
 	public void setUserId(int userId) {
-		UserId = userId;
+		userId = userId;
 	}
 
 	public String getUserEmail() {

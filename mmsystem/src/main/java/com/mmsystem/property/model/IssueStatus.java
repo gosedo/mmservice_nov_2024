@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
+@Entity  
+@Table(name="issuestatus")
 public class IssueStatus {
 	
 	@Id
@@ -18,5 +22,31 @@ public class IssueStatus {
 	private String issueStatusDescr;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "issueStatus")
 	private List<MaintenanceIssue> maintenanceIssues = new ArrayList<>();
+	
+	public int getIssueStatusId() {
+		return issueStatusId;
+	}
+	public void setIssueStatusId(int issueStatusId) {
+		this.issueStatusId = issueStatusId;
+	}
+	public String getIssueStatusCode() {
+		return issueStatusCode;
+	}
+	public void setIssueStatusCode(String issueStatusCode) {
+		this.issueStatusCode = issueStatusCode;
+	}
+	public String getIssueStatusDescr() {
+		return issueStatusDescr;
+	}
+	public void setIssueStatusDescr(String issueStatusDescr) {
+		this.issueStatusDescr = issueStatusDescr;
+	}
+	public List<MaintenanceIssue> getMaintenanceIssues() {
+		return maintenanceIssues;
+	}
+	public void setMaintenanceIssues(List<MaintenanceIssue> maintenanceIssues) {
+		this.maintenanceIssues = maintenanceIssues;
+	}
 
+	
 }
