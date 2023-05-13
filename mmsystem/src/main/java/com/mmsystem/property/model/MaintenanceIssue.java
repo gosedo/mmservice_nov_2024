@@ -40,8 +40,10 @@ public class MaintenanceIssue{
     @JoinColumn(name = "unitId" , nullable=false)
 	private Unit unitRequested;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "postId")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "postId") 
 	private List<Post> posts = new ArrayList<>();
+	 
+	 
 	
 	private LocalDateTime createdOnDate;
 	private LocalDateTime completedOnDate;
@@ -82,12 +84,11 @@ public class MaintenanceIssue{
 	public void setUnitRequested(Unit unitRequested) {
 		this.unitRequested = unitRequested;
 	}
-	public List<Post> getPosts() {
-		return posts;
-	}
-	public void setPosts(List<Post> posts) {
-		this.posts = posts;
-	}
+
+	
+	  public List<Post> getPosts() { return posts; } public void
+	  setPosts(List<Post> posts) { this.posts = posts; }
+	 
 	public LocalDateTime getCreatedOnDate() {
 		return createdOnDate;
 	}

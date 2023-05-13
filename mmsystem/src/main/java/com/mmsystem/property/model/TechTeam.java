@@ -19,8 +19,8 @@ public class TechTeam {
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int techTeamId;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "postId")
-	private List<User> teamMember = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+	private List<User> teamMembers = new ArrayList<>();
 	
 	private String isLead;
 
@@ -33,11 +33,11 @@ public class TechTeam {
 	}
 
 	public List<User> getTeamMember() {
-		return teamMember;
+		return teamMembers;
 	}
 
-	public void setTeamMember(List<User> teamMember) {
-		this.teamMember = teamMember;
+	public void setTeamMember(List<User> teamMembers) {
+		this.teamMembers = teamMembers;
 	}
 
 	public String getIsLead() {

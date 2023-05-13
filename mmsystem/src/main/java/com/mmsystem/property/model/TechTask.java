@@ -1,14 +1,18 @@
 package com.mmsystem.property.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity  
@@ -25,24 +29,33 @@ public class TechTask {
 	
 	private String taskDescr;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "issueId" , nullable=false)
-	private TechTaskStatus taskStatus;
+	
+	
+	  @ManyToOne(cascade = CascadeType.ALL)
+	  
+	  @JoinColumn(name = "taskStatusId" , nullable=false) private TechTaskStatus
+	  taskStatus;
+	  
+	  @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskPostId") private List<TechTaskPost>
+	  posts = new ArrayList<>();
+	 
 	
 	private LocalDateTime createdOnDate;
 	private LocalDateTime closedOnDate; 
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "techTeamId" , nullable=false)
+	@JoinColumn(name = "techTeamId" , nullable=false) 
 	private TechTeam teamAssigned;
-	
+	 
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "unitId" , nullable=false)
+	@JoinColumn(name = "createdById" , nullable=false) 
 	private User taskCreatedBy;
-	
+	  
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "unitId" , nullable=false)
+	@JoinColumn(name = "taskClosedById" , nullable=false)
 	private User taskCloseddBy;
+	 
+	 
 
 	public int getTechTaskId() {
 		return techTaskId;
@@ -68,13 +81,12 @@ public class TechTask {
 		this.taskDescr = taskDescr;
 	}
 
-	public TechTaskStatus getTaskStatus() {
-		return taskStatus;
-	}
-
-	public void setTaskStatus(TechTaskStatus taskStatus) {
-		this.taskStatus = taskStatus;
-	}
+	
+	  public TechTaskStatus getTaskStatus() { return taskStatus; }
+	  
+	  public void setTaskStatus(TechTaskStatus taskStatus) { this.taskStatus =
+	  taskStatus; }
+	 
 
 	public LocalDateTime getCreatedOnDate() {
 		return createdOnDate;
@@ -92,29 +104,22 @@ public class TechTask {
 		this.closedOnDate = closedOnDate;
 	}
 
-	public TechTeam getTeamAssigned() {
-		return teamAssigned;
-	}
-
-	public void setTeamAssigned(TechTeam teamAssigned) {
-		this.teamAssigned = teamAssigned;
-	}
-
-	public User getTaskCreatedBy() {
-		return taskCreatedBy;
-	}
-
-	public void setTaskCreatedBy(User taskCreatedBy) {
-		this.taskCreatedBy = taskCreatedBy;
-	}
-
-	public User getTaskCloseddBy() {
-		return taskCloseddBy;
-	}
-
-	public void setTaskCloseddBy(User taskCloseddBy) {
-		this.taskCloseddBy = taskCloseddBy;
-	}
+	/*
+	 * public TechTeam getTeamAssigned() { return teamAssigned; }
+	 * 
+	 * public void setTeamAssigned(TechTeam teamAssigned) { this.teamAssigned =
+	 * teamAssigned; }
+	 * 
+	 * public User getTaskCreatedBy() { return taskCreatedBy; }
+	 * 
+	 * public void setTaskCreatedBy(User taskCreatedBy) { this.taskCreatedBy =
+	 * taskCreatedBy; }
+	 * 
+	 * public User getTaskCloseddBy() { return taskCloseddBy; }
+	 * 
+	 * public void setTaskCloseddBy(User taskCloseddBy) { this.taskCloseddBy =
+	 * taskCloseddBy; }
+	 */
 	
 	
 	

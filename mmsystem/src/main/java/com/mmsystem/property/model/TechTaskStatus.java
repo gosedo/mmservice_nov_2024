@@ -21,7 +21,7 @@ public class TechTaskStatus {
 	private String taskStatusCode;
 	private String taskStatusDescr;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "issueStatus")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "techTaskId")
 	private List<TechTask> techTasks = new ArrayList<>();
 
 	public int getTaskStatusId() {

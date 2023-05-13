@@ -1,0 +1,43 @@
+05/12/2023
+Issue: Can't connect to any URI error while commiting code from Eclipse to Git Repository
+Solution: https://stackoverflow.com/questions/30421875/cant-connect-to-any-uri-error-while-commiting-code-from-eclipse-to-git-reposito
+
+Issue: What project files are supposed to be ignored in '.gitignore' file? (Spring Boot)
+Solution: https://stackoverflow.com/questions/44657300/what-project-files-are-supposed-to-be-ignored-in-gitignore-file-spring-boot
+		also :https://www.gitignore.io/ 
+
+Issue: Duplicate Key error in TechTask while trying to generate tables
+Reason: 
+	@JoinColumn(name = "userId" , nullable=false) 
+	private User taskCreatedBy;
+	 
+	@JoinColumn(name = "userId" , nullable=false)
+	private User taskCloseddBy;
+
+Solution
+    @JoinColumn(name = "createdById" , nullable=false) 
+	private User taskCreatedBy;
+	 
+	@JoinColumn(name = "taskClosedById" , nullable=false)
+	private User taskCloseddBy;
+
+Issue: Date vs TimeStamp JPA
+Solution: https://vladmihalcea.com/date-timestamp-jpa-hibernate/
+Compared to java.util.Date or its JDBC counterparts, the Java Date/Time API offers is much easier to use and doesn’t require any utility methods as the provided factory methods are very easy to use:
+
+UserAccount user = new UserAccount()
+    .setId(1L)
+    .setFirstName("Vlad")
+    .setLastName("Mihalcea")
+    .setSubscribedOn(
+        LocalDate.of(
+            2013, 9, 29
+        )
+    );
+	
+
+Issue: Hibernate was generating tables with relationships but the foriegnKey was not created for the tables.
+		when DB was generated for mysql the engine was defaulted MyISAM. MyISAM doesn't have concept of FK.
+		For FK Generation engine = InnoDB 
+Reason:Hibernate was configured hibernate.dialect=org.hibernate.dialect.MySQL5Dialect 
+Solution: Changed to hibernate.dialect=org.hibernate.dialect.MySQL8Dialect

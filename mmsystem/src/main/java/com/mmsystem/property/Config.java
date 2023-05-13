@@ -26,17 +26,17 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
           @ComponentScan("Miscallaneous"),  
           @ComponentScan("com.mmsystem.property.service")})  
 public class Config {  
-		//mysql password old = provide@48R
-     	@Value("${mmsystem.db.driver}")  
+		
+     	@Value("${db.driver}")  
         private String DB_DRIVER;  
   
-        @Value("${mmsystem.db.password}")  
+        @Value("${db.password}")  
         private String DB_PASSWORD;  
   
-        @Value("${mmsystem.db.url}")  
+        @Value("${db.url}")  
         private String DB_URL;  
   
-        @Value("${mmsystem.db.username}")  
+        @Value("${db.username}")  
         private String DB_USERNAME;  
   
         @Value("${hibernate.dialect}")  
