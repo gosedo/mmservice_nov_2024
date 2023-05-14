@@ -15,15 +15,9 @@ import com.mmsystem.property.model.User;
 import com.mmsystem.property.service.MmspUserService;
 
 
-
-
-
-
-
-
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/user")
 public class UserController {
 
 	@Autowired
@@ -42,13 +36,11 @@ public class UserController {
 	 * }
 	 */
 	
-	  @PostMapping("user-save") 
-	  public boolean saveUser(@RequestBody User mmsUser)
-	  { return mmsUserService.saveUser(mmsUser);
-	  
-	  }
-	 
-
+	@PostMapping("user-save") 
+	public boolean saveUser(@RequestBody User mmsUser){ 
+		 return mmsUserService.saveUser(mmsUser);
+	}
+	
 	@GetMapping("users-list")
 	public List<User> allUsers() {
 		return mmsUserService.getUsers();
@@ -56,7 +48,7 @@ public class UserController {
 	}
 
 	@DeleteMapping("delete-user/{user_id}")
-	public boolean deleteStudent(@PathVariable("user_id") int user_id, User mmsUser) {
+	public boolean deleteUser(@PathVariable("user_id") int user_id, User mmsUser) {
 		mmsUser.setUserId(user_id);
 		return mmsUserService.deleteUser(mmsUser);
 	}
@@ -69,8 +61,8 @@ public class UserController {
 	}
 
 	@PostMapping("update-user/{user_id}")
-	public boolean updateStudent(@RequestBody User student, @PathVariable("user_id") int user_id) {
-		student.setUserId(user_id);
-		return mmsUserService.updateUser(student);
+	public boolean updateUser(@RequestBody User user, @PathVariable("user_id") int user_id) {
+		user.setUserId(user_id);
+		return mmsUserService.updateUser(user);
 	}
 }

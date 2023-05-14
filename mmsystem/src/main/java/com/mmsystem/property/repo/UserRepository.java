@@ -16,9 +16,6 @@ import jakarta.transaction.Transactional;
   
 
 
-
-
-
 @Repository 
 public class UserRepository  implements IMmspRepository<User> {  
 
@@ -42,7 +39,7 @@ public class UserRepository  implements IMmspRepository<User> {
   public List<User> get() {  
 		
 		  Session currentSession = sessionFactory.getCurrentSession(); 
-		  Query<User> query = currentSession.createQuery("from Student", User.class);
+		  Query<User> query = currentSession.createQuery("from mmsusers", User.class);
 		  List<User> list = query.getResultList(); 
 		  return list;
 		     	

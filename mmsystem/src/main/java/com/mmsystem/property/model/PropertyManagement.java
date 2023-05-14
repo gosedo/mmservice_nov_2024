@@ -24,7 +24,7 @@ public class PropertyManagement {
 	private String pMgmtPhone;
 	private String pMgmtEmail;
 	private String pMgmtFax;
-	private String PMgmtcontact;
+	private String pMgmtContact;
 	
 	public int getpMgmtId() {
 		return pMgmtId;
@@ -105,11 +105,10 @@ public class PropertyManagement {
 		this.pMgmtFax = pMgmtFax;
 	}
 	public String getPMgmtcontact() {
-		return PMgmtcontact;
+		return pMgmtContact;
 	}
 	public void setPMgmtcontact(String pMgmtcontact) {
-		PMgmtcontact = pMgmtcontact;
+		this.pMgmtContact = pMgmtcontact;
 	}
-	
 	
 }

@@ -28,7 +28,7 @@ public class Unit {
 	private String unitZipcodeExt;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "proMgmtID" , nullable=false)
+    @JoinColumn(name = "propertyId" , nullable=false)
 	private MMSProperty unitBelongTo ;
 
 	public int getUnitId() {
