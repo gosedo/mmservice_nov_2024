@@ -1,7 +1,6 @@
 package com.mmsystem.property.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +27,6 @@ public class PropMgmtController {
 		return "The result from Gosa";
 
 	}
-
 		
 	@PostMapping("propmgmt-save") 
 	public boolean savePropMgmt(@RequestBody PropertyManagement propMgmt){ 
@@ -55,7 +53,7 @@ public class PropMgmtController {
 	}
 
 	@PostMapping("update-propmgmt/{propmgmt_id}")
-	public boolean updateStudent(@RequestBody PropertyManagement propmgmt, @PathVariable("propmgmt_id") int propmgmt_id) {
+	public boolean updatePropMgmt(@RequestBody PropertyManagement propmgmt, @PathVariable("propmgmt_id") int propmgmt_id) {
 		propmgmt.setpMgmtId(propmgmt_id);
 		return mmsPropMgmtService.updatePropMgmt(propmgmt);
 	}

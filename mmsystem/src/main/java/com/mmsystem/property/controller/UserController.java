@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mmsystem.property.model.User;
-import com.mmsystem.property.service.MmspUserService;
+import com.mmsystem.property.service.MmsUserService;
+
 
 
 @RestController
@@ -21,7 +22,7 @@ import com.mmsystem.property.service.MmspUserService;
 public class UserController {
 
 	@Autowired
-	private MmspUserService mmsUserService;
+	private MmsUserService mmsUserService;
 
 	@GetMapping("test")
 	public String test() {

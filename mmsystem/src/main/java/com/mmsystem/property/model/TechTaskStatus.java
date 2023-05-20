@@ -12,7 +12,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity  
-@Table(name="techteamstatus")
+@Table(name="techtasktatus")
 public class TechTaskStatus {
 	
 	@Id
@@ -21,9 +21,6 @@ public class TechTaskStatus {
 	private String taskStatusCode;
 	private String taskStatusDescr;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "techTaskId")
-	private List<TechTask> techTasks = new ArrayList<>();
-
 	public int getTaskStatusId() {
 		return taskStatusId;
 	}
@@ -48,13 +45,5 @@ public class TechTaskStatus {
 		this.taskStatusDescr = taskStatusDescr;
 	}
 
-	public List<TechTask> getTechTasks() {
-		return techTasks;
-	}
-
-	public void setTechTasks(List<TechTask> techTasks) {
-		this.techTasks = techTasks;
-	}
-	
 	
 }

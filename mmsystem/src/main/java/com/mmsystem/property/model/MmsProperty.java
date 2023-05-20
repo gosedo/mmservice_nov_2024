@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity  
 @Table(name="mmsproperties")
-public class MMSProperty {
+public class MmsProperty {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 

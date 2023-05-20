@@ -19,9 +19,7 @@ public class IssueType {
 	private int issueTypeId;
 	private String issueTypeCode;
 	private String issueTypeDescr;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "issueType")
-	private List<MaintenanceIssue> maintenanceIssues = new ArrayList<>();
-	
+		
 	public int getIssueTypeId() {
 		return issueTypeId;
 	}
@@ -40,12 +38,6 @@ public class IssueType {
 	public void setIssueTypeDescr(String issueTypeDescr) {
 		this.issueTypeDescr = issueTypeDescr;
 	}
-	public List<MaintenanceIssue> getMaintenanceIssues() {
-		return maintenanceIssues;
-	}
-	public void setMaintenanceIssues(List<MaintenanceIssue> maintenanceIssues) {
-		this.maintenanceIssues = maintenanceIssues;
-	}
-
+	
 	
 }

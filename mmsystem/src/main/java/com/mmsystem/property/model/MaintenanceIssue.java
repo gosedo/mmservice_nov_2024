@@ -33,17 +33,13 @@ public class MaintenanceIssue{
 	private IssueStatus issueStatus;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId" , nullable=false)
-	private User requestedBy;
+    @JoinColumn(name = "issueReqTenantId" , nullable=false)
+	private Tenant requestedBy;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "unitId" , nullable=false)
-	private Unit unitRequested;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "postId") 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "postToIssue") 
 	private List<Post> posts = new ArrayList<>();
-	 
-	 
+	
 	
 	private LocalDateTime createdOnDate;
 	private LocalDateTime completedOnDate;
@@ -72,22 +68,9 @@ public class MaintenanceIssue{
 	public void setIssueStatus(IssueStatus issueStatus) {
 		this.issueStatus = issueStatus;
 	}
-	public User getRequestedBy() {
-		return requestedBy;
-	}
-	public void setRequestedBy(User requestedBy) {
-		this.requestedBy = requestedBy;
-	}
-	public Unit getUnitRequested() {
-		return unitRequested;
-	}
-	public void setUnitRequested(Unit unitRequested) {
-		this.unitRequested = unitRequested;
-	}
-
-	
-	  public List<Post> getPosts() { return posts; } public void
-	  setPosts(List<Post> posts) { this.posts = posts; }
+			
+	public List<Post> getPosts() { return posts; } public void
+	setPosts(List<Post> posts) { this.posts = posts; }
 	 
 	public LocalDateTime getCreatedOnDate() {
 		return createdOnDate;
@@ -101,7 +84,12 @@ public class MaintenanceIssue{
 	public void setCompletedOnDate(LocalDateTime completedOnDate) {
 		this.completedOnDate = completedOnDate;
 	}
+	public Tenant getRequestedBy() {
+		return requestedBy;
+	}
+	public void setRequestedBy(Tenant requestedBy) {
+		this.requestedBy = requestedBy;
+	}
 	
-	
-	
+		
 }

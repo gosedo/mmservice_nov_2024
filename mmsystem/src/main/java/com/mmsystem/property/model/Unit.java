@@ -28,10 +28,10 @@ public class Unit {
 	private String unitZipcodeExt;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "propertyId" , nullable=false)
-	private MMSProperty unitBelongTo ;
-
-	public int getUnitId() {
+    @JoinColumn(name = "belongToPropId" , nullable=false)
+	private MmsProperty unitBelongToProp ;
+	
+		public int getUnitId() {
 		return unitId;
 	}
 
@@ -119,14 +119,13 @@ public class Unit {
 		this.unitZipcodeExt = unitZipcodeExt;
 	}
 
-	public MMSProperty getUnitBelongTo() {
-		return unitBelongTo;
+	public MmsProperty getUnitBelongToProp() {
+		return unitBelongToProp;
 	}
 
-	public void setUnitBelongTo(MMSProperty unitBelongTo) {
-		this.unitBelongTo = unitBelongTo;
+	public void setUnitBelongToProp(MmsProperty unitBelongToProp) {
+		this.unitBelongToProp = unitBelongToProp;
 	}
-	
-	
-	
+
+		
 }

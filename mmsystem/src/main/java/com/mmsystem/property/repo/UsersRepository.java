@@ -17,7 +17,7 @@ import jakarta.transaction.Transactional;
 
 
 @Repository 
-public class UserRepository  implements IMmspRepository<User> {  
+public class UsersRepository  implements IMmspRepository<User> {  
 
   @Autowired  
   private SessionFactory sessionFactory;  
@@ -39,7 +39,7 @@ public class UserRepository  implements IMmspRepository<User> {
   public List<User> get() {  
 		
 		  Session currentSession = sessionFactory.getCurrentSession(); 
-		  Query<User> query = currentSession.createQuery("from mmsusers", User.class);
+		  Query<User> query = currentSession.createQuery("from User", User.class);
 		  List<User> list = query.getResultList(); 
 		  return list;
 		     	
@@ -63,8 +63,8 @@ public class UserRepository  implements IMmspRepository<User> {
 		
 		  Session currentSession = sessionFactory.getCurrentSession(); 
 		  Query<User> query = currentSession
-				  				.createQuery("from User where student_id=:student_id",User.class); 
-		  query.setParameter("student_id", mmsUser.getUserId());
+				  				.createQuery("from User where userId=:userId",User.class); 
+		  query.setParameter("userId", mmsUser.getUserId());
 		  List<User> list=query.getResultList(); 
 		  return list.get(0);
 		

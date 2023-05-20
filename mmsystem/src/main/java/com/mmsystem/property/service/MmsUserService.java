@@ -6,16 +6,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mmsystem.property.model.User;
-import com.mmsystem.property.repo.UserRepository;
+import com.mmsystem.property.repo.UsersRepository;
 
 
 
 @Service  
 @Transactional  
-public class MmspUserService implements IMmspService {  
+public class MmsUserService implements IMmspService {  
  
   @Autowired  
-  private UserRepository mmspUserRepo;  
+  private UsersRepository mmspUserRepo;  
     
   @Override  
   public boolean saveUser(User mmsUser) {  

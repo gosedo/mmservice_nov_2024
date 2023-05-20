@@ -10,42 +10,34 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-//mysql password old = provide@48R
 
 @Entity  
 @Table(name="mmsusers")  
-public class User{  
-    @Id  
-    @GeneratedValue(strategy=GenerationType.IDENTITY) 
-    @Column(name = "userId")
-    private int userId; 
-    
-    @Column(name = "userEmail")
-    private String userEmail;
-    
-    @Column(name = "userPassword")
-   	private String userPassword;
-    
-    @Column(name = "userFirstname")
-    private String userFirstname;
-    
-    @Column(name = "userLastname")
-    private String userLastname;
-    
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userTypeId" , nullable=false)
-    private UserType userType;
-    
-    @Column(name = "userStatus")
-    private String userStatus;
-    
-	
+public class User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "userId")
+	private int userId;
+	private String userEmail;
+	private String userPassword;
+	private String userFirstname;
+	private String userLastname;
+	private String userPhone;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "usrRoleId", nullable = false)
+	private UsrRoleType usrRoleType;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "userStatusId", nullable = false)
+	private UserStatus userStatus;
+
 	public int getUserId() {
 		return userId;
 	}
 
 	public void setUserId(int userId) {
-		userId = userId;
+		this.userId = userId;
 	}
 
 	public String getUserEmail() {
@@ -56,6 +48,7 @@ public class User{
 		this.userEmail = userEmail;
 	}
 
+	
 	public String getUserPassword() {
 		return userPassword;
 	}
@@ -80,22 +73,28 @@ public class User{
 		this.userLastname = userLastname;
 	}
 
-	public String getUserStatus() {
+	public String getUserPhone() {
+		return userPhone;
+	}
+
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
+	}
+
+	public UsrRoleType getUsrRoleType() {
+		return usrRoleType;
+	}
+
+	public void setUsrRoleType(UsrRoleType usrRoleType) {
+		this.usrRoleType = usrRoleType;
+	}
+
+	public UserStatus getUserStatus() {
 		return userStatus;
 	}
 
-	public void setUserStatus(String userStatus) {
+	public void setUserStatus(UserStatus userStatus) {
 		this.userStatus = userStatus;
 	}
 
-	public UserType getUserType() {
-		return userType;
-	}
-
-	public void setUserType(UserType userType) {
-		this.userType = userType;
-	}
-
-	  
-	  
-}  
+}

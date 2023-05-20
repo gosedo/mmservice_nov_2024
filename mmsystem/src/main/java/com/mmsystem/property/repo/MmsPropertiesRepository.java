@@ -8,22 +8,19 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mmsystem.property.model.PropertyManagement;
-import com.mmsystem.property.model.User;
-
+import com.mmsystem.property.model.MmsProperty;
 import jakarta.transaction.Transactional;
 
 
 @Repository
-public class PropMgmtRepository implements IMmspRepository<PropertyManagement>{
-
-	@Autowired  
-	private SessionFactory sessionFactory;
+public class MmsPropertiesRepository  implements IMmspRepository<MmsProperty> {
 	
+	@Autowired  
+	private SessionFactory sessionFactory; 
+
 	@Transactional
-	@Override
-	public boolean save(PropertyManagement model) {
-		
+	@Override  
+	public boolean save(MmsProperty model) {
 		boolean status=false;  
 	      try {  
 	          sessionFactory.getCurrentSession().persist(model);  
@@ -31,22 +28,20 @@ public class PropMgmtRepository implements IMmspRepository<PropertyManagement>{
 	      } catch (Exception e) {  
 	          e.printStackTrace();  
 	      }  
-	      return status;  
-				
+	      return status; 
 	}
 
 	@Override
-	public List<PropertyManagement> get() {
-		
+	public List<MmsProperty> get() {
 		Session currentSession = sessionFactory.getCurrentSession(); 
-		  Query<PropertyManagement> query = currentSession.createQuery("from PropertyManagement", PropertyManagement.class);
-		  List<PropertyManagement> list = query.getResultList(); 
+		  Query<MmsProperty> query = currentSession.createQuery("from MmsProperty", MmsProperty.class);
+		  List<MmsProperty> list = query.getResultList(); 
 		  return list;
 	}
 	
 	@Transactional
 	@Override
-	public boolean delete(PropertyManagement model) {
+	public boolean delete(MmsProperty model) {
 		boolean status=false;  
 	      try {  
 	          sessionFactory.getCurrentSession().remove(model);  
@@ -55,21 +50,21 @@ public class PropMgmtRepository implements IMmspRepository<PropertyManagement>{
 	          e.printStackTrace();  
 	      }  
 	      return status; 
-		
 	}
 
 	@Override
-	public PropertyManagement getByID(PropertyManagement model) {
+	public MmsProperty getByID(MmsProperty model) {
 		Session currentSession = sessionFactory.getCurrentSession(); 
-		  Query<PropertyManagement> query = currentSession
-				  				.createQuery("from PropertyManagement where pMgmtId=:pMgmtId",PropertyManagement.class); 
-		  query.setParameter("pMgmtId", model.getpMgmtId());
-		  List<PropertyManagement> list=query.getResultList(); 
+		  Query<MmsProperty> query = currentSession
+				  				.createQuery("from MmsProperty where propertyId=:propertyId",MmsProperty.class); 
+		  query.setParameter("propertyId", model.getPropertyId());
+		  List<MmsProperty> list= query.getResultList(); 
 		  return list.get(0);
 	}
-
+	
+	@Transactional
 	@Override
-	public boolean update(PropertyManagement model) {
+	public boolean update(MmsProperty model) {
 		boolean status=false;  
 	      try {  
 	          sessionFactory.getCurrentSession().merge(model);  

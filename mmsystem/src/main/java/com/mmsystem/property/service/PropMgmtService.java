@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mmsystem.property.model.PropertyManagement;
-import com.mmsystem.property.repo.PropMgmtRepository;
+import com.mmsystem.property.repo.PropMgmtsRepository;
 
 
 @Service  
@@ -16,7 +16,7 @@ public class PropMgmtService {
 
 	
 	@Autowired  
-	private PropMgmtRepository mmspPropMgmtRepo; 
+	private PropMgmtsRepository mmspPropMgmtRepo; 
 	
 	
 	public boolean savePropMgmt(PropertyManagement pojo) {

@@ -1,3 +1,11 @@
+05/14/2023
+//mysql password old = provide@48R
+Issue: no status with users was returned 
+diagnosis : checked relation exists data was available
+reason: not getter or setter was generated for userStatusId
+solution: Generate getter and setter for userStatusId filed.
+		For the fileds of the entity you want the controller to include in the response generate getter and setter
+
 05/12/2023
 Issue: Can't connect to any URI error while commiting code from Eclipse to Git Repository
 Solution: https://stackoverflow.com/questions/30421875/cant-connect-to-any-uri-error-while-commiting-code-from-eclipse-to-git-reposito
@@ -41,3 +49,5 @@ Issue: Hibernate was generating tables with relationships but the foriegnKey was
 		For FK Generation engine = InnoDB 
 Reason:Hibernate was configured hibernate.dialect=org.hibernate.dialect.MySQL5Dialect 
 Solution: Changed to hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+

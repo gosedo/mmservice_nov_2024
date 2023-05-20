@@ -27,7 +27,7 @@ public class Post {
 	private LocalDateTime createdOn;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId" , nullable=false)
+    @JoinColumn(name = "postUserId" , nullable=false)
     private User postedBy;
 
 	public int getPostId() {

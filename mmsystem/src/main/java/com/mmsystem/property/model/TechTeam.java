@@ -2,12 +2,14 @@ package com.mmsystem.property.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -19,8 +21,10 @@ public class TechTeam {
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int techTeamId;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-	private List<User> teamMembers = new ArrayList<>();
+	private String techTeamDescr;
+	
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "memberOf")
+	private Set<TechTeamMember> teamMembers ;
 	
 	private String isLead;
 
@@ -32,11 +36,21 @@ public class TechTeam {
 		this.techTeamId = techTeamId;
 	}
 
-	public List<User> getTeamMember() {
+	
+
+	public String getTechTeamDescr() {
+		return techTeamDescr;
+	}
+
+	public void setTechTeamDescr(String techTeamDescr) {
+		this.techTeamDescr = techTeamDescr;
+	}
+
+	public Set<TechTeamMember> getTeamMembers() {
 		return teamMembers;
 	}
 
-	public void setTeamMember(List<User> teamMembers) {
+	public void setTeamMembers(Set<TechTeamMember> teamMembers) {
 		this.teamMembers = teamMembers;
 	}
 

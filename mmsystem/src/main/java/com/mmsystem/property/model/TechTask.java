@@ -22,22 +22,18 @@ public class TechTask {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int techTaskId;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "issueId" , nullable=false)
-	private MaintenanceIssue issueTaskFor;
-	
 	private String taskDescr;
 	
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "taskIssueId" , nullable=false)
+	private MaintenanceIssue issueTaskFor;
 	
-	
-	  @ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "taskStatusId" , nullable=false) 
+	private TechTaskStatus taskStatus;
 	  
-	  @JoinColumn(name = "taskStatusId" , nullable=false) private TechTaskStatus
-	  taskStatus;
-	  
-	  @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskPostId") private List<TechTaskPost>
-	  posts = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taskPostId") 
+	private List<TechTaskPost> posts = new ArrayList<>();
 	 
 	
 	private LocalDateTime createdOnDate;
