@@ -34,20 +34,20 @@ public class MmsUnitController {
 		 return mmsUnitService.saveMmsUnit(mmsUnit);
 	}
 	
-	@GetMapping("mmsprop-list")
-	public List<Unit> allPropMgmt() {
+	@GetMapping("mmsunit-list")
+	public List<Unit> allMmsUnits() {
 		return mmsUnitService.getMmsUnits();
 
 	}
 
 	@DeleteMapping("delete-mmsUnit/{unitId}")
-	public boolean deleteUnitMgmt(@PathVariable("unitId") int unitId, Unit mmsUnit) {
+	public boolean deleteMmsUnit(@PathVariable("unitId") int unitId, Unit mmsUnit) {
 		mmsUnit.setUnitId(unitId);
 		return mmsUnitService.deleteMmsUnit(mmsUnit);
 	}
 
 	@GetMapping("mmsUnit/{unitId}")
-	public Unit allUnitByID(@PathVariable("unitId") int unitId, Unit mmsUnit) {
+	public Unit getMmsUnitByID(@PathVariable("unitId") int unitId, Unit mmsUnit) {
 		mmsUnit.setUnitId(unitId);
 		return mmsUnitService.getMmsUnitByID(mmsUnit);
 

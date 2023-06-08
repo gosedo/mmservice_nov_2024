@@ -37,8 +37,8 @@ public class MaintenanceIssue{
 	private Tenant requestedBy;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "postToIssue") 
-	private List<Post> posts = new ArrayList<>();
+	//@OneToMany(cascade = CascadeType.ALL, mappedBy = "postToIssue") 
+	//private List<Post> posts = new ArrayList<>();
 	
 	
 	private LocalDateTime createdOnDate;
@@ -69,8 +69,8 @@ public class MaintenanceIssue{
 		this.issueStatus = issueStatus;
 	}
 			
-	public List<Post> getPosts() { return posts; } public void
-	setPosts(List<Post> posts) { this.posts = posts; }
+	//public List<Post> getPosts() { return posts; } public void
+	//setPosts(List<Post> posts) { this.posts = posts; }
 	 
 	public LocalDateTime getCreatedOnDate() {
 		return createdOnDate;

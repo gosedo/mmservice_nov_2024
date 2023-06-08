@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,9 +14,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+
 @Entity  
 @Table(name="techtasks")
 public class TechTask {
+		
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
@@ -32,10 +33,6 @@ public class TechTask {
 	@JoinColumn(name = "taskStatusId" , nullable=false) 
 	private TechTaskStatus taskStatus;
 	  
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taskPostId") 
-	private List<TechTaskPost> posts = new ArrayList<>();
-	 
-	
 	private LocalDateTime createdOnDate;
 	private LocalDateTime closedOnDate; 
 	

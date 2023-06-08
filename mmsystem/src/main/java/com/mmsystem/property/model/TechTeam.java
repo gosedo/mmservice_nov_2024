@@ -1,7 +1,9 @@
 package com.mmsystem.property.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -17,6 +19,11 @@ import jakarta.persistence.Table;
 @Table(name="techteams")
 public class TechTeam {
 	
+	@Override
+	public int hashCode() {
+		return Objects.hash(isLead, teamMembers, techTeamDescr, techTeamId);
+	}
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int techTeamId;
@@ -24,7 +31,7 @@ public class TechTeam {
 	private String techTeamDescr;
 	
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "memberOf")
-	private Set<TechTeamMember> teamMembers ;
+	private Set<TechTeamMember> teamMembers = new HashSet<>();;
 	
 	private String isLead;
 

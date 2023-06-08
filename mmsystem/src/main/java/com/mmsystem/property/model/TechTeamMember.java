@@ -1,5 +1,6 @@
 package com.mmsystem.property.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -24,8 +25,11 @@ public class TechTeamMember {
 	private User memberInfo;
 	
 	@ManyToMany
-	@JoinTable(name = "techmember_MemberOf")
-	private Set<TechTeam> memberOf;
+	@JoinTable(name = "techmember_MemberOf",
+			joinColumns = @JoinColumn(name = "memberID", referencedColumnName = "teamMemberId"), 
+		      inverseJoinColumns = @JoinColumn(name = "memberOfTeamId", 
+		      referencedColumnName = "techTeamId"))
+	private Set<TechTeam> memberOf = new HashSet<>();
 
 	public int getTeamMemberId() {
 		return teamMemberId;

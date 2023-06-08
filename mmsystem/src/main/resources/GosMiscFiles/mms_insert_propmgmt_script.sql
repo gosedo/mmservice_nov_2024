@@ -95,6 +95,44 @@ VALUES
 ('Items moved.',1,8,now())
 ;
 
+INSERT INTO techteams(techTeamDescr, isLead)
+VALUES
+('HVAC Team', 1),
+('Electricians',1),
+('Plumbing Team',1);
+
+INSERT INTO teammembers(memberUserId)
+VALUES
+(7),
+(8)
+;
+
+INSERT INTO techmember_memberof(memberID, memberOfTeamId)
+VALUES
+(1,1),
+(2,1)
+;
+
+INSERT INTO techtasktatus(taskStatusCode, taskStatusDescr)
+VALUES
+('NEWR','New Request'),
+('UDRV','Under Review'),
+('INPR','In Progress'),
+('ONHL','On Hold'),
+('CLSD','Closed'),
+('CMPL','Completed')
+;
+
+INSERT INTO techtasks(taskIssueId,taskDescr,taskStatusId,techTeamId,createdById,createdOnDate,taskClosedById,closedOnDate)
+VALUES
+(1,'Add freon','2',1,9,now(),7,null)
+;
+
+INSERT INTO techtaskposts(techTaskId,comment,userId,createdOn)
+VALUES
+(1,'Will be done in an hour',7,now())
+;
+
 
 COMMIT;
 
