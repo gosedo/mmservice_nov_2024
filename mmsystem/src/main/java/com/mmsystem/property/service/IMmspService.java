@@ -2,14 +2,15 @@ package com.mmsystem.property.service;
 
 import java.util.List;
 
-import com.mmsystem.property.model.User;
+import com.mmsystem.property.model.MmsUser;
+
 
 
 public interface IMmspService {  
 	      
-    public boolean saveUser(User mmsUser);  
-    public List<User> getUsers();  
-    public boolean deleteUser(User mmsUser);  
-    public User getUserByID(User mmsUser);  
-    public boolean updateUser(User mmsUser);  
+    public boolean saveUser(MmsUser mmsUser);  
+    public List<MmsUser> getUsers();  
+    public boolean deleteUser(MmsUser mmsUser);  
+    public MmsUser getUserByID(MmsUser mmsUser);  
+    public boolean updateUser(MmsUser mmsUser);  
 }

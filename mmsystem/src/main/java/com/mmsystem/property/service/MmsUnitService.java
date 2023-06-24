@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mmsystem.property.model.Unit;
+import com.mmsystem.property.model.MmsUnit;
 import com.mmsystem.property.repo.MmsUnitsRepository;
 
 
@@ -20,31 +20,31 @@ public class MmsUnitService {
 	private MmsUnitsRepository mmsUnitsRepo; 
 	
 	
-	public boolean saveMmsUnit(Unit pojo) {
+	public boolean saveMmsUnit(MmsUnit pojo) {
 		
 		return mmsUnitsRepo.save(pojo); 
 	}
 
 	
-	public List<Unit> getMmsUnits() {
+	public List<MmsUnit> getMmsUnits() {
 		
 		return mmsUnitsRepo.get();
 	}
 
 	
-	public boolean deleteMmsUnit(Unit pojo) {
+	public boolean deleteMmsUnit(MmsUnit pojo) {
 		
 		return mmsUnitsRepo.delete(pojo); 
 	}
 
 	
-	public Unit getMmsUnitByID(Unit pojo) {
+	public MmsUnit getMmsUnitByID(MmsUnit pojo) {
 		
 		return mmsUnitsRepo.getByID(pojo);
 	}
 
 	
-	public boolean updateMmsUnit(Unit pojo) {
+	public boolean updateMmsUnit(MmsUnit pojo) {
 		
 		return mmsUnitsRepo.update(pojo);
 	}

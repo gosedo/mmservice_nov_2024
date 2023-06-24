@@ -1,6 +1,7 @@
 package com.mmsystem.property.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -12,49 +13,28 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity  
-@Table(name="teammembers")
-public class TechTeamMember {
+@Table(name="mmstechteammembers")
+public class MmsTechTeamMember {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int teamMemberId;
 	
 	@OneToOne
 	@JoinColumn(name ="memberUserId")
-	private User memberInfo;
+	private MmsUser memberInfo;
 	
 	@ManyToMany
-	@JoinTable(name = "techmember_MemberOf",
+	@JoinTable(
 			joinColumns = @JoinColumn(name = "memberID", referencedColumnName = "teamMemberId"), 
 		      inverseJoinColumns = @JoinColumn(name = "memberOfTeamId", 
 		      referencedColumnName = "techTeamId"))
-	private Set<TechTeam> memberOf = new HashSet<>();
+	private Set<MmsTechTeam> memberOf = new HashSet<>();
 
-	public int getTeamMemberId() {
-		return teamMemberId;
-	}
-
-	public void setTeamMemberId(int teamMemberId) {
-		this.teamMemberId = teamMemberId;
-	}
-
-	public User getMemberInfo() {
-		return memberInfo;
-	}
-
-	public void setMemberInfo(User memberInfo) {
-		this.memberInfo = memberInfo;
-	}
-
-	public Set<TechTeam> getMemberOf() {
-		return memberOf;
-	}
-
-	public void setMemberOf(Set<TechTeam> memberOf) {
-		this.memberOf = memberOf;
-	}
 	
-	
-
 }

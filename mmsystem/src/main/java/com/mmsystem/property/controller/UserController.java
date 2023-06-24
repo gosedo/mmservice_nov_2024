@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mmsystem.property.model.User;
+import com.mmsystem.property.model.MmsUser;
+
 import com.mmsystem.property.service.MmsUserService;
 
 
@@ -38,31 +39,31 @@ public class UserController {
 	 */
 	
 	@PostMapping("user-save") 
-	public boolean saveUser(@RequestBody User mmsUser){ 
+	public boolean saveUser(@RequestBody MmsUser mmsUser){ 
 		 return mmsUserService.saveUser(mmsUser);
 	}
 	
 	@GetMapping("users-list")
-	public List<User> allUsers() {
+	public List<MmsUser> allUsers() {
 		return mmsUserService.getUsers();
 
 	}
 
 	@DeleteMapping("delete-user/{user_id}")
-	public boolean deleteUser(@PathVariable("user_id") int user_id, User mmsUser) {
+	public boolean deleteUser(@PathVariable("user_id") int user_id, MmsUser mmsUser) {
 		mmsUser.setUserId(user_id);
 		return mmsUserService.deleteUser(mmsUser);
 	}
 
 	@GetMapping("user/{user_id}")
-	public User allUserByID(@PathVariable("user_id") int user_id, User mmsUser) {
+	public MmsUser allUserByID(@PathVariable("user_id") int user_id, MmsUser mmsUser) {
 		mmsUser.setUserId(user_id);
 		return mmsUserService.getUserByID(mmsUser);
 
 	}
 
 	@PostMapping("update-user/{user_id}")
-	public boolean updateUser(@RequestBody User user, @PathVariable("user_id") int user_id) {
+	public boolean updateUser(@RequestBody MmsUser user, @PathVariable("user_id") int user_id) {
 		user.setUserId(user_id);
 		return mmsUserService.updateUser(user);
 	}

@@ -4,16 +4,21 @@ import java.util.Properties;
 import javax.sql.DataSource;  
 import org.springframework.beans.factory.annotation.Value;  
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;  
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;  
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;  
 import org.springframework.context.annotation.ComponentScan;  
 import org.springframework.context.annotation.ComponentScans;  
-import org.springframework.context.annotation.Configuration;  
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;  
 import org.springframework.orm.hibernate5.HibernateTransactionManager;  
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;  
 import org.springframework.transaction.annotation.EnableTransactionManagement;  
-import org.springframework.web.servlet.view.InternalResourceViewResolver;  
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import com.zaxxer.hikari.HikariDataSource;  
   
   
 @Configuration  
@@ -33,7 +38,7 @@ public class Config {
         @Value("${db.password}")  
         private String DB_PASSWORD;  
   
-        @Value("${db.url}")  
+        @Value("${db.jdbc-url}")  
         private String DB_URL;  
   
         @Value("${db.username}")  
@@ -51,8 +56,8 @@ public class Config {
         @Value("${entitymanager.packagesToScan}")  
         private String ENTITYMANAGER_PACKAGES_TO_SCAN;  
   
-        @Bean(name="entityManagerFactory")  
-        public LocalSessionFactoryBean sessionFactory() {  
+        @Bean//(name="firstEntityManagerFactory")  
+        public LocalSessionFactoryBean secondSessionFactory() {  
             LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();  
             sessionFactory.setDataSource(dataSource());  
             sessionFactory.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN);  
@@ -63,16 +68,35 @@ public class Config {
             sessionFactory.setHibernateProperties(hibernateProperties);  
             return sessionFactory;  
         }  
+        
+        @Bean(name="entityManagerFactory") 
+        @Primary
+        public LocalSessionFactoryBean sessionFactory() {  
+            LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();  
+            sessionFactory.setDataSource(dataSource());  
+            sessionFactory.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN);  
+            Properties hibernateProperties = new Properties();  
+            hibernateProperties.put("hibernate.dialect", HIBERNATE_DIALECT);  
+            hibernateProperties.put("hibernate.show_sql", HIBERNATE_SHOW_SQL);  
+            hibernateProperties.put("hibernate.hbm2ddl.auto", HIBERNATE_HBM2DDL_AUTO);  
+            sessionFactory.setHibernateProperties(hibernateProperties);  
+            return sessionFactory;  
+        }
   
-        @Bean  
-        public DataSource dataSource() {  
-            DriverManagerDataSource dataSource = new DriverManagerDataSource();  
-            dataSource.setDriverClassName(DB_DRIVER);  
-            dataSource.setUrl(DB_URL);  
-            dataSource.setUsername(DB_USERNAME);  
-            dataSource.setPassword(DB_PASSWORD);  
-            return dataSource;  
-        }  
+//        @Bean  
+//        public DataSource dataSource() {  
+//            DriverManagerDataSource dataSource = new DriverManagerDataSource();  
+//            dataSource.setDriverClassName(DB_DRIVER);  
+//            dataSource.setUrl(DB_URL);  
+//            dataSource.setUsername(DB_USERNAME);  
+//            dataSource.setPassword(DB_PASSWORD);  
+//            return dataSource;  
+//        }  
+        @Bean
+        @ConfigurationProperties("db")
+        public HikariDataSource dataSource() {
+            return DataSourceBuilder.create().type(HikariDataSource.class).build();
+        }
   
         @Bean  
         public HibernateTransactionManager transactionManager() {  
@@ -81,13 +105,13 @@ public class Config {
             return txManager;  
         }  
           
-        @Bean  
-        public InternalResourceViewResolver jspViewResolver() {  
-            InternalResourceViewResolver resolver= new InternalResourceViewResolver();  
-            resolver.setPrefix("/views/");  
-            resolver.setSuffix(".jsp");  
-            return resolver;  
-        }   
+//        @Bean  
+//        public InternalResourceViewResolver jspViewResolver() {  
+//            InternalResourceViewResolver resolver= new InternalResourceViewResolver();  
+//            resolver.setPrefix("/views/");  
+//            resolver.setSuffix(".jsp");  
+//            return resolver;  
+//        }   
          
          
          

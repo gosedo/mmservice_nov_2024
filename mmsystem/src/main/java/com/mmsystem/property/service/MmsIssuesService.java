@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mmsystem.property.model.MaintenanceIssue;
-import com.mmsystem.property.model.PropertyManagement;
+import com.mmsystem.property.model.MmsMaintenanceIssue;
+
 import com.mmsystem.property.repo.MmsIssuesRepository;
-import com.mmsystem.property.repo.PropMgmtsRepository;
+
 
 
 @Service  
@@ -21,31 +21,31 @@ public class MmsIssuesService {
 	private MmsIssuesRepository mmsIssuesRepo; 
 	
 	
-	public boolean saveMmsIssue(MaintenanceIssue pojo) {
+	public boolean saveMmsIssue(MmsMaintenanceIssue pojo) {
 		
 		return mmsIssuesRepo.save(pojo); 
 	}
 
 	
-	public List<MaintenanceIssue> getMmsIssue() {
+	public List<MmsMaintenanceIssue> getMmsIssue() {
 		
 		return mmsIssuesRepo.get();
 	}
 
 	
-	public boolean deleteMmsIssue(MaintenanceIssue pojo) {
+	public boolean deleteMmsIssue(MmsMaintenanceIssue pojo) {
 		
 		return mmsIssuesRepo.delete(pojo); 
 	}
 
 	
-	public MaintenanceIssue getMmsIssueByID(MaintenanceIssue pojo) {
+	public MmsMaintenanceIssue getMmsIssueByID(MmsMaintenanceIssue pojo) {
 		
 		return mmsIssuesRepo.getByID(pojo);
 	}
 
 	
-	public boolean updateMmsIssue(MaintenanceIssue pojo) {
+	public boolean updateMmsIssue(MmsMaintenanceIssue pojo) {
 		
 		return mmsIssuesRepo.update(pojo);
 	}

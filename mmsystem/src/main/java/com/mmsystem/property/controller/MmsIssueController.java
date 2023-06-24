@@ -1,6 +1,9 @@
 package com.mmsystem.property.controller;
 
 import java.util.List;
+
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mmsystem.property.model.MaintenanceIssue;
+import com.mmsystem.property.model.MmsMaintenanceIssue;
 import com.mmsystem.property.service.MmsIssuesService;
 import com.mmsystem.property.service.PropMgmtService;
 
@@ -19,6 +22,8 @@ import com.mmsystem.property.service.PropMgmtService;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api/issue")
 public class MmsIssueController {
+	
+	private final Log logger = LogFactory.getLog(getClass());
 	
 	@Autowired
 	private MmsIssuesService mmsIssuesService;
@@ -30,31 +35,33 @@ public class MmsIssueController {
 	}
 		
 	@PostMapping("mmsissue-save") 
-	public boolean saveMmsIssue(@RequestBody MaintenanceIssue issue){ 
+	public boolean saveMmsIssue(@RequestBody MmsMaintenanceIssue issue){ 
 		 return mmsIssuesService.saveMmsIssue(issue);
 	}
 	
 	@GetMapping("mmsissue-list")
-	public List<MaintenanceIssue> allIssues() {
+	public List<MmsMaintenanceIssue> allIssues() {
+		logger.info("Request URI: Gosaye" );
+		
 		return mmsIssuesService.getMmsIssue();
 
 	}
 
 	@DeleteMapping("delete-mmsissue/{mmsissue_id}")
-	public boolean deleteMmsIssue(@PathVariable("mmsissue_id") int mmsissue_id, MaintenanceIssue mmsIssue) {
+	public boolean deleteMmsIssue(@PathVariable("mmsissue_id") int mmsissue_id, MmsMaintenanceIssue mmsIssue) {
 		mmsIssue.setIssueId(mmsissue_id);
 		return mmsIssuesService.deleteMmsIssue(mmsIssue);
 	}
 
 	@GetMapping("mmsissue/{mmsissue_id}")
-	public MaintenanceIssue getMmsIssueByID(@PathVariable("mmsissue_id") int mmsissue_id, MaintenanceIssue mmsIssue) {
+	public MmsMaintenanceIssue getMmsIssueByID(@PathVariable("mmsissue_id") int mmsissue_id, MmsMaintenanceIssue mmsIssue) {
 		mmsIssue.setIssueId(mmsissue_id);
 		return mmsIssuesService.getMmsIssueByID(mmsIssue);
 
 	}
 
 	@PostMapping("update-mmsissue/{mmsissue_id}")
-	public boolean updateMmsIssue(@RequestBody MaintenanceIssue mmsissue, @PathVariable("mmsissue_id") int mmsissue_id) {
+	public boolean updateMmsIssue(@RequestBody MmsMaintenanceIssue mmsissue, @PathVariable("mmsissue_id") int mmsissue_id) {
 		mmsissue.setIssueId(mmsissue_id);
 		return mmsIssuesService.updateMmsIssue(mmsissue);
 	}

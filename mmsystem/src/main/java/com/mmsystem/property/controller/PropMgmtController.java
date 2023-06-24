@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mmsystem.property.model.PropertyManagement;
+import com.mmsystem.property.model.MmsPropertyManagement;
 import com.mmsystem.property.service.PropMgmtService;
 
 @RestController
@@ -29,32 +29,32 @@ public class PropMgmtController {
 	}
 		
 	@PostMapping("propmgmt-save") 
-	public boolean savePropMgmt(@RequestBody PropertyManagement propMgmt){ 
+	public boolean savePropMgmt(@RequestBody MmsPropertyManagement propMgmt){ 
 		 return mmsPropMgmtService.savePropMgmt(propMgmt);
 	}
 	
 	@GetMapping("propmgmt-list")
-	public List<PropertyManagement> allPropMgmt() {
+	public List<MmsPropertyManagement> allPropMgmt() {
 		return mmsPropMgmtService.getPropMgmt();
 
 	}
 
 	@DeleteMapping("delete-propmgmt/{propmgmt_id}")
-	public boolean deletePropMgmt(@PathVariable("propmgmt_id") int propmgmt_id, PropertyManagement propMgmt) {
-		propMgmt.setpMgmtId(propmgmt_id);
+	public boolean deletePropMgmt(@PathVariable("propmgmt_id") int propmgmt_id, MmsPropertyManagement propMgmt) {
+		propMgmt.setPMgmtId(propmgmt_id);
 		return mmsPropMgmtService.deletePropMgmt(propMgmt);
 	}
 
 	@GetMapping("propmgmt/{propmgmt_id}")
-	public PropertyManagement allPropMgmtByID(@PathVariable("propmgmt_id") int propmgmt_id, PropertyManagement propmgmt) {
-		propmgmt.setpMgmtId(propmgmt_id);
+	public MmsPropertyManagement allPropMgmtByID(@PathVariable("propmgmt_id") int propmgmt_id, MmsPropertyManagement propmgmt) {
+		propmgmt.setPMgmtId(propmgmt_id);
 		return mmsPropMgmtService.getPropMgmtByID(propmgmt);
 
 	}
 
 	@PostMapping("update-propmgmt/{propmgmt_id}")
-	public boolean updatePropMgmt(@RequestBody PropertyManagement propmgmt, @PathVariable("propmgmt_id") int propmgmt_id) {
-		propmgmt.setpMgmtId(propmgmt_id);
+	public boolean updatePropMgmt(@RequestBody MmsPropertyManagement propmgmt, @PathVariable("propmgmt_id") int propmgmt_id) {
+		propmgmt.setPMgmtId(propmgmt_id);
 		return mmsPropMgmtService.updatePropMgmt(propmgmt);
 	}
 }

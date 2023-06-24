@@ -1,5 +1,6 @@
 package com.mmsystem.property.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,10 +11,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity  
-@Table(name="issuetypes")
-public class IssueType {
+@Table(name="mmsissuetypes")
+public class MmsIssueType {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int issueTypeId;

@@ -8,22 +8,21 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mmsystem.property.model.MaintenanceIssue;
-import com.mmsystem.property.model.PropertyManagement;
-import com.mmsystem.property.model.User;
+
+import com.mmsystem.property.model.MmsMaintenanceIssue;
 
 import jakarta.transaction.Transactional;
 
 
 @Repository
-public class MmsIssuesRepository implements IMmspRepository<MaintenanceIssue>{
+public class MmsIssuesRepository implements IMmspRepository<MmsMaintenanceIssue>{
 
 	@Autowired  
 	private SessionFactory sessionFactory;
 	
 	@Transactional
 	@Override
-	public boolean save(MaintenanceIssue model) {
+	public boolean save(MmsMaintenanceIssue model) {
 		
 		boolean status=false;  
 	      try {  
@@ -37,17 +36,17 @@ public class MmsIssuesRepository implements IMmspRepository<MaintenanceIssue>{
 	}
 
 	@Override
-	public List<MaintenanceIssue> get() {
+	public List<MmsMaintenanceIssue> get() {
 		
 		Session currentSession = sessionFactory.getCurrentSession(); 
-		  Query<MaintenanceIssue> query = currentSession.createQuery("from MaintenanceIssue", MaintenanceIssue.class);
-		  List<MaintenanceIssue> list = query.getResultList(); 
+		  Query<MmsMaintenanceIssue> query = currentSession.createQuery("from MmsMaintenanceIssue", MmsMaintenanceIssue.class);
+		  List<MmsMaintenanceIssue> list = query.getResultList(); 
 		  return list;
 	}
 	
 	@Transactional
 	@Override
-	public boolean delete(MaintenanceIssue model) {
+	public boolean delete(MmsMaintenanceIssue model) {
 		boolean status=false;  
 	      try {  
 	          sessionFactory.getCurrentSession().remove(model);  
@@ -60,17 +59,17 @@ public class MmsIssuesRepository implements IMmspRepository<MaintenanceIssue>{
 	}
 
 	@Override
-	public MaintenanceIssue getByID(MaintenanceIssue model) {
+	public MmsMaintenanceIssue getByID(MmsMaintenanceIssue model) {
 		Session currentSession = sessionFactory.getCurrentSession(); 
-		  Query<MaintenanceIssue> query = currentSession
-				  				.createQuery("from MaintenanceIssue where issueId=:issueId",MaintenanceIssue.class); 
+		  Query<MmsMaintenanceIssue> query = currentSession
+				  				.createQuery("from MmsMaintenanceIssue where issueId=:issueId",MmsMaintenanceIssue.class); 
 		  query.setParameter("issueId", model.getIssueId());
-		  List<MaintenanceIssue> list=query.getResultList(); 
+		  List<MmsMaintenanceIssue> list=query.getResultList(); 
 		  return list.get(0);
 	}
 
 	@Override
-	public boolean update(MaintenanceIssue model) {
+	public boolean update(MmsMaintenanceIssue model) {
 		boolean status=false;  
 	      try {  
 	          sessionFactory.getCurrentSession().merge(model);  

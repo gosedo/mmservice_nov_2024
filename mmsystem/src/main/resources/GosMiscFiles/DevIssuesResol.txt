@@ -50,4 +50,28 @@ Issue: Hibernate was generating tables with relationships but the foriegnKey was
 Reason:Hibernate was configured hibernate.dialect=org.hibernate.dialect.MySQL5Dialect 
 Solution: Changed to hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 
+///////Authentication functionality being added using spring-security.Spring auto generated the following password for development envi only
+//It looks like it is generating different password everytime we restart or change being saved.
+Using generated security password: df35a33d-8c7c-4042-9e35-8865dafad6ee
 
+//In the Hackton the UserPJO and Project 
+//Still trying to figure it out if both ther userservice and project service are using the same session.
+//Both were pulled from the database using two different services and repositories
+//user exists in db but project is new. I assigned the project's user property with the user from database which was pulled using a different 
+//service and repository. when I saved the project, the project was saved to the db with the userid the project belongs to.
+//me now trying to figure out what spring is doing as project is transient and user persistent state probably from different session
+//get saved with out duplicating or giving error.
+//The question is do two different repositories have/use the same session ?
+
+
+For CustomUserDetailsService
+===============================
+problem: I was using user repository directly to get user information and exception was thrown as session doesn't exist
+Solution: using the userservice which has session and uses the the user repository  
+
+Securing requestMatchers("api/issue/mmsissue-list").authenticated()
+======================
+With permitAll it was working fine but when changed to authenticated() it was not even checking the custom filter.
+The Customfilter can be debuged as with permitAll but not when changed to authenicated().
+Solution: AddFilterBefore 
+ http.addFilterBefore( new CustomRequestHeaderTokenFilter(authenticationConfiguration.getAuthenticationManager()), UsernamePasswordAuthenticationFilter.class); 

@@ -5,8 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;  
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mmsystem.property.model.User;
-import com.mmsystem.property.repo.UsersRepository;
+import com.mmsystem.property.model.MmsUser;
+import com.mmsystem.property.repo.UserRepository;
+
 
 
 
@@ -15,31 +16,45 @@ import com.mmsystem.property.repo.UsersRepository;
 public class MmsUserService implements IMmspService {  
  
   @Autowired  
-  private UsersRepository mmspUserRepo;  
+  private UserRepository mmspUserRepo;  
     
   @Override  
-  public boolean saveUser(User mmsUser) {  
+  public boolean saveUser(MmsUser mmsUser) {  
       return mmspUserRepo.save(mmsUser);  
   }  
 
   @Override  
-  public List<User> getUsers() {  
+  public List<MmsUser> getUsers() {  
       return mmspUserRepo.get();  
   }  
 
   @Override  
-  public boolean deleteUser(User mmsUser) {  
+  public boolean deleteUser(MmsUser mmsUser) {  
       return mmspUserRepo.delete(mmsUser);  
   }  
 
   @Override  
-  public User getUserByID(User mmsUser) {  
+  public MmsUser getUserByID(MmsUser mmsUser) {  
       return mmspUserRepo.getByID(mmsUser);  
-  }  
-
+  } 
+  
   @Override  
-  public boolean updateUser(User mmsUser) {  
+  public boolean updateUser(MmsUser mmsUser) {  
       return mmspUserRepo.update(mmsUser);  
-  }  
+  } 
+  //Below codes are additional service method from what is defined in the Interface IMMspService
+  public MmsUser getUserByID(int mmsUser) {  
+      return mmspUserRepo.getByID(mmsUser);  
+  }
+  
+  public MmsUser getByEmail(String email) {
+	  
+	  return mmspUserRepo.getByEmail(email);
+  }
+  
+  public boolean isValidUserCrediential(String email,String password) {
+	  
+	  return mmspUserRepo.getByCredential(email,password) != null;
+  }
 
 } 

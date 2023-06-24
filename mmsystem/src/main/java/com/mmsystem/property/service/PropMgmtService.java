@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mmsystem.property.model.PropertyManagement;
+import com.mmsystem.property.model.MmsPropertyManagement;
 import com.mmsystem.property.repo.PropMgmtsRepository;
 
 
@@ -19,31 +19,31 @@ public class PropMgmtService {
 	private PropMgmtsRepository mmspPropMgmtRepo; 
 	
 	
-	public boolean savePropMgmt(PropertyManagement pojo) {
+	public boolean savePropMgmt(MmsPropertyManagement pojo) {
 		
 		return mmspPropMgmtRepo.save(pojo); 
 	}
 
 	
-	public List<PropertyManagement> getPropMgmt() {
+	public List<MmsPropertyManagement> getPropMgmt() {
 		
 		return mmspPropMgmtRepo.get();
 	}
 
 	
-	public boolean deletePropMgmt(PropertyManagement pojo) {
+	public boolean deletePropMgmt(MmsPropertyManagement pojo) {
 		
 		return mmspPropMgmtRepo.delete(pojo); 
 	}
 
 	
-	public PropertyManagement getPropMgmtByID(PropertyManagement pojo) {
+	public MmsPropertyManagement getPropMgmtByID(MmsPropertyManagement pojo) {
 		
 		return mmspPropMgmtRepo.getByID(pojo);
 	}
 
 	
-	public boolean updatePropMgmt(PropertyManagement pojo) {
+	public boolean updatePropMgmt(MmsPropertyManagement pojo) {
 		
 		return mmspPropMgmtRepo.update(pojo);
 	}

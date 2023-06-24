@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mmsystem.property.model.Unit;
+import com.mmsystem.property.model.MmsUnit;
 import com.mmsystem.property.service.MmsUnitService;
 
 
@@ -30,31 +30,31 @@ public class MmsUnitController {
 	}
 		
 	@PostMapping("mmsunit-save") 
-	public boolean saveMmsUnit(@RequestBody Unit mmsUnit){ 
+	public boolean saveMmsUnit(@RequestBody MmsUnit mmsUnit){ 
 		 return mmsUnitService.saveMmsUnit(mmsUnit);
 	}
 	
 	@GetMapping("mmsunit-list")
-	public List<Unit> allMmsUnits() {
+	public List<MmsUnit> allMmsUnits() {
 		return mmsUnitService.getMmsUnits();
 
 	}
 
 	@DeleteMapping("delete-mmsUnit/{unitId}")
-	public boolean deleteMmsUnit(@PathVariable("unitId") int unitId, Unit mmsUnit) {
+	public boolean deleteMmsUnit(@PathVariable("unitId") int unitId, MmsUnit mmsUnit) {
 		mmsUnit.setUnitId(unitId);
 		return mmsUnitService.deleteMmsUnit(mmsUnit);
 	}
 
 	@GetMapping("mmsUnit/{unitId}")
-	public Unit getMmsUnitByID(@PathVariable("unitId") int unitId, Unit mmsUnit) {
+	public MmsUnit getMmsUnitByID(@PathVariable("unitId") int unitId, MmsUnit mmsUnit) {
 		mmsUnit.setUnitId(unitId);
 		return mmsUnitService.getMmsUnitByID(mmsUnit);
 
 	}
 
 	@PostMapping("update-mmsUnit/{unitId}")
-	public boolean updateMmsUnit(@RequestBody Unit mmsUnit, @PathVariable("unitId") int unitId) {
+	public boolean updateMmsUnit(@RequestBody MmsUnit mmsUnit, @PathVariable("unitId") int unitId) {
 		mmsUnit.setUnitId(unitId);
 		return mmsUnitService.updateMmsUnit(mmsUnit);
 	}

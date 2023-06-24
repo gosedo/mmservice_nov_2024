@@ -8,22 +8,21 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mmsystem.property.model.MmsProperty;
-import com.mmsystem.property.model.PropertyManagement;
-import com.mmsystem.property.model.Unit;
+
+import com.mmsystem.property.model.MmsUnit;
 
 import jakarta.transaction.Transactional;
 
 
 @Repository
-public class MmsUnitsRepository  implements IMmspRepository<Unit> {
+public class MmsUnitsRepository  implements IMmspRepository<MmsUnit> {
 
 	@Autowired  
 	private SessionFactory sessionFactory;
 	
 	@Transactional
 	@Override
-	public boolean save(Unit model) {
+	public boolean save(MmsUnit model) {
 		boolean status=false;  
 	      try {  
 	          sessionFactory.getCurrentSession().persist(model);  
@@ -35,16 +34,16 @@ public class MmsUnitsRepository  implements IMmspRepository<Unit> {
 	}
 
 	@Override
-	public List<Unit> get() {
+	public List<MmsUnit> get() {
 		Session currentSession = sessionFactory.getCurrentSession(); 
-		  Query<Unit> query = currentSession.createQuery("from Unit", Unit.class);
-		  List<Unit> list = query.getResultList(); 
+		  Query<MmsUnit> query = currentSession.createQuery("from MmsUnit", MmsUnit.class);
+		  List<MmsUnit> list = query.getResultList(); 
 		  return list;
 	}
 
 	@Transactional
 	@Override
-	public boolean delete(Unit model) {
+	public boolean delete(MmsUnit model) {
 		boolean status=false;  
 	      try {  
 	          sessionFactory.getCurrentSession().remove(model);  
@@ -57,17 +56,17 @@ public class MmsUnitsRepository  implements IMmspRepository<Unit> {
 
 	
 	@Override
-	public Unit getByID(Unit model) {
+	public MmsUnit getByID(MmsUnit model) {
 		Session currentSession = sessionFactory.getCurrentSession(); 
-		  Query<Unit> query = currentSession
-				  				.createQuery("from Unit where unitId=:unitId",Unit.class); 
+		  Query<MmsUnit> query = currentSession
+				  				.createQuery("from MmsUnit where unitId=:unitId",MmsUnit.class); 
 		  query.setParameter("unitId", model.getUnitId());
-		  List<Unit> list=query.getResultList(); 
+		  List<MmsUnit> list=query.getResultList(); 
 		  return list.get(0);
 	}
 
 	@Override
-	public boolean update(Unit model) {
+	public boolean update(MmsUnit model) {
 		boolean status=false;  
 	      try {  
 	          sessionFactory.getCurrentSession().merge(model);  
