@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mmsystem.property.dto.MmsMaintenanceIssueDTO;
 import com.mmsystem.property.model.MmsMaintenanceIssue;
 import com.mmsystem.property.service.MmsIssuesService;
 import com.mmsystem.property.service.PropMgmtService;
@@ -35,8 +36,8 @@ public class MmsIssueController {
 	}
 		
 	@PostMapping("mmsissue-save") 
-	public boolean saveMmsIssue(@RequestBody MmsMaintenanceIssue issue){ 
-		 return mmsIssuesService.saveMmsIssue(issue);
+	public MmsMaintenanceIssueDTO saveMmsIssue(@RequestBody MmsMaintenanceIssueDTO issueDto){ 
+		 return mmsIssuesService.saveMmsIssue(issueDto);
 	}
 	
 	@GetMapping("mmsissue-list")

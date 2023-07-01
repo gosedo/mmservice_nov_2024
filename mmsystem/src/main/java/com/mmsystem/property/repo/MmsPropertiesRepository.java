@@ -20,7 +20,7 @@ public class MmsPropertiesRepository  implements IMmspRepository<MmsProperty> {
 
 	@Transactional
 	@Override  
-	public boolean save(MmsProperty model) {
+	public MmsProperty save(MmsProperty model) {
 		boolean status=false;  
 	      try {  
 	          sessionFactory.getCurrentSession().persist(model);  
@@ -28,7 +28,7 @@ public class MmsPropertiesRepository  implements IMmspRepository<MmsProperty> {
 	      } catch (Exception e) {  
 	          e.printStackTrace();  
 	      }  
-	      return status; 
+	      return status == true ? model : null; 
 	}
 
 	@Override

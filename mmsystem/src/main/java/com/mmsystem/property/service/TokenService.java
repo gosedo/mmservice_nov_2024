@@ -12,6 +12,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;  
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mmsystem.property.dto.MmsTokenDTO;
+import com.mmsystem.property.mapper.MmsPropertyManagementMapper;
+import com.mmsystem.property.mapper.MmsTokenMapper;
+import com.mmsystem.property.model.MmsPropertyManagement;
 import com.mmsystem.property.model.MmsToken;
 import com.mmsystem.property.model.MmsUser;
 
@@ -30,8 +34,12 @@ public class TokenService  {
    
   DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"); 
     
-  public boolean saveToken(MmsToken mmsToken) {  
-      return mmsTokenRepo.save(mmsToken);  
+  public MmsTokenDTO saveToken(MmsTokenDTO mmsTokenDto) { 
+	  
+	  MmsToken mmsToken = MmsTokenMapper.INSTANCE.mapToMmsToken(mmsTokenDto);
+	  mmsTokenRepo.save(mmsToken);
+		
+	  return MmsTokenMapper.INSTANCE.mapToMmsTokenDto(mmsToken); 
   }  
 
    

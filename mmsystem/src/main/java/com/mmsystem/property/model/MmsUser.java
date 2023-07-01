@@ -1,9 +1,11 @@
 package com.mmsystem.property.model;
 
 import java.util.HashSet;
-import java.util.List;
+
 import java.util.Objects;
 import java.util.Set;
+
+
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -17,11 +19,19 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity  
 @Table(name="mmsusers")  
 public class MmsUser {
@@ -31,29 +41,28 @@ public class MmsUser {
 	private int userId;
 	
 	@Column(nullable = false, unique=true )
+	@Email(message = "Email cannot be blank")
 	private String userEmail;
 	private String userPassword;
 	private String userFirstname;
 	private String userLastname;
 	private String userPhone;
 	
-	//@ManyToMany(cascade = CascadeType.ALL)
-	//@JoinColumn(name = "userRoleId", nullable = false)
 	
-	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.REFRESH }, fetch = FetchType.EAGER)
 	@JoinTable(
 			joinColumns = @JoinColumn(name = "userId", referencedColumnName = "userId"), 
 		      inverseJoinColumns = @JoinColumn(name = "usrRoleId", 
 		      referencedColumnName = "usrRoleId"))
+	
 	private Set<MmsUserRole> userRoles = new HashSet<>();
 
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "userStatusId", nullable = false)
 	private MmsUserStatus userStatus;
-		
 	
-
+	
 	@Override
 	public String toString() {
 		return "User [userEmail=" + userEmail + ", userFirstname=" + userFirstname + ", userLastname=" + userLastname

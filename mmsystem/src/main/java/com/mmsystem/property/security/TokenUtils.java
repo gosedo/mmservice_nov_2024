@@ -44,10 +44,23 @@ public class TokenUtils {
         .setSigningKey(hmacKey)
         .build()
         .parseClaimsJws(token);
+        
+        
 
         return claims.getBody().getSubject();
     }
+    
+    public static Date getJWTTokenExpiration(String token) {
+       
+        Jws<Claims> claims = Jwts.parserBuilder()
+        .setSigningKey(hmacKey)
+        .build()
+        .parseClaimsJws(token);
+         
 
+        return claims.getBody().getExpiration();
+    }
+    
     
     public static boolean isJWTTokenValid(String token) {
         try {

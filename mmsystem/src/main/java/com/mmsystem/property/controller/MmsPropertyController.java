@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mmsystem.property.dto.MmsPropertyDTO;
 import com.mmsystem.property.model.MmsProperty;
 import com.mmsystem.property.service.MmsPropertyService;
 
@@ -30,8 +31,8 @@ public class MmsPropertyController {
 	}
 		
 	@PostMapping("mmsprop-save") 
-	public boolean saveMmsProp(@RequestBody MmsProperty mmsProp){ 
-		 return mmsPropertyService.saveMmsProp(mmsProp);
+	public MmsPropertyDTO saveMmsProp(@RequestBody MmsPropertyDTO mmsPropDto){ 
+		 return mmsPropertyService.saveMmsProp(mmsPropDto);
 	}
 	
 	@GetMapping("mmsprop-list")

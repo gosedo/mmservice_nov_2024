@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mmsystem.property.dto.MmsUnitDTO;
 import com.mmsystem.property.model.MmsUnit;
 import com.mmsystem.property.service.MmsUnitService;
 
@@ -30,8 +31,8 @@ public class MmsUnitController {
 	}
 		
 	@PostMapping("mmsunit-save") 
-	public boolean saveMmsUnit(@RequestBody MmsUnit mmsUnit){ 
-		 return mmsUnitService.saveMmsUnit(mmsUnit);
+	public MmsUnitDTO saveMmsUnit(@RequestBody MmsUnitDTO mmsUnitDto){ 
+		 return mmsUnitService.saveMmsUnit(mmsUnitDto);
 	}
 	
 	@GetMapping("mmsunit-list")

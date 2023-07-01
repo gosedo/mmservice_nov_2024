@@ -30,7 +30,7 @@ public class TokenRepository  implements IMmspRepository<MmsToken> {
   
   @Transactional
   @Override  
-  public boolean save(MmsToken mmsToken) {  
+  public MmsToken save(MmsToken mmsToken) {  
       boolean status=false;  
       try {  
           sessionFactory.getCurrentSession().persist(mmsToken);  
@@ -38,7 +38,7 @@ public class TokenRepository  implements IMmspRepository<MmsToken> {
       } catch (Exception e) {  
           e.printStackTrace();  
       }  
-      return status;  
+      return status == true ? mmsToken : null;  
   }  
 
   @Override  

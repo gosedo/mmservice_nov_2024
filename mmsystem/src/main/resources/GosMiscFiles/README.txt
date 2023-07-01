@@ -1,10 +1,8 @@
-The first link
-==============
-The following link have been used for security setup.
-https://blog.devgenius.io/spring-boot-security-configuration-practically-explained-part6-a-deep-intro-to-56ce03860ad
-Custom userdetail service has been used.
 
-https://stackoverflow.com/questions/57511424/difference-between-and
+MmsUser
+========
+MmsUser & MmsUserDTO are being used. There are additional fields in DTO in case we don't want to send
+the full user status and role object with the DTO but Ids. Changed my mind.
 
 
 Security For MMService

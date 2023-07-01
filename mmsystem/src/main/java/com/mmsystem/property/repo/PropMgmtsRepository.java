@@ -22,7 +22,7 @@ public class PropMgmtsRepository implements IMmspRepository<MmsPropertyManagemen
 	
 	@Transactional
 	@Override
-	public boolean save(MmsPropertyManagement model) {
+	public MmsPropertyManagement save(MmsPropertyManagement model) {
 		
 		boolean status=false;  
 	      try {  
@@ -31,7 +31,7 @@ public class PropMgmtsRepository implements IMmspRepository<MmsPropertyManagemen
 	      } catch (Exception e) {  
 	          e.printStackTrace();  
 	      }  
-	      return status;  
+	      return status == true ? model : null;  
 				
 	}
 

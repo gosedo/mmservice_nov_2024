@@ -24,7 +24,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-
+    
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 

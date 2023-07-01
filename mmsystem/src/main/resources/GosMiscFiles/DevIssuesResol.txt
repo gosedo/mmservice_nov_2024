@@ -74,4 +74,17 @@ Securing requestMatchers("api/issue/mmsissue-list").authenticated()
 With permitAll it was working fine but when changed to authenticated() it was not even checking the custom filter.
 The Customfilter can be debuged as with permitAll but not when changed to authenicated().
 Solution: AddFilterBefore 
- http.addFilterBefore( new CustomRequestHeaderTokenFilter(authenticationConfiguration.getAuthenticationManager()), UsernamePasswordAuthenticationFilter.class); 
+ http.addFilterBefore( new CustomRequestHeaderTokenFilter(authenticationConfiguration.getAuthenticationManager()), UsernamePasswordAuthenticationFilter.class);
+ 
+ Incorrect Url
+ ===============
+ Had a hardtime with the issue related to the incorrect url getting unauthorized While the jwt works fine.
+ Later figured it ouy it was incorrect url. before "/auth/signin" in the config but supposed to be "api/auth/signin".
+ "api/auth" on the controller and "auth/signin" on the method changed to "/signin" on the method.
+ 
+ Incorrect CascadeType on MmsUser PERSIST
+ =====================================
+ org.hibernate.PersistentObjectException: detached entity passed to persist: com.mmsystem.property.model.MmsUserRole
+ solution: PERSIST was used on the roles filed of the MmsUser class, which will try to persist existing role.
+ removing CascadeType.PERSIST enabled me persist MmsUser to the database : resolved
+  

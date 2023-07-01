@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mmsystem.property.dto.MmsPropertyManagementDTO;
 import com.mmsystem.property.model.MmsPropertyManagement;
 import com.mmsystem.property.service.PropMgmtService;
 
@@ -29,8 +30,8 @@ public class PropMgmtController {
 	}
 		
 	@PostMapping("propmgmt-save") 
-	public boolean savePropMgmt(@RequestBody MmsPropertyManagement propMgmt){ 
-		 return mmsPropMgmtService.savePropMgmt(propMgmt);
+	public MmsPropertyManagementDTO savePropMgmt(@RequestBody MmsPropertyManagementDTO propMgmtDto){ 
+		 return mmsPropMgmtService.savePropMgmt(propMgmtDto);
 	}
 	
 	@GetMapping("propmgmt-list")

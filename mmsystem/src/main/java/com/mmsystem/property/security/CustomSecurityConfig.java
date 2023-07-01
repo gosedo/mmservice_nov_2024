@@ -1,5 +1,7 @@
 package com.mmsystem.property.security;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,9 @@ import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthen
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -38,12 +43,25 @@ public class CustomSecurityConfig {
     public CustomTokenFilter customFilter() throws Exception {
         return new CustomTokenFilter(authManager());
     }
+   
+   @Bean
+   CorsConfigurationSource corsConfigurationSource() {
+   	CorsConfiguration configuration = new CorsConfiguration();
+   	configuration.setAllowCredentials(true);
+   	configuration.addAllowedOrigin("http://localhost:4200/");
+   	configuration.addAllowedMethod("*");
+   	configuration.addAllowedHeader("*");
+   	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+   	source.registerCorsConfiguration("/**", configuration);
+   	return source;
+   }
    //testing
     @Bean
     public SecurityFilterChain filterChain1(HttpSecurity http) throws Exception {
 
     	// Enable CORS and disable CSRF
-        http.cors().and().csrf().disable();
+        http.cors().and().csrf();
+        //http.csrf().disable();
 
         // Set session management to stateless
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -56,19 +74,17 @@ public class CustomSecurityConfig {
                     .accessDeniedHandler(new BearerTokenAccessDeniedHandler()));
        
         http   
-        .authorizeHttpRequests(authorize -> authorize.requestMatchers("api/auth/signin").authenticated()
-                .requestMatchers("api/auth/signup").authenticated());
-        
+        .authorizeHttpRequests(	authorize -> 
+        						authorize.requestMatchers("api/auth/signin").authenticated()
+        								 .requestMatchers("api/auth/signup").authenticated());
         http
-        //.authorizeHttpRequests().anyRequest().permitAll();
-        .authorizeHttpRequests(authorize -> authorize.requestMatchers("api/issue/mmsissue").permitAll()
-        		.requestMatchers("api/issue/mmsissue-list").authenticated()
-        		.requestMatchers("/issue/mmsissue-save").authenticated());
+            .authorizeHttpRequests(	authorize -> 
+            						authorize.requestMatchers("api/issue/mmsissue-list").authenticated()
+            								 .requestMatchers("/issue/mmsissue-save").authenticated());
         
-          
-//            .authorizeHttpRequests(authorize -> authorize.requestMatchers("/issue/mmsissue-list").permitAll()
-//                    .requestMatchers("/issue/mmsissue-save").authenticated())
-//
+        http.authorizeHttpRequests().anyRequest().authenticated();
+
+        
 //            .authorizeHttpRequests(authorize -> authorize.requestMatchers("/users").hasRole("ADMIN")
 //                                                     .requestMatchers("/items").hasAnyRole("ADMIN", "USER")
 //            )

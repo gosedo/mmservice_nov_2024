@@ -3,8 +3,8 @@ package com.mmsystem.property.repo;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;  
-
+import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;  
 import org.hibernate.SessionFactory;  
@@ -27,7 +27,7 @@ public class UserRoleRepository  implements IMmspRepository<MmsUserRole> {
   
   @Transactional
   @Override  
-  public boolean save(MmsUserRole mmsUserRole) {  
+  public MmsUserRole save(MmsUserRole mmsUserRole) {  
       boolean status=false;  
       try {  
           sessionFactory.getCurrentSession().persist(mmsUserRole);  
@@ -35,7 +35,7 @@ public class UserRoleRepository  implements IMmspRepository<MmsUserRole> {
       } catch (Exception e) {  
           e.printStackTrace();  
       }  
-      return status;  
+      return status == true ? mmsUserRole : null;  
   }  
 
   @Override  
@@ -101,9 +101,6 @@ public class UserRoleRepository  implements IMmspRepository<MmsUserRole> {
 	  return roleList;
 	
   }
-  
-  
-  
   
     
     

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mmsystem.property.dto.MmsUserDTO;
 import com.mmsystem.property.model.MmsUser;
 
 import com.mmsystem.property.service.MmsUserService;
@@ -39,8 +40,8 @@ public class UserController {
 	 */
 	
 	@PostMapping("user-save") 
-	public boolean saveUser(@RequestBody MmsUser mmsUser){ 
-		 return mmsUserService.saveUser(mmsUser);
+	public MmsUserDTO saveUser(@RequestBody MmsUserDTO mmsUserDto){ 
+		 return mmsUserService.saveUser(mmsUserDto);
 	}
 	
 	@GetMapping("users-list")

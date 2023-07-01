@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.mmsystem.property.dto.MmsUserDTO;
 import com.mmsystem.property.model.MmsUser;
 import com.mmsystem.property.model.MmsUserRole;
 import com.mmsystem.property.repo.UserRepository;
@@ -29,13 +30,13 @@ public class CustomUserDetailsService implements UserDetailsService{
 	private BCryptPasswordEncoder passwordEncoder;
 
 	
-	public boolean saveUser(MmsUser user) {
-		String passwd= user.getUserPassword();
-		String encodedPasswod = passwordEncoder.encode(passwd);
-		user.setUserPassword(encodedPasswod);
-		//user = userRepo.save(user);
-		return userService.saveUser(user);
-	}
+//	public boolean saveUser(MmsUserDTO mmsUserDto) {
+//		String passwd= mmsUserDto.getUserPassword();
+//		String encodedPasswod = passwordEncoder.encode(passwd);
+//		mmsUserDto.setUserPassword(encodedPasswod);
+//		//user = userRepo.save(user);
+//		return userService.saveUser(mmsUserDto);
+//	}
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) 

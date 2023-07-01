@@ -20,7 +20,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.zaxxer.hikari.HikariDataSource;  
   
-  
+
 @Configuration  
 @EnableTransactionManagement  
 @EnableAutoConfiguration(exclude = { HibernateJpaAutoConfiguration.class})  

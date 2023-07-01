@@ -1,8 +1,9 @@
 package com.mmsystem.property.repo;
 
 
-import java.util.List;  
-
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;  
 import org.hibernate.SessionFactory;  
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mmsystem.property.model.MmsUser;
-
+import com.mmsystem.property.model.MmsUserRole;
 
 import jakarta.transaction.Transactional;
   
@@ -21,19 +22,27 @@ import jakarta.transaction.Transactional;
 public class UserRepository  implements IMmspRepository<MmsUser> {  
 
   @Autowired  
-  private SessionFactory sessionFactory;  
+  private SessionFactory sessionFactory; 
+  
   
   @Transactional
   @Override  
-  public boolean save(MmsUser mmspuser) {  
-      boolean status=false;  
+  public MmsUser save(MmsUser mmsuser) {  
+      boolean status=false; 
+      Session session = sessionFactory.getCurrentSession();
+      
       try {  
-          sessionFactory.getCurrentSession().persist(mmspuser);  
+
+    	  session.persist(mmsuser); 
+    	   
           status=true;  
-      } catch (Exception e) {  
-          e.printStackTrace();  
-      }  
-      return status;  
+          
+      } catch (Exception e) {
+    	  
+    	  e.printStackTrace();  
+    	  
+      } 
+      return status == true ? mmsuser : null;  
   }  
 
   @Override  

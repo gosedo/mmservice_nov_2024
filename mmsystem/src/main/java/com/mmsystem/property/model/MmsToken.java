@@ -32,6 +32,7 @@ public class MmsToken {
 	
 	
 	private String authToken ;
+	private String testing;
 	private LocalDateTime tokenIssuedOn;
 	private LocalDateTime tokenExpiresOn;
 	

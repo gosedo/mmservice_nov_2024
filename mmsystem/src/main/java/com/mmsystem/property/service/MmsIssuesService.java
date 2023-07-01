@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mmsystem.property.dto.MmsMaintenanceIssueDTO;
+import com.mmsystem.property.mapper.MmsMaintenanceIssueMapper;
+import com.mmsystem.property.mapper.MmsUserMapper;
 import com.mmsystem.property.model.MmsMaintenanceIssue;
-
+import com.mmsystem.property.model.MmsUser;
 import com.mmsystem.property.repo.MmsIssuesRepository;
 
 
@@ -21,9 +24,13 @@ public class MmsIssuesService {
 	private MmsIssuesRepository mmsIssuesRepo; 
 	
 	
-	public boolean saveMmsIssue(MmsMaintenanceIssue pojo) {
+	public MmsMaintenanceIssueDTO saveMmsIssue(MmsMaintenanceIssueDTO mmsIssueDTO) {
 		
-		return mmsIssuesRepo.save(pojo); 
+		
+		MmsMaintenanceIssue mmsIssue = MmsMaintenanceIssueMapper.INSTANCE.mapToMmsIssue(mmsIssueDTO);
+		mmsIssuesRepo.save(mmsIssue); 
+		
+		return MmsMaintenanceIssueMapper.INSTANCE.mapToIssueDto(mmsIssue);
 	}
 
 	

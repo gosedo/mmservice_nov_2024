@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mmsystem.property.dto.MmsPropertyDTO;
+import com.mmsystem.property.mapper.MmsMaintenanceIssueMapper;
+import com.mmsystem.property.mapper.MmsPropertyMapper;
+import com.mmsystem.property.model.MmsMaintenanceIssue;
 import com.mmsystem.property.model.MmsProperty;
 import com.mmsystem.property.repo.MmsPropertiesRepository;
 
@@ -20,9 +24,12 @@ public class MmsPropertyService {
 	private MmsPropertiesRepository mmsPropertyRepo; 
 	
 	
-	public boolean saveMmsProp(MmsProperty pojo) {
+	public MmsPropertyDTO saveMmsProp(MmsPropertyDTO mmsPropertyDto) {
 		
-		return mmsPropertyRepo.save(pojo); 
+		MmsProperty mmsProperty = MmsPropertyMapper.INSTANCE.mapToMmsProperty(mmsPropertyDto);
+		mmsPropertyRepo.save(mmsProperty);
+		
+		return MmsPropertyMapper.INSTANCE.mapToMmsPropertyDto(mmsProperty); 
 	}
 
 	

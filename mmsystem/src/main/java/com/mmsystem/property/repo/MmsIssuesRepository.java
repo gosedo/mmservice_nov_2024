@@ -22,7 +22,7 @@ public class MmsIssuesRepository implements IMmspRepository<MmsMaintenanceIssue>
 	
 	@Transactional
 	@Override
-	public boolean save(MmsMaintenanceIssue model) {
+	public MmsMaintenanceIssue save(MmsMaintenanceIssue model) {
 		
 		boolean status=false;  
 	      try {  
@@ -31,7 +31,7 @@ public class MmsIssuesRepository implements IMmspRepository<MmsMaintenanceIssue>
 	      } catch (Exception e) {  
 	          e.printStackTrace();  
 	      }  
-	      return status;  
+	      return status == true ? model : null;  
 				
 	}
 
