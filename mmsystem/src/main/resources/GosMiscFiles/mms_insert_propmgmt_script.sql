@@ -110,16 +110,16 @@ VALUES
 ('Items moved.',1,8,now())
 ;
 
-INSERT INTO mmstechteams(techTeamDescr, isLead)
+INSERT INTO mmstechteams(techTeamDescr)
 VALUES
-('HVAC Team', 1),
-('Electricians',1),
-('Plumbing Team',1);
+('HVAC Team'),
+('Electricians'),
+('Plumbing Team');
 
-INSERT INTO mmstechteammembers(memberUserId)
+INSERT INTO mmstechteammembers(memberUserId,isLead)
 VALUES
-(7),
-(8)
+(7,'N'),
+(8,'N')
 ;
 
 INSERT INTO mmstechteammembers_mmstechteams(memberID, memberOfTeamId)

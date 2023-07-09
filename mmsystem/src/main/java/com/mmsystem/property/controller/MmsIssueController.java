@@ -12,12 +12,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mmsystem.property.dto.MmsIssueCreateDTO;
+import com.mmsystem.property.dto.MmsIssueResponse;
+import com.mmsystem.property.dto.MmsIssueUpdateDTO;
 import com.mmsystem.property.dto.MmsMaintenanceIssueDTO;
 import com.mmsystem.property.model.MmsMaintenanceIssue;
 import com.mmsystem.property.service.MmsIssuesService;
 import com.mmsystem.property.service.PropMgmtService;
+import com.mmsystem.property.util.IssuesPageConstants;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -34,10 +39,46 @@ public class MmsIssueController {
 		return "The result from Gosa";
 
 	}
+	
+	//Start using JPA Repository 
+	@PostMapping("mmsissue-create-jpa") 
+	public MmsMaintenanceIssueDTO createMmsIssueJPA(@RequestBody MmsIssueCreateDTO issueCreateDto){ 
+		 return mmsIssuesService.createMmsIssue(issueCreateDto);
+	}
+	
+	@GetMapping("mmsissue-list-jpa")
+	public List<MmsMaintenanceIssue> allIssuesJPA() {
+		logger.info("Request URI: Gosaye" );
 		
+		return mmsIssuesService.getMmsIssueJPA();
+
+	}
+	@GetMapping("mmsissue-list-jpa-paged")
+    public MmsIssueResponse getAllPosts(
+            @RequestParam(value = "pageNo", defaultValue = IssuesPageConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = IssuesPageConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = IssuesPageConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = IssuesPageConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+    ){
+        return mmsIssuesService.getAllMmsIssuesPaged(pageNo, pageSize, sortBy, sortDir);
+    }
+	//End using JPA Repository
+	
 	@PostMapping("mmsissue-save") 
 	public MmsMaintenanceIssueDTO saveMmsIssue(@RequestBody MmsMaintenanceIssueDTO issueDto){ 
 		 return mmsIssuesService.saveMmsIssue(issueDto);
+	}
+	
+	
+	@PostMapping("mmsissue-create") 
+	public MmsMaintenanceIssueDTO createMmsIssue(@RequestBody MmsIssueCreateDTO issueCreateDto){ 
+		 return mmsIssuesService.createMmsIssue(issueCreateDto);
+	}
+	
+	@PostMapping("mmsissue-update") 
+	public MmsMaintenanceIssueDTO updateMmsIssue(@RequestBody MmsIssueUpdateDTO issueCreateDto){ 
+		logger.info("Request URI: Gosaye from update mmsissue==================" );
+		 return mmsIssuesService.updateMmsIssue(issueCreateDto);
 	}
 	
 	@GetMapping("mmsissue-list")
@@ -47,6 +88,8 @@ public class MmsIssueController {
 		return mmsIssuesService.getMmsIssue();
 
 	}
+	
+	
 
 	@DeleteMapping("delete-mmsissue/{mmsissue_id}")
 	public boolean deleteMmsIssue(@PathVariable("mmsissue_id") int mmsissue_id, MmsMaintenanceIssue mmsIssue) {

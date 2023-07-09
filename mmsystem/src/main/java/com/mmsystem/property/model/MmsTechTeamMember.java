@@ -1,7 +1,6 @@
 package com.mmsystem.property.model;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -35,6 +34,8 @@ public class MmsTechTeamMember {
 		      inverseJoinColumns = @JoinColumn(name = "memberOfTeamId", 
 		      referencedColumnName = "techTeamId"))
 	private Set<MmsTechTeam> memberOf = new HashSet<>();
+	
+	private String isLead;
 
 	
 }

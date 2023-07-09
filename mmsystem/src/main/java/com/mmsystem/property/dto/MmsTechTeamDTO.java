@@ -11,12 +11,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+//@Builder
 public class MmsTechTeamDTO {
 	
 	private int techTeamId;
 	private String techTeamDescr;
-	private String isLead;
-	
 	
 }

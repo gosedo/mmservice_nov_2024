@@ -1,13 +1,9 @@
 package com.mmsystem.property.security;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -60,8 +56,8 @@ public class CustomSecurityConfig {
     public SecurityFilterChain filterChain1(HttpSecurity http) throws Exception {
 
     	// Enable CORS and disable CSRF
-        http.cors().and().csrf();
-        //http.csrf().disable();
+        http.cors();
+        http.csrf().disable();
 
         // Set session management to stateless
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -80,7 +76,18 @@ public class CustomSecurityConfig {
         http
             .authorizeHttpRequests(	authorize -> 
             						authorize.requestMatchers("api/issue/mmsissue-list").authenticated()
-            								 .requestMatchers("/issue/mmsissue-save").authenticated());
+            								 .requestMatchers("api/issue/mmsissue-save").authenticated()
+            								 .requestMatchers("api/issue/mmsissue-create").authenticated()
+            								 .requestMatchers("api/issue/mmsissue-update").authenticated()
+            								 .requestMatchers("api/issue/mmsissue-list-jpa").authenticated()
+            								 .requestMatchers("api/issue/mmsissue-create-jpa").authenticated()
+            								 .requestMatchers("api/issue/mmsissue-list-jpa-paged").authenticated()
+            								 .requestMatchers("api/staticdata").authenticated());
+        http   
+        .authorizeHttpRequests(	authorize -> 
+        						authorize.requestMatchers("api/task/mmstechtask-list").authenticated()
+        								 .requestMatchers("api/task/mmstechtask-create").authenticated()
+        								 .requestMatchers("api/task/mmstechtask-update").authenticated());
         
         http.authorizeHttpRequests().anyRequest().authenticated();
 

@@ -2,7 +2,7 @@ package com.mmsystem.property.dto;
 
 import java.util.Set;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,12 +11,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+//@Builder
 public class MmsTechTeamMemberDTO {
 	
 	private int teamMemberId;
 	private MmsUserDTO memberInfo;
 	private Set<MmsTechTeamDTO> memberOf ;
+	private String isLead;
 
 	
 }

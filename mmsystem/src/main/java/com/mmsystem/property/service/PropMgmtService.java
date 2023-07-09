@@ -1,6 +1,7 @@
 package com.mmsystem.property.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,16 +26,19 @@ public class PropMgmtService {
 	
 	public MmsPropertyManagementDTO savePropMgmt(MmsPropertyManagementDTO pmgmtDto) {
 		
-		MmsPropertyManagement pmgmt = MmsPropertyManagementMapper.INSTANCE.mapToMmsPropertyManagement(pmgmtDto);
+		MmsPropertyManagement pmgmt = MmsPropertyManagementMapper.INSTANCE.mapToMmsPManagement(pmgmtDto);
 		mmspPropMgmtRepo.save(pmgmt);
 		
-		return MmsPropertyManagementMapper.INSTANCE.mapToMmsPropertyManagementDto(pmgmt);
+		return MmsPropertyManagementMapper.INSTANCE.mapToMmsPManagementDto(pmgmt);
 	}
 
 	
-	public List<MmsPropertyManagement> getPropMgmt() {
+	public List<MmsPropertyManagementDTO> getPropMgmt() {
 		
-		return mmspPropMgmtRepo.get();
+		return mmspPropMgmtRepo.get()
+				.stream()
+				.map((pmgmt) -> MmsPropertyManagementMapper.INSTANCE.mapToMmsPManagementDto(pmgmt))
+		        .collect(Collectors.toList());
 	}
 
 	

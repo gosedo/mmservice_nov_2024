@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+//@Builder
 public class MmsPropertyManagementDTO {
 	
 	private int pMgmtId;
@@ -30,6 +30,9 @@ public class MmsPropertyManagementDTO {
 	private String pMgmtContact;
 	
 }
+
+
+
 
 
 

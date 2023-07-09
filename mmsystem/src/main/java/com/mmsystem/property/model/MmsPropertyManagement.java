@@ -27,7 +27,7 @@ public class MmsPropertyManagement {
 	private String pMgmtZipcodeExt;
 	private String pMgmtPhone;
 	private String pMgmtEmail;
-	private String pMgmtFax;
+	private String pMgmtFax;	
 	private String pMgmtContact;
 	
 	

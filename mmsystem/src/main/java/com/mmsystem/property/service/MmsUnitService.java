@@ -1,6 +1,7 @@
 package com.mmsystem.property.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,9 +34,12 @@ public class MmsUnitService {
 	}
 
 	
-	public List<MmsUnit> getMmsUnits() {
+	public List<MmsUnitDTO> getMmsUnits() {
 		
-		return mmsUnitsRepo.get();
+		return mmsUnitsRepo.get()
+				.stream()
+				.map((mmsUnit) -> MmsUnitMapper.INSTANCE.mapToMmsUnitDto(mmsUnit))
+		        .collect(Collectors.toList());
 	}
 
 	

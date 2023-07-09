@@ -36,7 +36,7 @@ public class MmsUnitController {
 	}
 	
 	@GetMapping("mmsunit-list")
-	public List<MmsUnit> allMmsUnits() {
+	public List<MmsUnitDTO> allMmsUnits() {
 		return mmsUnitService.getMmsUnits();
 
 	}

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,17 +25,17 @@ public class MmsMaintenanceIssue{
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int issueId;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH }, fetch = FetchType.EAGER)
     @JoinColumn(name = "issueTypeId" , nullable=false)
     private MmsIssueType issueType;
 	
 	private String issueDescription;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH }, fetch = FetchType.EAGER)
     @JoinColumn(name = "issueStatusId" , nullable=false)
 	private MmsIssueStatus issueStatus;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH }, fetch = FetchType.EAGER)
     @JoinColumn(name = "issueReqTenantId" , nullable=false)
 	private MmsTenant requestedBy;
 	
@@ -51,7 +52,5 @@ public class MmsMaintenanceIssue{
 	//public List<Post> getPosts() { return posts; } public void
 	//setPosts(List<Post> posts) { this.posts = posts; }
 	 
-	
-	
 		
 }

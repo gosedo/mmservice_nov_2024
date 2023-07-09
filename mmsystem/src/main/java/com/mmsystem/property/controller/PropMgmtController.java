@@ -35,7 +35,7 @@ public class PropMgmtController {
 	}
 	
 	@GetMapping("propmgmt-list")
-	public List<MmsPropertyManagement> allPropMgmt() {
+	public List<MmsPropertyManagementDTO> allPropMgmt() {
 		return mmsPropMgmtService.getPropMgmt();
 
 	}

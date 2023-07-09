@@ -12,10 +12,11 @@ import com.mmsystem.property.model.MmsPropertyManagement;
 public interface MmsPropertyManagementMapper {
 	
 	MmsPropertyManagementMapper INSTANCE = Mappers.getMapper(MmsPropertyManagementMapper.class);
-		
-	MmsPropertyManagementDTO mapToMmsPropertyManagementDto(MmsPropertyManagement mmsPropertyManagement);
+	
+	
+	MmsPropertyManagementDTO mapToMmsPManagementDto(MmsPropertyManagement mmsPManagement);
 
-	MmsPropertyManagement mapToMmsPropertyManagement(MmsPropertyManagementDTO mmsPropertyManagementDto);
+	MmsPropertyManagement mapToMmsPManagement(MmsPropertyManagementDTO mmsPManagementDto);
 	 
 }
 

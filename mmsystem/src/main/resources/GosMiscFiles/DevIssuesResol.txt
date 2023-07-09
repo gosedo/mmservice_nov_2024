@@ -88,3 +88,8 @@ Solution: AddFilterBefore
  solution: PERSIST was used on the roles filed of the MmsUser class, which will try to persist existing role.
  removing CascadeType.PERSIST enabled me persist MmsUser to the database : resolved
   
+  403 Forbiden issue because of Cors
+  ==================================
+  solution: enable cors and filter selected domain
+  http.cors();
+  http.csrf().disable();

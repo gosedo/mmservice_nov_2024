@@ -36,7 +36,7 @@ public class MmsPropertyController {
 	}
 	
 	@GetMapping("mmsprop-list")
-	public List<MmsProperty> allMmmsProp() {
+	public List<MmsPropertyDTO> allMmmsProp() {
 		return mmsPropertyService.getMmsProp();
 
 	}

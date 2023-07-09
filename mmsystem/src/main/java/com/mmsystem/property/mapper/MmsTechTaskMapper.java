@@ -16,7 +16,8 @@ public interface MmsTechTaskMapper {
 	MmsTechTaskDTO mapToMmsTechTaskDto(MmsTechTask mmsTechTask);
 
 	MmsTechTask mapToMmsTechTask(MmsTechTaskDTO mmsTechTaskDto);
-	 
+	
+	
 }
 
 

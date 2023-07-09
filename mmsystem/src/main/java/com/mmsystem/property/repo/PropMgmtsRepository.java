@@ -39,7 +39,7 @@ public class PropMgmtsRepository implements IMmspRepository<MmsPropertyManagemen
 	public List<MmsPropertyManagement> get() {
 		
 		Session currentSession = sessionFactory.getCurrentSession(); 
-		  Query<MmsPropertyManagement> query = currentSession.createQuery("from PropertyManagement", MmsPropertyManagement.class);
+		  Query<MmsPropertyManagement> query = currentSession.createQuery("from MmsPropertyManagement", MmsPropertyManagement.class);
 		  List<MmsPropertyManagement> list = query.getResultList(); 
 		  return list;
 	}
@@ -62,7 +62,7 @@ public class PropMgmtsRepository implements IMmspRepository<MmsPropertyManagemen
 	public MmsPropertyManagement getByID(MmsPropertyManagement model) {
 		Session currentSession = sessionFactory.getCurrentSession(); 
 		  Query<MmsPropertyManagement> query = currentSession
-				  				.createQuery("from PropertyManagement where pMgmtId=:pMgmtId",MmsPropertyManagement.class); 
+				  				.createQuery("from MmsPropertyManagement where pMgmtId=:pMgmtId",MmsPropertyManagement.class); 
 		  query.setParameter("pMgmtId", model.getPMgmtId());
 		  List<MmsPropertyManagement> list=query.getResultList(); 
 		  return list.get(0);

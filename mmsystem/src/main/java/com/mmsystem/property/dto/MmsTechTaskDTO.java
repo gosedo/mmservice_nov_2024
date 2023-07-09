@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+//@Builder
 public class MmsTechTaskDTO {
 		
 	private int techTaskId;
@@ -23,6 +23,6 @@ public class MmsTechTaskDTO {
 	private LocalDateTime closedOnDate; 
 	private MmsTechTeamDTO teamAssigned;
 	private MmsUserDTO taskCreatedBy;
-	private MmsUserDTO taskCloseddBy;
+	private MmsUserDTO taskUpdatedBy;
 	 
 }

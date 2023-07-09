@@ -21,6 +21,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import com.zaxxer.hikari.HikariDataSource;  
   
 
+
 @Configuration  
 @EnableTransactionManagement  
 @EnableAutoConfiguration(exclude = { HibernateJpaAutoConfiguration.class})  
@@ -83,6 +84,7 @@ public class Config {
             return sessionFactory;  
         }
   
+        
 //        @Bean  
 //        public DataSource dataSource() {  
 //            DriverManagerDataSource dataSource = new DriverManagerDataSource();  

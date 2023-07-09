@@ -1,12 +1,14 @@
 package com.mmsystem.property.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mmsystem.property.dto.MmsPropertyDTO;
+import com.mmsystem.property.mapper.MmsIssueTypeMapper;
 import com.mmsystem.property.mapper.MmsMaintenanceIssueMapper;
 import com.mmsystem.property.mapper.MmsPropertyMapper;
 import com.mmsystem.property.model.MmsMaintenanceIssue;
@@ -33,9 +35,12 @@ public class MmsPropertyService {
 	}
 
 	
-	public List<MmsProperty> getMmsProp() {
+	public List<MmsPropertyDTO> getMmsProp() {
 		
-		return mmsPropertyRepo.get();
+		return mmsPropertyRepo.get()
+				.stream()
+				.map((mmsProperty) -> MmsPropertyMapper.INSTANCE.mapToMmsPropertyDto(mmsProperty))
+		        .collect(Collectors.toList());
 	}
 
 	
