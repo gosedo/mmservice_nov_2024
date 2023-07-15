@@ -21,6 +21,12 @@ public class StaticDataService {
 	@Autowired  
 	private MmsIssueStatusService mmsIssueStatusService;
 	
+	@Autowired  
+	private MmsTechTaskStatusService mmsTaskStatusService;
+	
+	@Autowired  
+	private MmsTechTeamService mmsTechteamService;
+	
 	
 	public MmsStaticDataDTO getStaticData() {
 		
@@ -29,12 +35,11 @@ public class StaticDataService {
 		staticData.setIssueStatuses(mmsIssueStatusService.getIssueStatuses());
 		staticData.setIssueTypes(mmsIssueTypeService.getIssueTypes());
 		staticData.setMmsProperyUnits(mmsUnitService.getMmsUnits());
-		
+		staticData.setMmsTechTeams(mmsTechteamService.findAll());
+		staticData.setMmsTaskStatuses(mmsTaskStatusService.findAll());
 		
 		return staticData;
 	}
 
-	
-	
 
 }

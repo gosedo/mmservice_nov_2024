@@ -1,23 +1,14 @@
 package com.mmsystem.property.repo;
 
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import org.hibernate.Session;  
 import org.hibernate.SessionFactory;  
 import org.hibernate.query.Query;  
 import org.springframework.beans.factory.annotation.Autowired;  
 import org.springframework.stereotype.Repository;
-
 import com.mmsystem.property.model.MmsUser;
-import com.mmsystem.property.model.MmsUserRole;
-
 import jakarta.transaction.Transactional;
-  
-
-
+ 
 @Repository 
 public class UserRepository  implements IMmspRepository<MmsUser> {  
 

@@ -42,6 +42,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String email) 
 			throws UsernameNotFoundException {
 		
+		String ROLE_PREFIX = "ROLE_";
+		
 		Optional<MmsUser> opt = Optional.of(userService.getByEmail(email));
 		List<MmsUserRole> roleList = new ArrayList<MmsUserRole>();
 		//roleList.addAll(opt.get().getUserRoles());
@@ -56,7 +58,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 					passwordEncoder.encode(user.getUserPassword()),//user.getUserPassword(),
 					roleList
 					.stream()
-					.map(role -> new SimpleGrantedAuthority(role.getUsrRoleCode()))
+					.map(role -> new SimpleGrantedAuthority(ROLE_PREFIX + role.getUsrRoleCode()))
 					.collect(Collectors.toSet())
 		    );
 		}

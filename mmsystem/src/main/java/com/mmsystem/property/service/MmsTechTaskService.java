@@ -1,6 +1,7 @@
 package com.mmsystem.property.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,7 @@ import com.mmsystem.property.model.MmsTechTeam;
 import com.mmsystem.property.model.MmsTechTeamMember;
 import com.mmsystem.property.model.MmsTenant;
 import com.mmsystem.property.model.MmsUser;
+import com.mmsystem.property.model.MmsUserRole;
 import com.mmsystem.property.repo.MmsTechTaskJPARepository;
 import com.mmsystem.property.repo.MmsTechTaskStatusJPARepository;
 import com.mmsystem.property.repo.MmsTechTeamJPARepository;
@@ -69,6 +71,9 @@ public class MmsTechTaskService {
 	@Autowired  
 	private MmsTechTeamService mmsTechTeamService;
 	
+	@Autowired  
+	private MmsTechTeamMemberService mmsTechTeamMemberService;
+	
 	
 	
 	public MmsTechTaskDTO save(MmsTechTaskDTO mmsTechTaskDto) {
@@ -96,7 +101,37 @@ public class MmsTechTaskService {
 		
 		return mmsTechTaskJPARepository.findById((long) pojo.getTechTaskId()).get();
 	}
+	
+	public List<MmsTechTaskDTO> findByIssueId(int issueId){
 		
+		List<MmsTechTask> listOfMmsTechTasks = mmsTechTaskJPARepository.findByIssueTaskForIssueId((long) issueId);
+				
+        List<MmsTechTaskDTO> content= listOfMmsTechTasks.stream()
+        										.map((techTask) -> MmsTechTaskMapper
+        																.INSTANCE.mapToMmsTechTaskDto(techTask))
+										        .collect(Collectors.toList());
+		return content;
+		
+	}
+	
+	public List<MmsTechTaskDTO> findByUserId(int userId){
+		
+		MmsTechTeamMember mmsTechTeamMember = mmsTechTeamMemberService.findByUserId(userId);
+		
+		List<MmsTechTask> listOfMmsTechTasks = new ArrayList<>();
+		
+		mmsTechTeamMember.getMemberOf().forEach( techTeam-> 
+		listOfMmsTechTasks.addAll(mmsTechTaskJPARepository.findByTeamAssignedTechTeamId((long)techTeam.getTechTeamId()))
+		);
+				
+        List<MmsTechTaskDTO> content= listOfMmsTechTasks.stream()
+        										.map((techTask) -> MmsTechTaskMapper
+        																.INSTANCE.mapToMmsTechTaskDto(techTask))
+										        .collect(Collectors.toList());
+		return content;
+		
+	}
+			
 	public MmsTechTask update(MmsTechTask pojo) {
 		
 		return mmsTechTaskJPARepository.save(pojo);
@@ -172,9 +207,7 @@ public class MmsTechTaskService {
 		mmsTechTask.setTaskStatus(techTaskStatusDto);
 		mmsTechTask.setTeamAssigned(techTeamDto);
 		mmsTechTask.setTaskUpdatedBy(userDto);
-		
-		
-		
+				
 		MmsTechTask savedTechTask = mmsTechTaskJPARepository.save(mmsTechTask); 
 		
 		return MmsTechTaskMapper.INSTANCE.mapToMmsTechTaskDto(savedTechTask);

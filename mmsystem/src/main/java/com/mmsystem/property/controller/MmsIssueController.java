@@ -21,8 +21,8 @@ import com.mmsystem.property.dto.MmsIssueUpdateDTO;
 import com.mmsystem.property.dto.MmsMaintenanceIssueDTO;
 import com.mmsystem.property.model.MmsMaintenanceIssue;
 import com.mmsystem.property.service.MmsIssuesService;
-import com.mmsystem.property.service.PropMgmtService;
 import com.mmsystem.property.util.IssuesPageConstants;
+import com.mmsystem.property.util.MmsPageParam;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -37,7 +37,6 @@ public class MmsIssueController {
 	@GetMapping("test")
 	public String test() {
 		return "The result from Gosa";
-
 	}
 	
 	//Start using JPA Repository 
@@ -49,9 +48,7 @@ public class MmsIssueController {
 	@GetMapping("mmsissue-list-jpa")
 	public List<MmsMaintenanceIssue> allIssuesJPA() {
 		logger.info("Request URI: Gosaye" );
-		
 		return mmsIssuesService.getMmsIssueJPA();
-
 	}
 	@GetMapping("mmsissue-list-jpa-paged")
     public MmsIssueResponse getAllPosts(
@@ -89,6 +86,23 @@ public class MmsIssueController {
 
 	}
 	
+	@GetMapping("mmsissue/list/{mmsuser_id}")
+	public List<MmsMaintenanceIssueDTO> getMmsIssueByUserID(@PathVariable("mmsuser_id") int mmsuser_id) {
+		
+		return mmsIssuesService.getMmsIssueByUserId(mmsuser_id);
+
+	}
+	@GetMapping("mmsissue/list-paged/{mmsuser_id}")
+	public MmsIssueResponse getMmsIssueByUserIDPaged(@PathVariable("mmsuser_id") int mmsuser_id,
+			@RequestParam(value = "pageNo", defaultValue = IssuesPageConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = IssuesPageConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = IssuesPageConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = IssuesPageConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+			) {
+		MmsPageParam pageParam = new MmsPageParam(pageNo,pageSize,sortBy,sortDir);
+		return mmsIssuesService.getAllMmsIssuesPagedByUserId(mmsuser_id,pageParam);
+
+	}
 	
 
 	@DeleteMapping("delete-mmsissue/{mmsissue_id}")

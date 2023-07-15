@@ -25,9 +25,11 @@ import com.mmsystem.property.model.MmsIssueType;
 import com.mmsystem.property.model.MmsMaintenanceIssue;
 import com.mmsystem.property.model.MmsTenant;
 import com.mmsystem.property.model.MmsUser;
+import com.mmsystem.property.model.MmsUserRole;
 import com.mmsystem.property.repo.MmsIssueTypeRepository;
 import com.mmsystem.property.repo.MmsIssuesJPARepository;
 import com.mmsystem.property.repo.MmsIssuesRepository;
+import com.mmsystem.property.util.MmsPageParam;
 
 
 
@@ -37,7 +39,13 @@ public class MmsIssuesService {
 
 	
 	@Autowired  
-	private MmsIssuesRepository mmsIssuesRepo; 
+	private MmsIssuesRepository mmsIssuesRepo;
+	
+	@Autowired  
+	private MmsUserRoleService mmsUserRoleService;
+		
+	@Autowired  
+	private MmsUserService mmsUserService; 
 	
 	@Autowired  
 	private MmsIssueTypeService mmsIssuesTypeService; 
@@ -72,6 +80,36 @@ public class MmsIssuesService {
 		return mmsIssuesJPARepository.findAll();
 	}
 	
+	public List<MmsMaintenanceIssue> getMmsIssueByEmail(String userEmail){
+		
+		MmsUser mmsUser = mmsUserService.getByEmail(userEmail);
+		
+		MmsUserRole mmsUserRole = mmsUserRoleService.getRoleById(1);
+		
+		if(!mmsUser.getUserRoles().contains(mmsUserRole)) {
+			
+			return getMmsIssueJPA();
+		}
+		return mmsIssuesJPARepository.findByRequestedByTenantInfoUserEmail(userEmail);
+	}
+	
+	public List<MmsMaintenanceIssueDTO> getMmsIssueByUserId(int userId){
+		
+		MmsUser mmsUser = mmsUserService.getUserByID(userId);
+		
+		MmsUserRole mmsUserRole = mmsUserRoleService.getRoleById(1);
+		
+		List<MmsMaintenanceIssue> listOfMmsIssues = mmsUser.getUserRoles().contains(mmsUserRole) ? 
+															mmsIssuesJPARepository.findByRequestedByTenantInfoUserId((long) userId)
+														: getMmsIssueJPA();
+		
+        List<MmsMaintenanceIssueDTO> content= listOfMmsIssues.stream()
+        										.map((issueType) -> MmsMaintenanceIssueMapper
+        																.INSTANCE.mapToIssueDto(issueType))
+										        .collect(Collectors.toList());
+		return content;
+	}
+	
 	public MmsIssueResponse getAllMmsIssuesPaged(int pageNo, int pageSize, String sortBy, String sortDir) {
 
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
@@ -80,6 +118,51 @@ public class MmsIssuesService {
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
         
         Page<MmsMaintenanceIssue> mmsissuesPage = mmsIssuesJPARepository.findAll(pageable);
+     
+        List<MmsMaintenanceIssue> listOfMmsIssues = mmsissuesPage.getContent();
+        List<MmsMaintenanceIssueDTO> content= listOfMmsIssues.stream()
+        										.map((issueType) -> MmsMaintenanceIssueMapper
+        																.INSTANCE.mapToIssueDto(issueType))
+										        .collect(Collectors.toList());
+        
+        MmsIssueResponse mmsIssueResponse = new MmsIssueResponse();
+        mmsIssueResponse.setContent(content);
+        mmsIssueResponse.setPageNo(mmsissuesPage.getNumber());
+        mmsIssueResponse.setPageSize(mmsissuesPage.getSize());
+        mmsIssueResponse.setTotalElements(mmsissuesPage.getTotalElements());
+        mmsIssueResponse.setTotalPages(mmsissuesPage.getTotalPages());
+        mmsIssueResponse.setLast(mmsissuesPage.isLast());
+
+        return mmsIssueResponse;
+        
+        
+	}
+	
+	public MmsIssueResponse getAllMmsIssuesPagedByUserId(int userId, MmsPageParam pageParam) {
+		//,int pageNo, int pageSize, String sortBy, String sortDir
+
+        Sort sort = pageParam.getSortDir().equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(pageParam.getSortBy()).ascending()
+                : Sort.by(pageParam.getSortBy()).descending();
+
+        Pageable pageable = PageRequest.of(pageParam.getPageNo(), pageParam.getPageSize(), sort);
+        //Pageable pageable = PageRequest.of(0, 2);
+        
+        
+        MmsUser mmsUser = mmsUserService.getUserByID(userId);
+		
+		MmsUserRole mmsUserRole = mmsUserRoleService.getRoleById(1);
+		
+		
+		Page<MmsMaintenanceIssue> mmsissuesPage = mmsUser.getUserRoles().contains(mmsUserRole) ? 
+												  mmsIssuesJPARepository
+												  	.findByCreatedOnDateGreaterThanEqualAndCreatedOnDateLessThanEqualAndRequestedByTenantInfoUserId(
+												  			LocalDateTime.now().minusDays(2)
+												  			,LocalDateTime.now()
+												  			,(long) userId
+												  			
+												  			,pageable)
+												: mmsIssuesJPARepository.findAll(pageable);
+		
      
         List<MmsMaintenanceIssue> listOfMmsIssues = mmsissuesPage.getContent();
         List<MmsMaintenanceIssueDTO> content= listOfMmsIssues.stream()

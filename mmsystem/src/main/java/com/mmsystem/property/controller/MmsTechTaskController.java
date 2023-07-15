@@ -58,6 +58,14 @@ public class MmsTechTaskController {
 
 	}
 	
+	@GetMapping("mmstechtask/list/{mmsissue_id}")
+	public List<MmsTechTaskDTO> allMmsTechTasksForIssue(@PathVariable("mmsissue_id") int mmsissue_id) {
+		
+		return mmsTechTaskService.findByIssueId(mmsissue_id);
+
+	}
+	
+	
 	@PostMapping("mmstechtask-create") 
 	public MmsTechTaskDTO create(@RequestBody MmsTechTaskCreateDTO mmsTechTaskCreateDTO){ 
 		 return mmsTechTaskService.createMmsTechTask(mmsTechTaskCreateDTO);

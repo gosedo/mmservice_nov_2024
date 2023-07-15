@@ -13,6 +13,8 @@ public class MmsStaticDataDTO {
 	private List<MmsIssueTypeDTO> issueTypes;
 	private List<MmsIssueStatusDTO> issueStatuses;
 	private List<MmsUnitDTO> mmsProperyUnits;
+	private List<MmsTechTeamDTO> mmsTechTeams;
+	private List<MmsTechTaskStatusDTO> mmsTaskStatuses;
 }
 
 

@@ -79,14 +79,16 @@ public class CustomSecurityConfig {
             								 .requestMatchers("api/issue/mmsissue-save").authenticated()
             								 .requestMatchers("api/issue/mmsissue-create").authenticated()
             								 .requestMatchers("api/issue/mmsissue-update").authenticated()
+            								 .requestMatchers("api/issue/mmsissue/list/**").authenticated()
             								 .requestMatchers("api/issue/mmsissue-list-jpa").authenticated()
             								 .requestMatchers("api/issue/mmsissue-create-jpa").authenticated()
             								 .requestMatchers("api/issue/mmsissue-list-jpa-paged").authenticated()
+            								 .requestMatchers("api/issue/mmsissue/list-paged/**").authenticated()
             								 .requestMatchers("api/staticdata").authenticated());
         http   
         .authorizeHttpRequests(	authorize -> 
         						authorize.requestMatchers("api/task/mmstechtask-list").authenticated()
-        								 .requestMatchers("api/task/mmstechtask-create").authenticated()
+        								 .requestMatchers("api/task/mmstechtask-create").hasRole("MGMT")
         								 .requestMatchers("api/task/mmstechtask-update").authenticated());
         
         http.authorizeHttpRequests().anyRequest().authenticated();

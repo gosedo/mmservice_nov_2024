@@ -51,6 +51,10 @@ public class MmsTechTeamMemberService {
 		
 		return mmsTechTeamMemberJPARepository.findById((long) pojo.getTeamMemberId()).get();
 	}
+	public MmsTechTeamMember findByUserId(int userId) {
+		
+		return mmsTechTeamMemberJPARepository.findByMemberInfoUserId((long) userId);
+	}
 		
 	public MmsTechTeamMember update(MmsTechTeamMember pojo) {
 		

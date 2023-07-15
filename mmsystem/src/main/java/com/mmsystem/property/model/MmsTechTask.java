@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,28 +27,26 @@ public class MmsTechTask {
 	private int techTaskId;
 	private String taskDescr;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH }, fetch = FetchType.EAGER)
     @JoinColumn(name = "taskIssueId" , nullable=false)
 	private MmsMaintenanceIssue issueTaskFor;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "taskStatusId" , nullable=false) 
 	private MmsTechTaskStatus taskStatus;
 	  
 	private LocalDateTime createdOnDate;
 	private LocalDateTime closedOnDate; 
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "techTeamId" , nullable=false) 
 	private MmsTechTeam teamAssigned;
 	 
-	
-
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "createdById" , nullable=false) 
 	private MmsUser taskCreatedBy;
 	  
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "taskUpdatedById" , nullable=true)
 	private MmsUser taskUpdatedBy;
 	 
