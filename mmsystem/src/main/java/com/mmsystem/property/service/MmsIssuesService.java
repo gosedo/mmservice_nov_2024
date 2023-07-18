@@ -1,6 +1,7 @@
 package com.mmsystem.property.service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -138,7 +139,10 @@ public class MmsIssuesService {
         
 	}
 	
-	public MmsIssueResponse getAllMmsIssuesPagedByUserId(int userId, MmsPageParam pageParam) {
+	public MmsIssueResponse getAllMmsIssuesPagedByUserId(int userId
+															, String startDate
+															, String endDate
+															,MmsPageParam pageParam) {
 		//,int pageNo, int pageSize, String sortBy, String sortDir
 
         Sort sort = pageParam.getSortDir().equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(pageParam.getSortBy()).ascending()
@@ -153,11 +157,19 @@ public class MmsIssuesService {
 		MmsUserRole mmsUserRole = mmsUserRoleService.getRoleById(1);
 		
 		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+		LocalDateTime startDateParam = LocalDateTime.parse(startDate,formatter);
+		LocalDateTime endDateParam = LocalDateTime.parse(endDate, formatter);
+
+		
+		
+		
 		Page<MmsMaintenanceIssue> mmsissuesPage = mmsUser.getUserRoles().contains(mmsUserRole) ? 
 												  mmsIssuesJPARepository
 												  	.findByCreatedOnDateGreaterThanEqualAndCreatedOnDateLessThanEqualAndRequestedByTenantInfoUserId(
-												  			LocalDateTime.now().minusDays(2)
-												  			,LocalDateTime.now()
+												  			startDateParam
+												  			,endDateParam
 												  			,(long) userId
 												  			
 												  			,pageable)

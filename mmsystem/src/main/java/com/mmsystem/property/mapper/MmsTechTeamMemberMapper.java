@@ -16,5 +16,3 @@ public interface MmsTechTeamMemberMapper {
 	MmsTechTeamMember mapToMmsTechTeamMember(MmsTechTeamMemberDTO mmsTechTeamMemberDto);
 	 
 }
-
-

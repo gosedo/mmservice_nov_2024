@@ -10,6 +10,7 @@ public class MmsystemApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MmsystemApplication.class, args);
+		
 	}
 
 }

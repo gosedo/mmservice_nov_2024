@@ -16,5 +16,3 @@ public interface MmsPropertyMapper {
 	MmsProperty mapToMmsProperty(MmsPropertyDTO mmsPropertyDto);
 	 
 }
-
-

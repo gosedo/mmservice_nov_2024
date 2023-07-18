@@ -16,4 +16,3 @@ public interface MmsTechTaskPostMapper {
 	MmsTechTaskPost mapToMmsTechTaskPost(MmsTechTaskPostDTO mmsTechTaskPostDto);
 	 
 }
-

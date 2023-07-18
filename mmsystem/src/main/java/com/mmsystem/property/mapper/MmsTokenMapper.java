@@ -16,6 +16,3 @@ public interface MmsTokenMapper {
 	MmsToken mapToMmsToken(MmsTokenDTO mmsTechTeamMemberDto);
 	 
 }
-
-
-

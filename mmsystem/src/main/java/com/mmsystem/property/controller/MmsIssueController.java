@@ -24,12 +24,14 @@ import com.mmsystem.property.service.MmsIssuesService;
 import com.mmsystem.property.util.IssuesPageConstants;
 import com.mmsystem.property.util.MmsPageParam;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api/issue")
 public class MmsIssueController {
 	
-	private final Log logger = LogFactory.getLog(getClass());
+	//private final Log logger = LogFactory.getLog(getClass());
 	
 	@Autowired
 	private MmsIssuesService mmsIssuesService;
@@ -47,7 +49,7 @@ public class MmsIssueController {
 	
 	@GetMapping("mmsissue-list-jpa")
 	public List<MmsMaintenanceIssue> allIssuesJPA() {
-		logger.info("Request URI: Gosaye" );
+		log.info("Request URI: Gosaye" );
 		return mmsIssuesService.getMmsIssueJPA();
 	}
 	@GetMapping("mmsissue-list-jpa-paged")
@@ -74,13 +76,13 @@ public class MmsIssueController {
 	
 	@PostMapping("mmsissue-update") 
 	public MmsMaintenanceIssueDTO updateMmsIssue(@RequestBody MmsIssueUpdateDTO issueCreateDto){ 
-		logger.info("Request URI: Gosaye from update mmsissue==================" );
+		log.info("Request URI: Gosaye from update mmsissue==================" );
 		 return mmsIssuesService.updateMmsIssue(issueCreateDto);
 	}
 	
 	@GetMapping("mmsissue-list")
 	public List<MmsMaintenanceIssue> allIssues() {
-		logger.info("Request URI: Gosaye" );
+		log.info("Request URI: Gosaye" );
 		
 		return mmsIssuesService.getMmsIssue();
 
@@ -94,13 +96,15 @@ public class MmsIssueController {
 	}
 	@GetMapping("mmsissue/list-paged/{mmsuser_id}")
 	public MmsIssueResponse getMmsIssueByUserIDPaged(@PathVariable("mmsuser_id") int mmsuser_id,
+			@RequestParam(value = "startDate",  required = false) String startDate,
+            @RequestParam(value = "endDate", required = false) String endDate,
 			@RequestParam(value = "pageNo", defaultValue = IssuesPageConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = IssuesPageConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = IssuesPageConstants.DEFAULT_SORT_BY, required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = IssuesPageConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
 			) {
 		MmsPageParam pageParam = new MmsPageParam(pageNo,pageSize,sortBy,sortDir);
-		return mmsIssuesService.getAllMmsIssuesPagedByUserId(mmsuser_id,pageParam);
+		return mmsIssuesService.getAllMmsIssuesPagedByUserId(mmsuser_id,startDate,endDate,pageParam);
 
 	}
 	

@@ -16,3 +16,4 @@ public interface MmsIssueTypeMapper {
 	MmsIssueType mapToMmsIssueType(MmsIssueTypeDTO mmsIssueTypeDto);
 	 
 }
+

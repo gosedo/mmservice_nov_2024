@@ -16,7 +16,3 @@ public interface MmsTenantMapper {
 	MmsTenant mapToMmsTenant(MmsTenantDTO mmsTenantDto);
 	 
 }
-
-
-
-

@@ -18,4 +18,3 @@ public interface MmsIssueStatusMapper {
 	MmsIssueStatus mapToIssueStatus(MmsIssueStatusDTO issueStatusDto);
 	 
 }
-

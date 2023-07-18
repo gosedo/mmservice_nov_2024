@@ -12,17 +12,34 @@
             <PatternLayout
                 pattern="%d %p %c{1.} [%t] ${spring:spring.application.name} %m%n" />
         </Console>
-
+		
+	  <JDBC name="databaseAppender" tableName="mmsystemloggedinfo.application_log">
+      <ConnectionFactory class="com.mmsystem.property.util.ConnectionFactory" method="getDatabaseConnection" />
+      <Column name="EVENT_ID" pattern="%u" />
+      <Column name="EVENT_DATE" isEventTimestamp="true" />
+      <Column name="LEVEL" pattern="%level" />
+      <Column name="LOGGER" pattern="%logger" />
+      <Column name="MESSAGE" pattern="%message" />
+      <Column name="THROWABLE" pattern="%ex{full}" />
+    </JDBC>
+	   
+		
         
     </Appenders>
 
     <Loggers>
         <!-- LOG everything at INFO level -->
-        <Root level="info">
-            <AppenderRef ref="Console" />
+        <Root >
+            <AppenderRef ref="Console" level="info"/>
             
-            <AppenderRef ref="Syslog" />
+            <AppenderRef ref="Console-Extensions" level="info"/>
+            
+           <AppenderRef ref="databaseAppender" level="warn"/>
+            
+           
+            
         </Root>
+       
 
         <!-- LOG "com.baeldung*" at TRACE level -->
         <SpringProfile name="!development, !production">

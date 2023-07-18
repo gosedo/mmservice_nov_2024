@@ -19,4 +19,3 @@ public interface MmsPropertyManagementMapper {
 	MmsPropertyManagement mapToMmsPManagement(MmsPropertyManagementDTO mmsPManagementDto);
 	 
 }
-

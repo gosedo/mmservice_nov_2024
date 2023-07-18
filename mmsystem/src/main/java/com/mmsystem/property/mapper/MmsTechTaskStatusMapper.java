@@ -16,5 +16,3 @@ public interface MmsTechTaskStatusMapper {
 	MmsTechTaskStatus mapToMmsTechTaskStatus(MmsTechTaskStatusDTO mmsTechTaskStatusDto);
 	 
 }
-
-
