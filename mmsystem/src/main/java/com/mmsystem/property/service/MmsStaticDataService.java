@@ -9,7 +9,7 @@ import com.mmsystem.property.dto.MmsStaticDataDTO;
 
 @Service  
 @Transactional 
-public class StaticDataService {
+public class MmsStaticDataService {
 
 	
 	@Autowired  

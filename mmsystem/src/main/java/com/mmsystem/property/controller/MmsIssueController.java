@@ -25,6 +25,7 @@ import com.mmsystem.property.util.IssuesPageConstants;
 import com.mmsystem.property.util.MmsPageParam;
 
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")

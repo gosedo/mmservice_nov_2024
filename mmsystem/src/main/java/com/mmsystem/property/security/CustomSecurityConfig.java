@@ -85,6 +85,10 @@ public class CustomSecurityConfig {
             								 .requestMatchers("api/issue/mmsissue-list-jpa-paged").authenticated()
             								 .requestMatchers("api/issue/mmsissue/list-paged/**").authenticated()
             								 .requestMatchers("api/staticdata").authenticated());
+        http
+        	.authorizeHttpRequests(	authorize -> 
+								authorize.requestMatchers("api/propmgmt/**").authenticated());
+        
         http   
         .authorizeHttpRequests(	authorize -> 
         						authorize.requestMatchers("api/task/mmstechtask-list").authenticated()

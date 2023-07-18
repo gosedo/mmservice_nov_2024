@@ -15,19 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mmsystem.property.dto.MmsIssueCreateDTO;
-import com.mmsystem.property.dto.MmsIssueResponse;
-import com.mmsystem.property.dto.MmsIssueUpdateDTO;
-import com.mmsystem.property.dto.MmsMaintenanceIssueDTO;
 import com.mmsystem.property.dto.MmsTechTaskCreateDTO;
 import com.mmsystem.property.dto.MmsTechTaskDTO;
 import com.mmsystem.property.dto.MmsTechTaskResponse;
 import com.mmsystem.property.dto.MmsTechTaskUpdateDTO;
-import com.mmsystem.property.model.MmsMaintenanceIssue;
+
 import com.mmsystem.property.model.MmsTechTask;
-import com.mmsystem.property.service.MmsIssuesService;
+
 import com.mmsystem.property.service.MmsTechTaskService;
-import com.mmsystem.property.service.PropMgmtService;
+
 import com.mmsystem.property.util.IssuesPageConstants;
 
 @RestController

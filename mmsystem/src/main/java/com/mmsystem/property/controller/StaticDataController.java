@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.mmsystem.property.dto.MmsStaticDataDTO;
-import com.mmsystem.property.service.StaticDataService;
+import com.mmsystem.property.service.MmsStaticDataService;
+
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -18,7 +18,7 @@ import com.mmsystem.property.service.StaticDataService;
 public class StaticDataController {
 	
 	@Autowired
-	private StaticDataService mmsStaticDataService;
+	private MmsStaticDataService mmsStaticDataService;
 
 	@GetMapping("test")
 	public String test() {
