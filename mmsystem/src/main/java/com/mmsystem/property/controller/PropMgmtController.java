@@ -19,6 +19,7 @@ import com.mmsystem.property.model.MmsPropertyManagement;
 import com.mmsystem.property.service.MmsPropMgmtService;
 
 
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api/propmgmt")

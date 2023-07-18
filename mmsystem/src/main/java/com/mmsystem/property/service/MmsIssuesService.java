@@ -1,271 +1,41 @@
 package com.mmsystem.property.service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-
 import com.mmsystem.property.dto.MmsIssueCreateDTO;
 import com.mmsystem.property.dto.MmsIssueResponse;
-import com.mmsystem.property.dto.MmsIssueTypeDTO;
 import com.mmsystem.property.dto.MmsIssueUpdateDTO;
 import com.mmsystem.property.dto.MmsMaintenanceIssueDTO;
-import com.mmsystem.property.mapper.MmsIssueTypeMapper;
-import com.mmsystem.property.mapper.MmsMaintenanceIssueMapper;
-import com.mmsystem.property.mapper.MmsUserMapper;
-import com.mmsystem.property.model.MmsIssueStatus;
-import com.mmsystem.property.model.MmsIssueType;
 import com.mmsystem.property.model.MmsMaintenanceIssue;
-import com.mmsystem.property.model.MmsTenant;
-import com.mmsystem.property.model.MmsUser;
-import com.mmsystem.property.model.MmsUserRole;
-import com.mmsystem.property.repo.MmsIssueTypeRepository;
-import com.mmsystem.property.repo.MmsIssuesJPARepository;
-import com.mmsystem.property.repo.MmsIssuesRepository;
 import com.mmsystem.property.util.MmsPageParam;
 
 
+public interface MmsIssuesService {
 
-@Service  
-@Transactional 
-public class MmsIssuesService {
+		MmsMaintenanceIssueDTO createMmsIssueJPA(MmsIssueCreateDTO mmsIssueCreateDTO);
 
+		List<MmsMaintenanceIssue> getMmsIssueJPA();
 	
-	@Autowired  
-	private MmsIssuesRepository mmsIssuesRepo;
-	
-	@Autowired  
-	private MmsUserRoleService mmsUserRoleService;
-		
-	@Autowired  
-	private MmsUserService mmsUserService; 
-	
-	@Autowired  
-	private MmsIssueTypeService mmsIssuesTypeService; 
-	
-	@Autowired  
-	private MmsIssueStatusService mmsIssuesStatusService; 
-	
-	@Autowired
-	private MmsIssuesJPARepository mmsIssuesJPARepository;
-	
-	
-	//Start using JPA Repository
-	public MmsMaintenanceIssueDTO createMmsIssueJPA(MmsIssueCreateDTO mmsIssueCreateDTO) {
-		MmsIssueType issueTypeDto = new MmsIssueType(mmsIssueCreateDTO.getIssueTypeId(),null,null);
-		MmsIssueStatus issueStatus = new MmsIssueStatus(1,null,null);
-		MmsTenant requestByTenant = new MmsTenant(mmsIssueCreateDTO.getRequestedByUserId(),null,null,false,null,null );
-		
-		MmsMaintenanceIssue mmsIssue = new MmsMaintenanceIssue();
-		mmsIssue.setIssueType(mmsIssuesTypeService.getIssueTypeByID(issueTypeDto));
-		mmsIssue.setIssueDescription(mmsIssueCreateDTO.getIssueDescr());
-		mmsIssue.setIssueStatus(mmsIssuesStatusService.getIssueStatusByID(issueStatus));
-		mmsIssue.setRequestedBy(requestByTenant);
-		mmsIssue.setCreatedOnDate(LocalDateTime.now());
-		
-		mmsIssuesJPARepository.save(mmsIssue); 
-		
-		return MmsMaintenanceIssueMapper.INSTANCE.mapToIssueDto(mmsIssue);
-	}
-
-	public List<MmsMaintenanceIssue> getMmsIssueJPA() {
-		
-		return mmsIssuesJPARepository.findAll();
-	}
-	
-	public List<MmsMaintenanceIssue> getMmsIssueByEmail(String userEmail){
-		
-		MmsUser mmsUser = mmsUserService.getByEmail(userEmail);
-		
-		MmsUserRole mmsUserRole = mmsUserRoleService.getRoleById(1);
-		
-		if(!mmsUser.getUserRoles().contains(mmsUserRole)) {
+		List<MmsMaintenanceIssue> getMmsIssueByEmail(String userEmail);
 			
-			return getMmsIssueJPA();
-		}
-		return mmsIssuesJPARepository.findByRequestedByTenantInfoUserEmail(userEmail);
-	}
+		List<MmsMaintenanceIssueDTO> getMmsIssueByUserId(int userId);
 	
-	public List<MmsMaintenanceIssueDTO> getMmsIssueByUserId(int userId){
-		
-		MmsUser mmsUser = mmsUserService.getUserByID(userId);
-		
-		MmsUserRole mmsUserRole = mmsUserRoleService.getRoleById(1);
-		
-		List<MmsMaintenanceIssue> listOfMmsIssues = mmsUser.getUserRoles().contains(mmsUserRole) ? 
-															mmsIssuesJPARepository.findByRequestedByTenantInfoUserId((long) userId)
-														: getMmsIssueJPA();
-		
-        List<MmsMaintenanceIssueDTO> content= listOfMmsIssues.stream()
-        										.map((issueType) -> MmsMaintenanceIssueMapper
-        																.INSTANCE.mapToIssueDto(issueType))
-										        .collect(Collectors.toList());
-		return content;
-	}
+		MmsIssueResponse getAllMmsIssuesPaged(int pageNo, int pageSize, String sortBy, String sortDir);
 	
-	public MmsIssueResponse getAllMmsIssuesPaged(int pageNo, int pageSize, String sortBy, String sortDir) {
+		MmsIssueResponse getAllMmsIssuesPagedByUserId(int userId, String startDate
+														, String endDate ,MmsPageParam pageParam);
+	
+		MmsMaintenanceIssueDTO saveMmsIssue(MmsMaintenanceIssueDTO mmsIssueDTO);
+	
+		MmsMaintenanceIssueDTO createMmsIssue(MmsIssueCreateDTO mmsIssueCreateDTO);
+	
+		MmsMaintenanceIssueDTO updateMmsIssue(MmsIssueUpdateDTO mmsIssueUpdateDTO);
+	
+		List<MmsMaintenanceIssue> getMmsIssue();
 
-        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
-                : Sort.by(sortBy).descending();
+		boolean deleteMmsIssue(MmsMaintenanceIssue pojo);
 
-        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
-        
-        Page<MmsMaintenanceIssue> mmsissuesPage = mmsIssuesJPARepository.findAll(pageable);
-     
-        List<MmsMaintenanceIssue> listOfMmsIssues = mmsissuesPage.getContent();
-        List<MmsMaintenanceIssueDTO> content= listOfMmsIssues.stream()
-        										.map((issueType) -> MmsMaintenanceIssueMapper
-        																.INSTANCE.mapToIssueDto(issueType))
-										        .collect(Collectors.toList());
-        
-        MmsIssueResponse mmsIssueResponse = new MmsIssueResponse();
-        mmsIssueResponse.setContent(content);
-        mmsIssueResponse.setPageNo(mmsissuesPage.getNumber());
-        mmsIssueResponse.setPageSize(mmsissuesPage.getSize());
-        mmsIssueResponse.setTotalElements(mmsissuesPage.getTotalElements());
-        mmsIssueResponse.setTotalPages(mmsissuesPage.getTotalPages());
-        mmsIssueResponse.setLast(mmsissuesPage.isLast());
-
-        return mmsIssueResponse;
-        
-        
-	}
+		MmsMaintenanceIssue getMmsIssueByID(MmsMaintenanceIssue pojo);
 	
-	public MmsIssueResponse getAllMmsIssuesPagedByUserId(int userId
-															, String startDate
-															, String endDate
-															,MmsPageParam pageParam) {
-		//,int pageNo, int pageSize, String sortBy, String sortDir
-
-        Sort sort = pageParam.getSortDir().equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(pageParam.getSortBy()).ascending()
-                : Sort.by(pageParam.getSortBy()).descending();
-
-        Pageable pageable = PageRequest.of(pageParam.getPageNo(), pageParam.getPageSize(), sort);
-        //Pageable pageable = PageRequest.of(0, 2);
-        
-        
-        MmsUser mmsUser = mmsUserService.getUserByID(userId);
-		
-		MmsUserRole mmsUserRole = mmsUserRoleService.getRoleById(1);
-		
-		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
-		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-		LocalDateTime startDateParam = LocalDateTime.parse(startDate,formatter);
-		LocalDateTime endDateParam = LocalDateTime.parse(endDate, formatter);
-
-		
-		
-		
-		Page<MmsMaintenanceIssue> mmsissuesPage = mmsUser.getUserRoles().contains(mmsUserRole) ? 
-												  mmsIssuesJPARepository
-												  	.findByCreatedOnDateGreaterThanEqualAndCreatedOnDateLessThanEqualAndRequestedByTenantInfoUserId(
-												  			startDateParam
-												  			,endDateParam
-												  			,(long) userId
-												  			
-												  			,pageable)
-												: mmsIssuesJPARepository.findAll(pageable);
-		
-     
-        List<MmsMaintenanceIssue> listOfMmsIssues = mmsissuesPage.getContent();
-        List<MmsMaintenanceIssueDTO> content= listOfMmsIssues.stream()
-        										.map((issueType) -> MmsMaintenanceIssueMapper
-        																.INSTANCE.mapToIssueDto(issueType))
-										        .collect(Collectors.toList());
-        
-        MmsIssueResponse mmsIssueResponse = new MmsIssueResponse();
-        mmsIssueResponse.setContent(content);
-        mmsIssueResponse.setPageNo(mmsissuesPage.getNumber());
-        mmsIssueResponse.setPageSize(mmsissuesPage.getSize());
-        mmsIssueResponse.setTotalElements(mmsissuesPage.getTotalElements());
-        mmsIssueResponse.setTotalPages(mmsissuesPage.getTotalPages());
-        mmsIssueResponse.setLast(mmsissuesPage.isLast());
-
-        return mmsIssueResponse;
-        
-        
-	}
-	
-	//End using JPA Repository
-	
-	public MmsMaintenanceIssueDTO saveMmsIssue(MmsMaintenanceIssueDTO mmsIssueDTO) {
-		
-		MmsMaintenanceIssue mmsIssue = MmsMaintenanceIssueMapper.INSTANCE.mapToMmsIssue(mmsIssueDTO);
-		mmsIssuesRepo.save(mmsIssue); 
-		
-		return MmsMaintenanceIssueMapper.INSTANCE.mapToIssueDto(mmsIssue);
-	}
-	
-	public MmsMaintenanceIssueDTO createMmsIssue(MmsIssueCreateDTO mmsIssueCreateDTO) {
-		
-		MmsIssueType issueTypeDto = new MmsIssueType(mmsIssueCreateDTO.getIssueTypeId(),null,null);
-		MmsIssueStatus issueStatus = new MmsIssueStatus(1,null,null);
-		MmsTenant requestByTenant = new MmsTenant(mmsIssueCreateDTO.getRequestedByUserId(),null,null,false,null,null );
-		
-		MmsMaintenanceIssue mmsIssue = new MmsMaintenanceIssue();
-		mmsIssue.setIssueType(mmsIssuesTypeService.getIssueTypeByID(issueTypeDto));
-		mmsIssue.setIssueDescription(mmsIssueCreateDTO.getIssueDescr());
-		mmsIssue.setIssueStatus(mmsIssuesStatusService.getIssueStatusByID(issueStatus));
-		mmsIssue.setRequestedBy(requestByTenant);
-		mmsIssue.setCreatedOnDate(LocalDateTime.now());
-		
-		
-		
-		//MmsMaintenanceIssue mmsIssue = MmsMaintenanceIssueMapper.INSTANCE.mapToMmsIssue(mmsIssueDTO);
-		mmsIssuesRepo.save(mmsIssue); 
-		
-		return MmsMaintenanceIssueMapper.INSTANCE.mapToIssueDto(mmsIssue);
-	}
-	
-	public MmsMaintenanceIssueDTO updateMmsIssue(MmsIssueUpdateDTO mmsIssueUpdateDTO) {
-		
-		MmsMaintenanceIssue stubMmsIssue = new MmsMaintenanceIssue();
-		stubMmsIssue.setIssueId(mmsIssueUpdateDTO.getIssueId());
-		
-		MmsIssueType issueTypeDto = new MmsIssueType(mmsIssueUpdateDTO.getIssueTypeId(),null,null);
-		MmsIssueStatus issueStatus = new MmsIssueStatus(mmsIssueUpdateDTO.getIssueStatusId(),null,null);
-		
-		MmsMaintenanceIssue mmsIssue = mmsIssuesRepo.getByID(stubMmsIssue);
-		mmsIssue.setIssueType(issueTypeDto);
-		mmsIssue.setIssueStatus(issueStatus);
-		
-		
-		mmsIssuesRepo.update(mmsIssue); 
-		
-		return MmsMaintenanceIssueMapper.INSTANCE.mapToIssueDto(mmsIssue);
-	}
-	
-	
-	public List<MmsMaintenanceIssue> getMmsIssue() {
-		
-		return mmsIssuesRepo.get();
-	}
-
-	
-	public boolean deleteMmsIssue(MmsMaintenanceIssue pojo) {
-		
-		return mmsIssuesRepo.delete(pojo); 
-	}
-
-	
-	public MmsMaintenanceIssue getMmsIssueByID(MmsMaintenanceIssue pojo) {
-		
-		return mmsIssuesRepo.getByID(pojo);
-	}
-
-	
-	public boolean updateMmsIssue(MmsMaintenanceIssue pojo) {
-		
-		return mmsIssuesRepo.update(pojo);
-	}
+		boolean updateMmsIssue(MmsMaintenanceIssue pojo);
 
 }
