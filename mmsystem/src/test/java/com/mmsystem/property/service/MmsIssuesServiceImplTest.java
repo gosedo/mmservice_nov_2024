@@ -1,11 +1,15 @@
 package com.mmsystem.property.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+//import static org.assertj.core.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat; 
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
-
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,14 +18,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.util.Assert;
+
+
 
 import com.mmsystem.property.dto.MmsMaintenanceIssueDTO;
-import com.mmsystem.property.model.MmsIssueStatus;
-import com.mmsystem.property.model.MmsIssueType;
-import com.mmsystem.property.model.MmsMaintenanceIssue;
-import com.mmsystem.property.model.MmsTenant;
+
 import com.mmsystem.property.repo.MmsIssuesJPARepository;
+import com.mmsystem.property.util.StubData;
 
 @ExtendWith(MockitoExtension.class)
 
@@ -34,29 +37,58 @@ class MmsIssuesServiceImplTest {
 	@MockBean
 	private MmsIssuesJPARepository mmsIssuesJPARepository;
 	
-//	MmsMaintenanceIssue mmsIssueOne= new MmsMaintenanceIssue(1,new MmsIssueType(1,"",""), "Test1", new MmsIssueStatus(1,"","")
-//			,new  MmsTenant(1,null,null,false,null,null),null,null) 
 	
+	static StubData allData = new StubData();
+	
+	@BeforeAll
+	static void setupAllDataForTest() {
+		allData.setUpAllData();
+	}
 	@BeforeEach
 	void setup() {
-		List<MmsMaintenanceIssue> listOfIssues = new ArrayList<>();
-		MmsMaintenanceIssue mmsIssueOne= new MmsMaintenanceIssue();
-		mmsIssueOne.setIssueId(1);
-		MmsMaintenanceIssue mmsIssueTwo= new MmsMaintenanceIssue();
-		mmsIssueOne.setIssueId(1);
 		
-		listOfIssues.add(mmsIssueOne);
-		listOfIssues.add(mmsIssueTwo);
+		 
+//		List<MmsMaintenanceIssue> listOfIssues = new ArrayList<>();
+//		MmsMaintenanceIssue mmsIssueOne= new MmsMaintenanceIssue();
+//		mmsIssueOne.setIssueId(1);
+//		MmsMaintenanceIssue mmsIssueTwo= new MmsMaintenanceIssue();
+//		mmsIssueOne.setIssueId(1);
+//		
+//		listOfIssues.add(mmsIssueOne);
+//		listOfIssues.add(mmsIssueTwo);
+//		//StubData fromStubData = new StubData();
 		
-		Mockito.when(mmsIssuesJPARepository.findByRequestedByTenantInfoUserId((long)1)).thenReturn(listOfIssues);
+		Mockito.when(mmsIssuesJPARepository.findByRequestedByTenantInfoUserId((long)1)).thenReturn(allData.getStubListOfIssues());
 		
 	}
+	
 	@Test
 	public void testGetIssueById_Success() {
+				
+		List<MmsMaintenanceIssueDTO> issuesList = mmsIssueService.getMmsIssueByUserId(1);
+		assertEquals(3,issuesList.size());
+	}
+	
+	@Test
+	public void testGetIssueById_ReturnIssueDTO_Success() {
 		
 				
 		List<MmsMaintenanceIssueDTO> issuesList = mmsIssueService.getMmsIssueByUserId(1);
-		assertEquals(2,issuesList.size());
+		
+		//jupiter.api
+		assertEquals(3,issuesList.size());
+		
+		//hamcrest
+		assertThat(3,equalTo(issuesList.size()));
+		assertThat(issuesList.get(0), instanceOf(MmsMaintenanceIssueDTO.class));
+		
+		//assertj
+		assertThat(3).isEqualTo(issuesList.size());
+		assertThat(issuesList.get(0)).isInstanceOf(MmsMaintenanceIssueDTO.class);
+		assertThat(issuesList).isNotInstanceOf(MmsMaintenanceIssueDTO.class);
+		
 	}
+	
+	
 
 }

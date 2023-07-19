@@ -22,9 +22,17 @@ import com.mmsystem.property.model.MmsUser;
 import com.mmsystem.property.model.MmsUserRole;
 import com.mmsystem.property.model.MmsUserStatus;
 
+import lombok.Getter;
+import lombok.Setter;
 
 
+@Getter
+@Setter
 public class StubData {
+	
+	public List<MmsMaintenanceIssue> getIssues(){
+		return stubListOfIssues;
+	}
 	
 	public void setUpAllData() {
 		
@@ -131,7 +139,6 @@ public class StubData {
 		stubListOfIssueTypes.add(issueTypeEight);
 		stubListOfIssueTypes.add(issueTypeNine);
 
-		
 		
 		MmsIssueStatus issueStatusOne = new MmsIssueStatus(1,"NEWR","New Request");
 		MmsIssueStatus issueStatusTwo = new MmsIssueStatus(2,"UDRV","Under Review");
