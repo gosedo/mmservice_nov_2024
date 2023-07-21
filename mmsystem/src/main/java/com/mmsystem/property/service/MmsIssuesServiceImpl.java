@@ -26,6 +26,7 @@ import com.mmsystem.property.model.MmsUserRole;
 import com.mmsystem.property.repo.MmsIssuesJPARepository;
 import com.mmsystem.property.repo.MmsIssuesRepository;
 import com.mmsystem.property.util.MmsPageParam;
+import com.mmsystem.property.util.RoleTypeConstants;
 
 
 
@@ -55,6 +56,7 @@ public class MmsIssuesServiceImpl implements MmsIssuesService {
 	
 	//Start using JPA Repository
 	public MmsMaintenanceIssueDTO createMmsIssueJPA(MmsIssueCreateDTO mmsIssueCreateDTO) {
+		
 		MmsIssueType issueTypeDto = new MmsIssueType(mmsIssueCreateDTO.getIssueTypeId(),null,null);
 		MmsIssueStatus issueStatus = new MmsIssueStatus(1,null,null);
 		MmsTenant requestByTenant = new MmsTenant(mmsIssueCreateDTO.getRequestedByUserId(),null,null,false,null,null );
@@ -69,6 +71,7 @@ public class MmsIssuesServiceImpl implements MmsIssuesService {
 		mmsIssuesJPARepository.save(mmsIssue); 
 		
 		return MmsMaintenanceIssueMapper.INSTANCE.mapToIssueDto(mmsIssue);
+		
 	}
 
 	public List<MmsMaintenanceIssue> getMmsIssueJPA() {
@@ -80,7 +83,7 @@ public class MmsIssuesServiceImpl implements MmsIssuesService {
 		
 		MmsUser mmsUser = mmsUserService.getByEmail(userEmail);
 		
-		MmsUserRole mmsUserRole = mmsUserRoleService.getRoleById(1);
+		MmsUserRole mmsUserRole = mmsUserRoleService.getRoleById(RoleTypeConstants.TENANT);
 		
 		if(!mmsUser.getUserRoles().contains(mmsUserRole)) {
 			
@@ -93,7 +96,7 @@ public class MmsIssuesServiceImpl implements MmsIssuesService {
 		
 		MmsUser mmsUser = mmsUserService.getUserByID(userId);
 		
-		MmsUserRole mmsUserRole = mmsUserRoleService.getRoleById(1);
+		MmsUserRole mmsUserRole = mmsUserRoleService.getRoleById(RoleTypeConstants.TENANT);
 		
 		List<MmsMaintenanceIssue> listOfMmsIssues = mmsUser.getUserRoles().contains(mmsUserRole) ? 
 															mmsIssuesJPARepository.findByRequestedByTenantInfoUserId((long) userId)
@@ -104,6 +107,7 @@ public class MmsIssuesServiceImpl implements MmsIssuesService {
         																.INSTANCE.mapToIssueDto(issueType))
 										        .collect(Collectors.toList());
 		return content;
+		
 	}
 	
 	public MmsIssueResponse getAllMmsIssuesPaged(int pageNo, int pageSize, String sortBy, String sortDir) {
@@ -149,7 +153,7 @@ public class MmsIssuesServiceImpl implements MmsIssuesService {
         
         MmsUser mmsUser = mmsUserService.getUserByID(userId);
 		
-		MmsUserRole mmsUserRole = mmsUserRoleService.getRoleById(1);
+		MmsUserRole mmsUserRole = mmsUserRoleService.getRoleById(RoleTypeConstants.TENANT);
 		
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
@@ -239,25 +243,21 @@ public class MmsIssuesServiceImpl implements MmsIssuesService {
 		return MmsMaintenanceIssueMapper.INSTANCE.mapToIssueDto(mmsIssue);
 	}
 	
-	
 	public List<MmsMaintenanceIssue> getMmsIssue() {
 		
 		return mmsIssuesRepo.get();
 	}
 
-	
 	public boolean deleteMmsIssue(MmsMaintenanceIssue pojo) {
 		
 		return mmsIssuesRepo.delete(pojo); 
 	}
-
 	
 	public MmsMaintenanceIssue getMmsIssueByID(MmsMaintenanceIssue pojo) {
 		
 		return mmsIssuesRepo.getByID(pojo);
 	}
 
-	
 	public boolean updateMmsIssue(MmsMaintenanceIssue pojo) {
 		
 		return mmsIssuesRepo.update(pojo);

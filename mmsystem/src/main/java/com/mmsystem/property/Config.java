@@ -12,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;  
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;  
 import org.springframework.orm.hibernate5.HibernateTransactionManager;  
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;  
@@ -25,37 +26,16 @@ import com.zaxxer.hikari.HikariDataSource;
 @Configuration  
 @EnableTransactionManagement  
 @EnableAutoConfiguration(exclude = { HibernateJpaAutoConfiguration.class})  
-@ComponentScans(value = { @ComponentScan("boot.entry"),  
+@ComponentScans(value = { 
+			//@ComponentScan("boot.entry"),  
           @ComponentScan("com.mmsystem.property.model"),  
           @ComponentScan("com.mmsystem.property.controller"),  
           @ComponentScan("com.mmsystem.property.repo"),  
-          @ComponentScan("Miscallaneous"),  
+          //@ComponentScan("Miscallaneous"),  
           @ComponentScan("com.mmsystem.property.service")})  
 public class Config {  
 		
-     	@Value("${db.driver}")  
-        private String DB_DRIVER;  
-  
-        @Value("${db.password}")  
-        private String DB_PASSWORD;  
-  
-        @Value("${db.jdbc-url}")  
-        private String DB_URL;  
-  
-        @Value("${db.username}")  
-        private String DB_USERNAME;  
-  
-        @Value("${hibernate.dialect}")  
-        private String HIBERNATE_DIALECT;  
-  
-        @Value("${hibernate.show_sql}")  
-        private String HIBERNATE_SHOW_SQL;  
-  
-        @Value("${hibernate.hbm2ddl.auto}")  
-        private String HIBERNATE_HBM2DDL_AUTO;  
-  
-        @Value("${entitymanager.packagesToScan}")  
-        private String ENTITYMANAGER_PACKAGES_TO_SCAN;  
+     	  
   
         @Bean//(name="firstEntityManagerFactory")  
         public LocalSessionFactoryBean secondSessionFactory() {  
@@ -106,6 +86,18 @@ public class Config {
             txManager.setSessionFactory(sessionFactory().getObject());  
             return txManager;  
         }  
+        
+//        @Bean
+//        @Profile("test")
+//        public DataSource dataSource2() {
+//            DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//            dataSource.setDriverClassName("org.h2.Driver");
+//            dataSource.setUrl("jdbc:h2:mem:mmsystem;DB_CLOSE_DELAY=-1");
+//            dataSource.setUsername("sa");
+//            dataSource.setPassword("");
+//
+//            return dataSource;
+//        }
           
 //        @Bean  
 //        public InternalResourceViewResolver jspViewResolver() {  
@@ -115,6 +107,30 @@ public class Config {
 //            return resolver;  
 //        }   
          
+        
+	        @Value("${db.driver}")  
+	        private String DB_DRIVER;  
+	  
+	        @Value("${db.password}")  
+	        private String DB_PASSWORD;  
+	  
+	        @Value("${db.jdbc-url}")  
+	        private String DB_URL;  
+	  
+	        @Value("${db.username}")  
+	        private String DB_USERNAME;  
+	  
+	        @Value("${hibernate.dialect}")  
+	        private String HIBERNATE_DIALECT;  
+	  
+	        @Value("${hibernate.show_sql}")  
+	        private String HIBERNATE_SHOW_SQL;  
+	  
+	        @Value("${hibernate.hbm2ddl.auto}")  
+	        private String HIBERNATE_HBM2DDL_AUTO;  
+	  
+	        @Value("${entitymanager.packagesToScan}")  
+	        private String ENTITYMANAGER_PACKAGES_TO_SCAN;
          
          
     }  

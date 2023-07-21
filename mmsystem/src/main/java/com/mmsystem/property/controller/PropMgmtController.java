@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mmsystem.property.dto.MmsPropertyManagementDTO;
-import com.mmsystem.property.exception.PropertyManagmentNotFoundException;
+import com.mmsystem.property.exception.ResourceNotFoundException;
 import com.mmsystem.property.model.MmsPropertyManagement;
 import com.mmsystem.property.service.MmsPropMgmtService;
 
@@ -53,7 +53,7 @@ public class PropMgmtController {
 
 	@GetMapping("propmgmt/{propmgmt_id}")
 	public MmsPropertyManagementDTO allPropMgmtByID(@PathVariable("propmgmt_id") int propmgmt_id
-							, MmsPropertyManagement propmgmt) throws PropertyManagmentNotFoundException {
+							, MmsPropertyManagement propmgmt) throws ResourceNotFoundException {
 		propmgmt.setPMgmtId(propmgmt_id);
 		return mmsPropMgmtService.getPropMgmtByID(propmgmt);
 

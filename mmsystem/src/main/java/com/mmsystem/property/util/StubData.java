@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+
 import com.mmsystem.property.model.MmsIssueStatus;
 import com.mmsystem.property.model.MmsIssueType;
 import com.mmsystem.property.model.MmsMaintenanceIssue;
@@ -30,9 +35,51 @@ import lombok.Setter;
 @Setter
 public class StubData {
 	
-	public List<MmsMaintenanceIssue> getIssues(){
-		return stubListOfIssues;
+	
+	
+	public MmsUserRole getRoleByIdFromStub(int roleId) {
+		
+		MmsUserRole sampleRole = getStubListOfUserRoles()
+											.stream()
+											.filter(role -> role.getUsrRoleId() == roleId)
+											.collect(Collectors.toList()).get(0);
+		
+		return sampleRole;
 	}
+	
+	public Page<MmsMaintenanceIssue> getIssuesByUserIdPagedFromStub(int userId){
+		
+		
+		
+		MmsUserRole sampleRole = getRoleByIdFromStub(RoleTypeConstants.TENANT);
+		
+		List<MmsMaintenanceIssue> listOfIssueFromStub = getStubListOfIssues()
+															.stream()
+															.filter(issue -> issue.getRequestedBy()
+																					.getTenantInfo()
+																					.getUserRoles().contains(sampleRole) 
+																					&&
+																					issue.getRequestedBy()
+																					.getTenantInfo()
+																					.getUserId() == userId)
+															.collect(Collectors.toList());
+		
+		Page<MmsMaintenanceIssue> pagedResponse = new PageImpl<MmsMaintenanceIssue>(listOfIssueFromStub.subList(0, 2));
+		
+		
+		return pagedResponse;
+		
+	}
+	
+	
+	
+	public Page<MmsMaintenanceIssue> getAllIssuePagedFromStub(){
+		
+		Page<MmsMaintenanceIssue> pagedResponse = new PageImpl<MmsMaintenanceIssue>(getStubListOfIssues().subList(0, 2));
+		
+		return pagedResponse ;
+	}
+	
 	
 	public void setUpAllData() {
 		

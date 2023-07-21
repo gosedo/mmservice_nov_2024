@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mmsystem.property.dto.MmsUserCreateDTO;
 import com.mmsystem.property.dto.MmsUserDTO;
+import com.mmsystem.property.dto.MmsUserUpdateDTO;
 import com.mmsystem.property.model.MmsUser;
 
 import com.mmsystem.property.service.MmsUserService;
+
+import jakarta.validation.Valid;
 
 
 
@@ -39,13 +43,20 @@ public class UserController {
 	 * }
 	 */
 	
-	@PostMapping("user-save") 
-	public MmsUserDTO saveUser(@RequestBody MmsUserDTO mmsUserDto){ 
-		 return mmsUserService.saveUser(mmsUserDto);
+	@PostMapping("user-create") 
+	public MmsUserDTO createUser(@Valid @RequestBody MmsUserCreateDTO mmsUserCreateDto){ 
+		 return mmsUserService.createUser(mmsUserCreateDto);
 	}
 	
+	@PostMapping("user-update") 
+	public MmsUserDTO updateUser(@Valid @RequestBody MmsUserUpdateDTO mmsUserUpdateDto){ 
+		 return mmsUserService.updateUser(mmsUserUpdateDto);
+	}
+	
+	
+	
 	@GetMapping("users-list")
-	public List<MmsUser> allUsers() {
+	public List<MmsUserDTO> allUsers() {
 		return mmsUserService.getUsers();
 
 	}

@@ -34,10 +34,8 @@
             
             <AppenderRef ref="Console-Extensions" level="info"/>
             
-           <AppenderRef ref="databaseAppender" level="warn"/>
-            
-           
-            
+            <AppenderRef ref="databaseAppender" level="warn"/>
+          
         </Root>
        
 

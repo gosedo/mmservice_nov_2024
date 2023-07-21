@@ -4,7 +4,6 @@ import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.mmsystem.property.model.MmsTechTeam;
 import com.mmsystem.property.model.MmsTechTeamMember;
 
 

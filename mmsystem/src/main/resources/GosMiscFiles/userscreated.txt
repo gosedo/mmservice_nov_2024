@@ -1,0 +1,12 @@
+{
+        
+        "userEmail": "phendersoncreate@randatmail.com",
+        "userPassword": "5989hy",
+        "userFirstname": "Penelopecreate",
+        "userLastname": "Hendersontest",
+        "userPhone": "259-6237-1868",
+        "userRoles": [
+            1
+        ],
+        "userStatus": 1
+}

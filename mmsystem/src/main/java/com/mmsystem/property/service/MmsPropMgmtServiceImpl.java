@@ -7,15 +7,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.mmsystem.property.dto.MmsPropertyManagementDTO;
-import com.mmsystem.property.exception.PropertyManagmentAlreadyExistsException;
-import com.mmsystem.property.exception.PropertyManagmentNotFoundException;
+import com.mmsystem.property.exception.ResourceAlreadyExistsException;
+import com.mmsystem.property.exception.ResourceNotFoundException;
 import com.mmsystem.property.mapper.MmsPropertyManagementMapper;
-
 import com.mmsystem.property.model.MmsPropertyManagement;
-
-import com.mmsystem.property.repo.PropMgmtsRepository;
 import com.mmsystem.property.repo.PropMgmtsRepositoryJPA;
 
 
@@ -28,7 +24,7 @@ public class MmsPropMgmtServiceImpl implements MmsPropMgmtService{
 	private PropMgmtsRepositoryJPA propMgmtsRepositoryJPA;
 	
 	
-	public MmsPropertyManagementDTO savePropMgmt(MmsPropertyManagementDTO pmgmtDto) throws PropertyManagmentAlreadyExistsException {
+	public MmsPropertyManagementDTO savePropMgmt(MmsPropertyManagementDTO pmgmtDto) throws ResourceAlreadyExistsException {
 		
 			
 		Optional<MmsPropertyManagement> optProMgmt =  propMgmtsRepositoryJPA.findById(pmgmtDto.getPMgmtId());
@@ -39,7 +35,8 @@ public class MmsPropMgmtServiceImpl implements MmsPropMgmtService{
 		
 		if(optProMgmt.isEmpty()) {
 			
-			throw new PropertyManagmentAlreadyExistsException();
+			String message = String.format("Property Managment with Id:%s already exist.", pmgmtDto.getPMgmtId());
+			throw new ResourceAlreadyExistsException(message);
 			
 		}else {
 			
@@ -68,14 +65,15 @@ public class MmsPropMgmtServiceImpl implements MmsPropMgmtService{
 	}
 
 	
-	public MmsPropertyManagementDTO getPropMgmtByID(MmsPropertyManagement pojo) throws PropertyManagmentNotFoundException{
+	public MmsPropertyManagementDTO getPropMgmtByID(MmsPropertyManagement pojo) throws ResourceNotFoundException{
 		
 		Optional<MmsPropertyManagement> optProMgmt =  propMgmtsRepositoryJPA.findById(pojo.getPMgmtId());
 		
 		MmsPropertyManagementDTO pmgmtDto;
 		
 		if(optProMgmt.isEmpty()) {
-			throw new PropertyManagmentNotFoundException();
+			String message = String.format("Property Managment with Id:%s not found", pojo.getPMgmtId());
+			throw new ResourceNotFoundException(message);
 		}else {
 			pmgmtDto = MmsPropertyManagementMapper.INSTANCE.mapToMmsPManagementDto(optProMgmt.get()) ;
 			
@@ -84,7 +82,7 @@ public class MmsPropMgmtServiceImpl implements MmsPropMgmtService{
 	}
 
 	
-	public MmsPropertyManagementDTO updatePropMgmt(MmsPropertyManagement pojo) throws PropertyManagmentNotFoundException {
+	public MmsPropertyManagementDTO updatePropMgmt(MmsPropertyManagement pojo) throws ResourceNotFoundException {
 		
 		Optional<MmsPropertyManagement> optProMgmt =  propMgmtsRepositoryJPA.findById(pojo.getPMgmtId());
 		
@@ -93,7 +91,8 @@ public class MmsPropMgmtServiceImpl implements MmsPropMgmtService{
 		MmsPropertyManagement savedPropMgmt;
 		
 		if(optProMgmt.isEmpty()) {
-			throw new PropertyManagmentNotFoundException();
+			String message = String.format("Property Managment with Id:%s not found", pojo.getPMgmtId());
+			throw new ResourceNotFoundException(message);
 		}else {
 			
 			savedPropMgmt = propMgmtsRepositoryJPA.save(pojo);

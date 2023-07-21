@@ -27,6 +27,12 @@ public class MmsStaticDataServiceImpl implements MmsStaticDataService{
 	@Autowired  
 	private MmsTechTeamService mmsTechteamService;
 	
+	@Autowired  
+	private MmsUserRoleService mmsUserRoleService;
+	
+	@Autowired  
+	private MmsUserStatusService mmsUserStatusService;
+	
 	
 	public MmsStaticDataDTO getStaticData() {
 		
@@ -37,6 +43,8 @@ public class MmsStaticDataServiceImpl implements MmsStaticDataService{
 		staticData.setMmsProperyUnits(mmsUnitService.getMmsUnits());
 		staticData.setMmsTechTeams(mmsTechteamService.findAll());
 		staticData.setMmsTaskStatuses(mmsTaskStatusService.findAll());
+		staticData.setMmsUserStatuses(mmsUserStatusService.getUserStatusesDTO());
+		staticData.setMmsUserTypes(mmsUserRoleService.getUserRolesDTO());
 		
 		return staticData;
 	}

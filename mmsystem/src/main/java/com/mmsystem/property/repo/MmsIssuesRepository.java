@@ -1,19 +1,22 @@
 package com.mmsystem.property.repo;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
+import com.mmsystem.property.controller.MmsIssueController;
 import com.mmsystem.property.model.MmsMaintenanceIssue;
 
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j 
 @Repository
 public class MmsIssuesRepository implements IMmspRepository<MmsMaintenanceIssue>{
 
@@ -28,7 +31,9 @@ public class MmsIssuesRepository implements IMmspRepository<MmsMaintenanceIssue>
 	      try {  
 	          sessionFactory.getCurrentSession().persist(model);  
 	          status=true;  
-	      } catch (Exception e) {  
+	          
+	      } catch (HibernateException e) { 
+	    	  log.error("MmsIssuesRepository save" , e );
 	          e.printStackTrace();  
 	      }  
 	      return status == true ? model : null;  
@@ -38,10 +43,19 @@ public class MmsIssuesRepository implements IMmspRepository<MmsMaintenanceIssue>
 	@Override
 	public List<MmsMaintenanceIssue> get() {
 		
-		Session currentSession = sessionFactory.getCurrentSession(); 
-		  Query<MmsMaintenanceIssue> query = currentSession.createQuery("from MmsMaintenanceIssue", MmsMaintenanceIssue.class);
-		  List<MmsMaintenanceIssue> list = query.getResultList(); 
-		  return list;
+		List<MmsMaintenanceIssue> list = new ArrayList<>();
+		
+		try {
+				Session currentSession = sessionFactory.getCurrentSession(); 
+				Query<MmsMaintenanceIssue> query = currentSession.createQuery("from MmsMaintenanceIssue", MmsMaintenanceIssue.class);
+				list = query.getResultList(); 
+			
+		} catch (HibernateException e) { 
+				log.error("MmsIssuesRepository get" , e );
+				e.printStackTrace();  
+	    } 
+		  
+		return list;
 	}
 	
 	@Transactional
@@ -51,7 +65,8 @@ public class MmsIssuesRepository implements IMmspRepository<MmsMaintenanceIssue>
 	      try {  
 	          sessionFactory.getCurrentSession().remove(model);  
 	          status=true;  
-	      } catch (Exception e) {  
+	      } catch (HibernateException e) { 
+	    	  log.error("MmsIssuesRepository delete" , e );
 	          e.printStackTrace();  
 	      }  
 	      return status; 
@@ -60,12 +75,22 @@ public class MmsIssuesRepository implements IMmspRepository<MmsMaintenanceIssue>
 
 	@Override
 	public MmsMaintenanceIssue getByID(MmsMaintenanceIssue model) {
-		Session currentSession = sessionFactory.getCurrentSession(); 
-		  Query<MmsMaintenanceIssue> query = currentSession
-				  				.createQuery("from MmsMaintenanceIssue where issueId=:issueId",MmsMaintenanceIssue.class); 
-		  query.setParameter("issueId", model.getIssueId());
-		  List<MmsMaintenanceIssue> list=query.getResultList(); 
-		  return list.get(0);
+		
+		MmsMaintenanceIssue list = null ;
+		
+		try {
+				Session currentSession = sessionFactory.getCurrentSession(); 
+				Query<MmsMaintenanceIssue> query = currentSession
+					  				.createQuery("from MmsMaintenanceIssue where issueId=:issueId",MmsMaintenanceIssue.class); 
+				query.setParameter("issueId", model.getIssueId());
+				list = query.getSingleResult(); 
+				
+		} catch (HibernateException e) { 
+			log.error("MmsIssuesRepository getByID" , e );
+	          e.printStackTrace();  
+		}  
+		
+		return list;
 	}
 
 	@Override
@@ -74,7 +99,8 @@ public class MmsIssuesRepository implements IMmspRepository<MmsMaintenanceIssue>
 	      try {  
 	          sessionFactory.getCurrentSession().merge(model);  
 	          status=true;  
-	      } catch (Exception e) {  
+	      } catch (HibernateException e) { 
+	    	  log.error("MmsIssuesRepository update" , e );
 	          e.printStackTrace();  
 	      }  
 	      return status; 

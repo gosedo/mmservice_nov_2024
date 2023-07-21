@@ -1,6 +1,7 @@
 package com.mmsystem.property.dto;
 
 import java.util.List;
+import java.util.Set;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,8 @@ public class MmsStaticDataDTO {
 	private List<MmsUnitDTO> mmsProperyUnits;
 	private List<MmsTechTeamDTO> mmsTechTeams;
 	private List<MmsTechTaskStatusDTO> mmsTaskStatuses;
+	private List<MmsUserStatusDTO> mmsUserStatuses;
+	private Set<MmsUserRoleDTO> mmsUserTypes;
 }
 
 

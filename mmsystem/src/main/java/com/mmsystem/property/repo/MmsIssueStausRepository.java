@@ -24,7 +24,9 @@ public class MmsIssueStausRepository  implements IMmspRepository<MmsIssueStatus>
   @Transactional
   @Override  
   public MmsIssueStatus save(MmsIssueStatus mmsIssueStatus) {  
-      boolean status=false;  
+      
+	  boolean status=false;  
+	  
       try {  
           sessionFactory.getCurrentSession().persist(mmsIssueStatus);  
           status=true;  

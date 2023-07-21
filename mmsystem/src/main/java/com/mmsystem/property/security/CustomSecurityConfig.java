@@ -73,6 +73,11 @@ public class CustomSecurityConfig {
         .authorizeHttpRequests(	authorize -> 
         						authorize.requestMatchers("api/auth/signin").authenticated()
         								 .requestMatchers("api/auth/signup").authenticated());
+        http   
+        .authorizeHttpRequests(	authorize -> 
+        						authorize.requestMatchers("api/user/users-list").authenticated()
+        								 .requestMatchers("api/user/user-create").authenticated());
+        
         http
             .authorizeHttpRequests(	authorize -> 
             						authorize.requestMatchers("api/issue/mmsissue-list").authenticated()
@@ -88,6 +93,7 @@ public class CustomSecurityConfig {
         http
         	.authorizeHttpRequests(	authorize -> 
 								authorize.requestMatchers("api/propmgmt/**").authenticated());
+        
         
         http   
         .authorizeHttpRequests(	authorize -> 

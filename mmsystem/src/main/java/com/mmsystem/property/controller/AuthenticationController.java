@@ -48,7 +48,7 @@ public class AuthenticationController {
 	            String msg = "OK " + uname + " ! You have been Logged In!";
 	            String token = TokenUtils.generateJWTUserToken(uname);  
 	            logger.info("Generated JWT Token: " + token);
-	            logger.warn("Generated JWT Token: " + token);
+	            logger.warn("Generated JWT Token for: " + uname);
 
 	            response.addHeader(SecurityConstants.AUTH_HEADER, SecurityConstants.BEARER_TOKEN_PREFIX + token);
 	            

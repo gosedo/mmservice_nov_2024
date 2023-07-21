@@ -95,6 +95,7 @@ public class MmsIssueController {
 		return mmsIssuesService.getMmsIssueByUserId(mmsuser_id);
 
 	}
+	
 	@GetMapping("mmsissue/list-paged/{mmsuser_id}")
 	public MmsIssueResponse getMmsIssueByUserIDPaged(@PathVariable("mmsuser_id") int mmsuser_id,
 			@RequestParam(value = "startDate",  required = false) String startDate,
