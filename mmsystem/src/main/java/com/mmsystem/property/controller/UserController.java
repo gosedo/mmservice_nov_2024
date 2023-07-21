@@ -24,7 +24,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(value = "/api/user")
+@RequestMapping(value = "/api/mmsuser")
 public class UserController {
 
 	@Autowired
@@ -43,8 +43,8 @@ public class UserController {
 	 * }
 	 */
 	
-	@PostMapping("user-create") 
-	public MmsUserDTO createUser(@Valid @RequestBody MmsUserCreateDTO mmsUserCreateDto){ 
+	@PostMapping("mmsuser-create") 
+	public MmsUserDTO createUser(@RequestBody MmsUserCreateDTO mmsUserCreateDto){ 
 		 return mmsUserService.createUser(mmsUserCreateDto);
 	}
 	

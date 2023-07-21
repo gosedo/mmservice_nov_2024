@@ -56,6 +56,7 @@ public class CustomSecurityConfig {
     public SecurityFilterChain filterChain1(HttpSecurity http) throws Exception {
 
     	// Enable CORS and disable CSRF
+    	
         http.cors();
         http.csrf().disable();
 
@@ -73,10 +74,7 @@ public class CustomSecurityConfig {
         .authorizeHttpRequests(	authorize -> 
         						authorize.requestMatchers("api/auth/signin").authenticated()
         								 .requestMatchers("api/auth/signup").authenticated());
-        http   
-        .authorizeHttpRequests(	authorize -> 
-        						authorize.requestMatchers("api/user/users-list").authenticated()
-        								 .requestMatchers("api/user/user-create").authenticated());
+        
         
         http
             .authorizeHttpRequests(	authorize -> 
@@ -100,6 +98,11 @@ public class CustomSecurityConfig {
         						authorize.requestMatchers("api/task/mmstechtask-list").authenticated()
         								 .requestMatchers("api/task/mmstechtask-create").hasRole("MGMT")
         								 .requestMatchers("api/task/mmstechtask-update").authenticated());
+        
+        http   
+        .authorizeHttpRequests(	authorize -> 
+        						authorize.requestMatchers("api/mmsuser/mmsuser-create").authenticated()
+        								 .requestMatchers("api/mmsuser/mmsuser-list").authenticated());
         
         http.authorizeHttpRequests().anyRequest().authenticated();
 

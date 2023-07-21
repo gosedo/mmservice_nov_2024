@@ -64,10 +64,14 @@ public class MmsUserServiceImpl implements MmsUserService {
 		  String message = String.format("User with %s email already exist. ", mmsUserCreateDto.getUserEmail());
 		  throw new ResourceAlreadyExistsException(message);
 	  }
-		  
+	  
+	  MmsUserRole userRole = mmsUserRoleServiceImpl.getRoleById(mmsUserCreateDto.getUserRoles());
+	  Set<MmsUserRole> setOfUserRoles = new HashSet<>();
+	  setOfUserRoles.add(userRole);
 	  
 	  MmsUser userToSave = new MmsUser();
-	  Set<MmsUserRole> userRoles = mmsUserRoleServiceImpl.getUserRoles(mmsUserCreateDto.getUserRoles());
+	  
+	  
 	  MmsUserStatus mmsUserStatus =mmsUserStatusServiceImpl.getUserStatusById(UserStatusesConstants.Active);
 	  
 	  userToSave.setUserEmail(mmsUserCreateDto.getUserEmail());
@@ -75,7 +79,7 @@ public class MmsUserServiceImpl implements MmsUserService {
 	  userToSave.setUserFirstname(mmsUserCreateDto.getUserFirstname());
 	  userToSave.setUserLastname(mmsUserCreateDto.getUserLastname());
 	  userToSave.setUserPhone(mmsUserCreateDto.getUserPhone());
-	  userToSave.setUserRoles(userRoles);
+	  userToSave.setUserRoles(setOfUserRoles);
 	  userToSave.setUserStatus(mmsUserStatus);
 	  
 	  String passwd= userToSave.getUserPassword();

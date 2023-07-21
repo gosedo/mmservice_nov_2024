@@ -23,7 +23,7 @@ public class MmsUserCreateDTO {
 	private String userFirstname;
 	private String userLastname;
 	private String userPhone;
-	private Set<Integer> userRoles;
+	private int userRoles;
 	
 }
 
