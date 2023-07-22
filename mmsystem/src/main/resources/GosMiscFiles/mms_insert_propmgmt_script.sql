@@ -36,18 +36,20 @@ VALUES
 ('TECH','Technician'),
 ('MGMT','Management');
 
+
+
 INSERT INTO mmsusers(userEmail, userPassword, userFirstname, userLastname, userPhone, userStatusId)
 VALUES
-('phenderson@randatmail.com' 	, '7b09hy', 'Penelope' 	, 'Henderson'	,	'259-6277-1868',1),	
-('akelley@randatmail.com'		, 'lew9m5', 'Amber'		, 'Kelley'		,   '692-6874-5059',1),
-('lbarnes@randatmail.com'		, 'lw2w1x', 'Luke'		, 'Barnes'		,   '142-5179-6543',1),	
-('tdavis@randatmail.com'		, 'k6x16i', 'Tess'		, 'Davis'		,   '661-8520-4942',1),	
-('hfoster@randatmail.com'		, 'ywbsg6', 'Honey'		, 'Foster'		,   '123-1837-1641',1),
-('hbrown@randatmail.com'		, 'erbsg6', 'Henery'	, 'Brown'		,   '434-1847-1241',1),
-('lbarnesere@randatmail.com'		, 'ws2w1x', 'Tuke'		, 'Boarnes'		,   '176-5179-6543',1),	
-('tdavissec@randatmail.com'		, 'rfx16i', 'Less'		, 'Travis'		,   '698-8520-4942',1),	
-('hfosterwed@randatmail.com'		, 'edbsg6', 'Koney'		, 'Monster'		,   '165-1837-1641',1),
-('hbrownwsde@randatmail.com'		, 'websg6', 'Nenery'	, 'Aswown'		,   '423-1847-1241',1);
+('phenderson@randatmail.com' 	, '7b09hy', 'Penelope' 	, 'Henderson'	,	'259-6277-1868',1,'N',null),	
+('akelley@randatmail.com'		, 'lew9m5', 'Amber'		, 'Kelley'		,   '692-6874-5059',1,'N',null),
+('lbarnes@randatmail.com'		, 'lw2w1x', 'Luke'		, 'Barnes'		,   '142-5179-6543',1,'N',null),	
+('tdavis@randatmail.com'		, 'k6x16i', 'Tess'		, 'Davis'		,   '661-8520-4942',1,'N',null),	
+('hfoster@randatmail.com'		, 'ywbsg6', 'Honey'		, 'Foster'		,   '123-1837-1641',1,'N',null),
+('hbrown@randatmail.com'		, 'erbsg6', 'Henery'	, 'Brown'		,   '434-1847-1241',1,'N',null),
+('lbarnesere@randatmail.com'		, 'ws2w1x', 'Tuke'		, 'Boarnes'		,   '176-5179-6543',1,'N',null),	
+('tdavissec@randatmail.com'		, 'rfx16i', 'Less'		, 'Travis'		,   '698-8520-4942',1,'N',null),	
+('hfosterwed@randatmail.com'		, 'edbsg6', 'Koney'		, 'Monster'		,   '165-1837-1641',1,'N',null),
+('hbrownwsde@randatmail.com'		, 'websg6', 'Nenery'	, 'Aswown'		,   '423-1847-1241',1,'N',null);
 
 INSERT INTO mmsusers_mmsuserroles(userId, usrRoleId)
 VALUES

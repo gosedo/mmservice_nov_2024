@@ -134,16 +134,16 @@ public class StubData {
 		Set<MmsUserRole> roleForMgmt = new HashSet<>();
 		roleForTenant.add(userRoleThree);
 		
-		MmsUser userOne = new MmsUser(1,"phenderson@randatmail.com" , "7b09hy", "Penelope" 	, "Henderson"	,	"259-6277-1868",roleForTenant,userStatusOne);
-		MmsUser userTwo = new MmsUser(2,"akelley@randatmail.com"		, "lew9m5", "Amber"		, "Kelley"		,   "692-6874-5059",roleForTenant,userStatusOne);
-		MmsUser userThree = new MmsUser(3,"lbarnes@randatmail.com"		, "lw2w1x", "Luke"		, "Barnes"		,   "142-5179-6543",roleForTenant,userStatusOne);
-		MmsUser userFour = new MmsUser(4,"tdavis@randatmail.com"		, "k6x16i", "Tess"		, "Davis"		,   "661-8520-4942",roleForTenant,userStatusOne);
-		MmsUser userFive = new MmsUser(5,"hfoster@randatmail.com"		, "ywbsg6", "Honey"		, "Foster"		,   "123-1837-1641",roleForTenant,userStatusOne);
-		MmsUser userSix = new MmsUser(6,"hbrown@randatmail.com"		, "erbsg6", "Henery"	, "Brown"		,   "434-1847-1241",roleForTenant,userStatusOne);
-		MmsUser userSeven = new MmsUser(7,"lbarnesere@randatmail.com"		, "ws2w1x", "Tuke"		, "Boarnes"		,   "176-5179-6543",roleForTech,userStatusOne);
-		MmsUser userEight = new MmsUser(8,"tdavissec@randatmail.com"		, "rfx16i", "Less"		, "Travis"		,   "698-8520-4942",roleForTech,userStatusOne);
-		MmsUser userNine = new MmsUser(9,"hfosterwed@randatmail.com"		, "edbsg6", "Koney"		, "Monster"		,   "165-1837-1641",roleForMgmt,userStatusOne);
-		MmsUser userTen = new MmsUser(10,"hbrownwsde@randatmail.com"		, "websg6", "Nenery"	, "Aswown"		,   "423-1847-1241",roleForMgmt,userStatusOne);
+		MmsUser userOne = new MmsUser(1,"phenderson@randatmail.com" , "7b09hy", "Penelope" 	, "Henderson"	,	"259-6277-1868",roleForTenant,userStatusOne,"N",null);
+		MmsUser userTwo = new MmsUser(2,"akelley@randatmail.com"		, "lew9m5", "Amber"		, "Kelley"		,   "692-6874-5059",roleForTenant,userStatusOne,"N",null);
+		MmsUser userThree = new MmsUser(3,"lbarnes@randatmail.com"		, "lw2w1x", "Luke"		, "Barnes"		,   "142-5179-6543",roleForTenant,userStatusOne,"N",null);
+		MmsUser userFour = new MmsUser(4,"tdavis@randatmail.com"		, "k6x16i", "Tess"		, "Davis"		,   "661-8520-4942",roleForTenant,userStatusOne,"N",null);
+		MmsUser userFive = new MmsUser(5,"hfoster@randatmail.com"		, "ywbsg6", "Honey"		, "Foster"		,   "123-1837-1641",roleForTenant,userStatusOne,"N",null);
+		MmsUser userSix = new MmsUser(6,"hbrown@randatmail.com"		, "erbsg6", "Henery"	, "Brown"		,   "434-1847-1241",roleForTenant,userStatusOne,"N",null);
+		MmsUser userSeven = new MmsUser(7,"lbarnesere@randatmail.com"		, "ws2w1x", "Tuke"		, "Boarnes"		,   "176-5179-6543",roleForTech,userStatusOne,"N",null);
+		MmsUser userEight = new MmsUser(8,"tdavissec@randatmail.com"		, "rfx16i", "Less"		, "Travis"		,   "698-8520-4942",roleForTech,userStatusOne,"N",null);
+		MmsUser userNine = new MmsUser(9,"hfosterwed@randatmail.com"		, "edbsg6", "Koney"		, "Monster"		,   "165-1837-1641",roleForMgmt,userStatusOne,"N",null);
+		MmsUser userTen = new MmsUser(10,"hbrownwsde@randatmail.com"		, "websg6", "Nenery"	, "Aswown"		,   "423-1847-1241",roleForMgmt,userStatusOne,"N",null);
 		
 		stubListOfUsers.add(userOne);
 		stubListOfUsers.add(userTwo);

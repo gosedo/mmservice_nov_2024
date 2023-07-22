@@ -102,7 +102,10 @@ public class CustomSecurityConfig {
         http   
         .authorizeHttpRequests(	authorize -> 
         						authorize.requestMatchers("api/mmsuser/mmsuser-create").authenticated()
-        								 .requestMatchers("api/mmsuser/mmsuser-list").authenticated());
+        								 .requestMatchers("api/mmsuser/mmsuser-list").authenticated()
+        								 .requestMatchers("api/mmsuser/mmsuser-update").authenticated()
+        								 .requestMatchers("api/mmsuser/mmsuser-activation").permitAll());
+     
         
         http.authorizeHttpRequests().anyRequest().authenticated();
 

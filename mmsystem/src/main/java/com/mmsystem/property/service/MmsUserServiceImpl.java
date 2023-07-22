@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.hibernate.HibernateException;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mmsystem.property.dto.AuthInformationDTO;
+import com.mmsystem.property.dto.MmsUserActivationDTO;
 import com.mmsystem.property.dto.MmsUserCreateDTO;
 import com.mmsystem.property.dto.MmsUserDTO;
 import com.mmsystem.property.dto.MmsUserUpdateDTO;
@@ -28,7 +30,10 @@ import com.mmsystem.property.model.MmsUserStatus;
 import com.mmsystem.property.repo.MmsIssuesRepository;
 import com.mmsystem.property.repo.MmsUserJPARepository;
 import com.mmsystem.property.repo.UserRepository;
+import com.mmsystem.property.util.EmailUtil;
+import com.mmsystem.property.util.MmsComposeEmailUtil;
 import com.mmsystem.property.util.UserStatusesConstants;
+import com.mmsystem.property.util.YesOrNoConstants;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,6 +56,9 @@ public class MmsUserServiceImpl implements MmsUserService {
   
   @Autowired
   private MmsUserStatusServiceImpl mmsUserStatusServiceImpl;
+  
+  @Autowired
+  private EmailUtil emailUtilService;
   
   //Start using JPA Repo
   
@@ -81,12 +89,19 @@ public class MmsUserServiceImpl implements MmsUserService {
 	  userToSave.setUserPhone(mmsUserCreateDto.getUserPhone());
 	  userToSave.setUserRoles(setOfUserRoles);
 	  userToSave.setUserStatus(mmsUserStatus);
+	  userToSave.setIsVerified("N");
+	  
+	  UUID uuid = UUID.randomUUID();
+	  userToSave.setActivationId(uuid.toString());
 	  
 	  String passwd= userToSave.getUserPassword();
 	  String encodedPasswod = passwordEncoder.encode(passwd);
 	  userToSave.setUserPassword(encodedPasswod);
 	  
 	  MmsUser mmsUserSaved = mmspUserJpaRepo.save(userToSave); 
+	  
+	  
+	  String iSMessegaeSent = emailUtilService.sendSimpleMail(MmsComposeEmailUtil.composerNewAccountEmail("ethioteste@gmail.com", mmsUserSaved.getActivationId()));
       
       return MmsUserMapper.INSTANCE.mapToUserDto(mmsUserSaved);
   }
@@ -125,6 +140,36 @@ public class MmsUserServiceImpl implements MmsUserService {
       
       return returnUserDTO;
   }
+  
+  @Override
+  public boolean updateUserActivation(MmsUserActivationDTO mmsUserActivationDTO) throws ResourceNotFoundException { 
+	  
+	  MmsUser checkUserExists = mmspUserJpaRepo.findByActivationId(mmsUserActivationDTO.getActivationId());
+	  
+	  if(checkUserExists == null) {
+		  String message = String.format("No with the provided info exists.", mmsUserActivationDTO.getActivationId());
+		  throw new ResourceNotFoundException(message);
+	  }
+	  
+	  MmsUser userToUpdate = checkUserExists;
+	  userToUpdate.setUserPassword(mmsUserActivationDTO.getNewPassword());
+	  userToUpdate.setIsVerified(YesOrNoConstants.YES);
+	  
+	  UUID uuid = UUID.randomUUID();
+	  userToUpdate.setActivationId(uuid.toString());
+	  
+	  String passwd= userToUpdate.getUserPassword();
+	  String encodedPasswod = passwordEncoder.encode(passwd);
+	  userToUpdate.setUserPassword(encodedPasswod);
+	  
+	  MmsUser mmsUserUpdated = mmspUserJpaRepo.save(userToUpdate);
+	  
+	  MmsUserDTO returnUserDTO = MmsUserMapper.INSTANCE.mapToUserDto(mmsUserUpdated);
+	  
+      
+      return true;
+  }
+  
   
   
   @Override

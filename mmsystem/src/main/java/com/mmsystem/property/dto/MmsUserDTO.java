@@ -28,5 +28,7 @@ public class MmsUserDTO {
 	private String userPhone;
 	private Set<MmsUserRoleDTO> userRoles;
 	private MmsUserStatusDTO userStatus;
+	private String isVerified;
+	private String activationId;
 
 }

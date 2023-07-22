@@ -8,5 +8,6 @@ import com.mmsystem.property.model.MmsUser;
 public interface MmsUserJPARepository extends JpaRepository<MmsUser, Integer>{
 	
 	MmsUser findByUserEmail(String userEmail);
+	MmsUser findByActivationId(String activationId);
 
 }

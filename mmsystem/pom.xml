@@ -108,6 +108,11 @@
 			<version>0.11.1</version>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 <!--		End of Security related dependency -->	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

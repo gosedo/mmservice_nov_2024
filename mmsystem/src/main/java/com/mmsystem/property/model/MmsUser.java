@@ -49,6 +49,7 @@ public class MmsUser {
 	private String userPhone;
 	
 	
+	
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.REFRESH }, fetch = FetchType.EAGER)
 	@JoinTable(
 			joinColumns = @JoinColumn(name = "userId", referencedColumnName = "userId"), 
@@ -61,6 +62,10 @@ public class MmsUser {
 	@ManyToOne
 	@JoinColumn(name = "userStatusId", nullable = false)
 	private MmsUserStatus userStatus;
+	
+	
+	private String isVerified;
+	private String activationId;
 	
 	
 	@Override

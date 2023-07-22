@@ -4,9 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 import com.mmsystem.property.dto.AuthInformationDTO;
+import com.mmsystem.property.dto.MmsUserActivationDTO;
 import com.mmsystem.property.dto.MmsUserCreateDTO;
 import com.mmsystem.property.dto.MmsUserDTO;
 import com.mmsystem.property.dto.MmsUserUpdateDTO;
+import com.mmsystem.property.exception.ResourceNotFoundException;
 import com.mmsystem.property.model.MmsUser;
 
 
@@ -37,6 +39,8 @@ public interface MmsUserService {
     AuthInformationDTO createAuthInfoDTO(String jwtToken,Date tokenExpiration, MmsUserDTO userDTO);
 
 	MmsUserDTO updateUser(MmsUserUpdateDTO mmsUserUpdateDto);
+
+	boolean updateUserActivation(MmsUserActivationDTO mmsUserActivationDTO) throws ResourceNotFoundException;
     
 
 } 
