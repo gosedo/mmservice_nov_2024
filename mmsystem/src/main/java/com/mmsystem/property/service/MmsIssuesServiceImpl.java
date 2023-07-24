@@ -138,7 +138,7 @@ public class MmsIssuesServiceImpl implements MmsIssuesService {
         
 	}
 	
-	public MmsIssueResponse getAllMmsIssuesPagedByUserId(int userId
+	public MmsIssueResponse getAllMmsIssuesPagedByUserId(int userId,int issueId
 															, String startDate
 															, String endDate
 															,MmsPageParam pageParam) {
@@ -153,7 +153,7 @@ public class MmsIssuesServiceImpl implements MmsIssuesService {
         
         MmsUser mmsUser = mmsUserService.getUserByID(userId);
 		
-		MmsUserRole mmsUserRole = mmsUserRoleService.getRoleById(RoleTypeConstants.TENANT);
+		MmsUserRole tenantRole = mmsUserRoleService.getRoleById(RoleTypeConstants.TENANT);
 		
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
@@ -161,18 +161,36 @@ public class MmsIssuesServiceImpl implements MmsIssuesService {
 		LocalDateTime startDateParam = LocalDateTime.parse(startDate,formatter);
 		LocalDateTime endDateParam = LocalDateTime.parse(endDate, formatter);
 
+		//The working version
 		
+//		Page<MmsMaintenanceIssue> mmsissuesPage = mmsUser.getUserRoles().contains(tenantRole) ? 
+//												  mmsIssuesJPARepository
+//												  	.findByCreatedOnDateGreaterThanEqualAndCreatedOnDateLessThanEqualAndRequestedByTenantInfoUserId(
+//												  			startDateParam
+//												  			,endDateParam
+//												  			,(long) userId
+//												  			
+//												  			,pageable)
+//												: mmsIssuesJPARepository.findByCreatedOnDateGreaterThanEqualAndCreatedOnDateLessThanEqual(
+//														startDateParam
+//											  			,endDateParam,
+//											  			pageable);
 		
-		
-		Page<MmsMaintenanceIssue> mmsissuesPage = mmsUser.getUserRoles().contains(mmsUserRole) ? 
-												  mmsIssuesJPARepository
-												  	.findByCreatedOnDateGreaterThanEqualAndCreatedOnDateLessThanEqualAndRequestedByTenantInfoUserId(
-												  			startDateParam
-												  			,endDateParam
-												  			,(long) userId
-												  			
-												  			,pageable)
-												: mmsIssuesJPARepository.findAll(pageable);
+		Page<MmsMaintenanceIssue> mmsissuesPage = mmsUser.getUserRoles().contains(tenantRole) ? 
+				  mmsIssuesJPARepository
+				  	.findIssueByDateAndUserIdAndIssueId(
+				  			startDateParam
+				  			,endDateParam
+				  			,(long) userId
+				  			,(long) issueId
+				  			,pageable)
+				: mmsIssuesJPARepository
+			  		.findIssueByDateAndUserIdAndIssueId(
+			  			startDateParam
+			  			,endDateParam
+			  			,null
+			  			,(long) issueId
+			  			,pageable);
 		
      
         List<MmsMaintenanceIssue> listOfMmsIssues = mmsissuesPage.getContent();

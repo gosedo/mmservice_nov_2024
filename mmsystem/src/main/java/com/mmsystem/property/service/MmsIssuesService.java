@@ -21,7 +21,7 @@ public interface MmsIssuesService {
 	
 		MmsIssueResponse getAllMmsIssuesPaged(int pageNo, int pageSize, String sortBy, String sortDir);
 	
-		MmsIssueResponse getAllMmsIssuesPagedByUserId(int userId, String startDate
+		MmsIssueResponse getAllMmsIssuesPagedByUserId(int userId,int issueId, String startDate
 														, String endDate ,MmsPageParam pageParam);
 	
 		MmsMaintenanceIssueDTO saveMmsIssue(MmsMaintenanceIssueDTO mmsIssueDTO);

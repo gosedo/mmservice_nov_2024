@@ -98,6 +98,7 @@ public class MmsIssueController {
 	
 	@GetMapping("mmsissue/list-paged/{mmsuser_id}")
 	public MmsIssueResponse getMmsIssueByUserIDPaged(@PathVariable("mmsuser_id") int mmsuser_id,
+			@RequestParam(value = "issueId",  required = false) int issueId,
 			@RequestParam(value = "startDate",  required = false) String startDate,
             @RequestParam(value = "endDate", required = false) String endDate,
 			@RequestParam(value = "pageNo", defaultValue = IssuesPageConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
@@ -106,7 +107,10 @@ public class MmsIssueController {
             @RequestParam(value = "sortDir", defaultValue = IssuesPageConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
 			) {
 		MmsPageParam pageParam = new MmsPageParam(pageNo,pageSize,sortBy,sortDir);
-		return mmsIssuesService.getAllMmsIssuesPagedByUserId(mmsuser_id,startDate,endDate,pageParam);
+		//old working version just by created date and userId
+		//return mmsIssuesService.getAllMmsIssuesPagedByUserId(mmsuser_id,startDate,endDate,pageParam);
+		
+		return mmsIssuesService.getAllMmsIssuesPagedByUserId(mmsuser_id,issueId,startDate,endDate,pageParam);
 
 	}
 	

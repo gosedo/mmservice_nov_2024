@@ -93,7 +93,7 @@ class MmsIssuesServiceImplTest {
 //		LocalDateTime startDateParam = LocalDateTime.parse("2023-07-19T20:39:14.000X",formatter);
 //		LocalDateTime endDateParam = LocalDateTime.parse("2023-07-19T20:39:14.000X", formatter);
 		
-		MmsIssueResponse responseForIssues =  mmsIssueService.getAllMmsIssuesPagedByUserId(9
+		MmsIssueResponse responseForIssues =  mmsIssueService.getAllMmsIssuesPagedByUserId(9,0
 																			,"2023-07-05T01:07:19.967Z"
 																			,"2023-07-20T01:07:19.967Z"
 																			, pageParam);
