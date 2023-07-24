@@ -8,8 +8,10 @@ import com.mmsystem.property.dto.MmsUserActivationDTO;
 import com.mmsystem.property.dto.MmsUserCreateDTO;
 import com.mmsystem.property.dto.MmsUserDTO;
 import com.mmsystem.property.dto.MmsUserUpdateDTO;
+import com.mmsystem.property.dto.MmsUsersResponse;
 import com.mmsystem.property.exception.ResourceNotFoundException;
 import com.mmsystem.property.model.MmsUser;
+import com.mmsystem.property.util.MmsPageParam;
 
 
 public interface MmsUserService {
@@ -41,6 +43,9 @@ public interface MmsUserService {
 	MmsUserDTO updateUser(MmsUserUpdateDTO mmsUserUpdateDto);
 
 	boolean updateUserActivation(MmsUserActivationDTO mmsUserActivationDTO) throws ResourceNotFoundException;
+
+	MmsUsersResponse getAllMmsUsersPagedByNameOrEmail(String userFirstname, String userLastname, String userEmail,
+			MmsPageParam pageParam);
     
 
 } 

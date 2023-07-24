@@ -3,6 +3,7 @@ package com.mmsystem.property.mapper;
 
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.mmsystem.property.dto.MmsUserDTO;
@@ -12,9 +13,10 @@ import com.mmsystem.property.model.MmsUser;
 public interface MmsUserMapper {
 	
 	MmsUserMapper INSTANCE = Mappers.getMapper(MmsUserMapper.class);
-		
-	 MmsUserDTO mapToUserDto(MmsUser mmsuser);
+	 
+	@Mapping(target = "userPassword", ignore = true)
+	MmsUserDTO mapToUserDto(MmsUser mmsuser);
 
-	 MmsUser mapToUser(MmsUserDTO mmsuserDto);
+	MmsUser mapToUser(MmsUserDTO mmsuserDto);
 	 
 }

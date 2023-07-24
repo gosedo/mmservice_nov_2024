@@ -104,6 +104,7 @@ public class CustomSecurityConfig {
         						authorize.requestMatchers("api/mmsuser/mmsuser-create").authenticated()
         								 .requestMatchers("api/mmsuser/mmsuser-list").authenticated()
         								 .requestMatchers("api/mmsuser/mmsuser-update").authenticated()
+        								 .requestMatchers("api/mmsuser/mmsuser-list-paged").authenticated()
         								 .requestMatchers("api/mmsuser/mmsuser-activation").permitAll());
      
         

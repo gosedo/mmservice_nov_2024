@@ -9,15 +9,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mmsystem.property.dto.MmsIssueResponse;
 import com.mmsystem.property.dto.MmsUserActivationDTO;
 import com.mmsystem.property.dto.MmsUserCreateDTO;
 import com.mmsystem.property.dto.MmsUserDTO;
 import com.mmsystem.property.dto.MmsUserUpdateDTO;
+import com.mmsystem.property.dto.MmsUsersResponse;
 import com.mmsystem.property.model.MmsUser;
 
 import com.mmsystem.property.service.MmsUserService;
+import com.mmsystem.property.util.IssuesPageConstants;
+import com.mmsystem.property.util.MmsPageParam;
 
 import jakarta.validation.Valid;
 
@@ -55,6 +60,24 @@ public class UserController {
 	@PostMapping("mmsuser-activation") 
 	public boolean updateUserActivation(@Valid @RequestBody MmsUserActivationDTO mmsUserActivationDTO){ 
 		 return mmsUserService.updateUserActivation(mmsUserActivationDTO);
+	}
+
+	
+	@GetMapping("mmsuser-list-paged")
+	public MmsUsersResponse getMmsUserByNameAndEmailPaged(
+					@RequestParam(value = "userFirstname",  required = false) String userFirstname,
+					@RequestParam(value = "userLastname",  required = false) String userLastname,
+		            @RequestParam(value = "userEmail", required = false) String userEmail,
+					@RequestParam(value = "pageNo", defaultValue = IssuesPageConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+		            @RequestParam(value = "pageSize", defaultValue = IssuesPageConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+		            @RequestParam(value = "sortBy", defaultValue = IssuesPageConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+		            @RequestParam(value = "sortDir", defaultValue = IssuesPageConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+			) {
+		MmsPageParam pageParam = new MmsPageParam(pageNo,pageSize,sortBy,sortDir);
+		
+		
+		return mmsUserService.getAllMmsUsersPagedByNameOrEmail(userFirstname,userLastname,userEmail,pageParam);
+
 	}
 	
 	@GetMapping("mmsuser-list")
