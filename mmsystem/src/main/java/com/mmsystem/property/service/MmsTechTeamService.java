@@ -11,5 +11,6 @@ public interface MmsTechTeamService {
 	boolean delete(MmsTechTeam pojo);
 	MmsTechTeam findById(MmsTechTeam pojo);
 	MmsTechTeam update(MmsTechTeam pojo);
+	MmsTechTeam findById(int techTeamId);
 
 }

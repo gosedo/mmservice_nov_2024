@@ -17,4 +17,6 @@ public interface MmsUnitService {
 
 	boolean updateMmsUnit(MmsUnit pojo);
 
+	MmsUnit findById(int unitId);
+
 }

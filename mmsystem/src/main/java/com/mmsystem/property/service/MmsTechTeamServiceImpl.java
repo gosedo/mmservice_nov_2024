@@ -43,9 +43,16 @@ public class MmsTechTeamServiceImpl implements MmsTechTeamService{
 		return true;
 	}
 
+	@Override
 	public MmsTechTeam findById(MmsTechTeam pojo) {
 		
 		return mmsTechTeamJPARepository.findById((long) pojo.getTechTeamId()).get();
+	}
+	
+	@Override
+	public MmsTechTeam findById(int techTeamId) {
+		
+		return mmsTechTeamJPARepository.findById((long) techTeamId).get();
 	}
 		
 	public MmsTechTeam update(MmsTechTeam pojo) {

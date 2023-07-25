@@ -23,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mmsystem.property.dto.AuthInformationDTO;
 import com.mmsystem.property.dto.MmsIssueResponse;
 import com.mmsystem.property.dto.MmsMaintenanceIssueDTO;
+import com.mmsystem.property.dto.MmsTechTeamMemberDTO;
+import com.mmsystem.property.dto.MmsTenantDTO;
 import com.mmsystem.property.dto.MmsUserActivationDTO;
 import com.mmsystem.property.dto.MmsUserCreateDTO;
 import com.mmsystem.property.dto.MmsUserDTO;
@@ -35,6 +37,7 @@ import com.mmsystem.property.mapper.MmsTechTaskMapper;
 import com.mmsystem.property.mapper.MmsUserMapper;
 import com.mmsystem.property.model.MmsMaintenanceIssue;
 import com.mmsystem.property.model.MmsTechTask;
+import com.mmsystem.property.model.MmsTenant;
 import com.mmsystem.property.model.MmsUser;
 import com.mmsystem.property.model.MmsUserRole;
 import com.mmsystem.property.model.MmsUserStatus;
@@ -69,6 +72,13 @@ public class MmsUserServiceImpl implements MmsUserService {
   
   @Autowired
   private MmsUserStatusServiceImpl mmsUserStatusServiceImpl;
+  
+  @Autowired
+  private MmsTenantService mmsTenantService;
+  
+  @Autowired
+  private MmsTechTeamMemberService mmsTechTeamMemberService;
+  
   
   @Autowired
   private EmailUtil emailUtilService;
@@ -111,13 +121,27 @@ public class MmsUserServiceImpl implements MmsUserService {
 	  String encodedPasswod = passwordEncoder.encode(passwd);
 	  userToSave.setUserPassword(encodedPasswod);
 	  
-	  MmsUser mmsUserSaved = mmspUserJpaRepo.save(userToSave); 
+	  MmsUser mmsUserSaved = mmspUserJpaRepo.save(userToSave);
+	  
+	  MmsTenantDTO mmsUserTenancy;
+	  
+	  MmsTechTeamMemberDTO mmsUserMemebrOf;
+	  
+	  if(mmsUserCreateDto.getUserRoles() == RoleTypeConstants.TENANT) {
+		  mmsUserTenancy = mmsTenantService.addTenant(mmsUserSaved, mmsUserCreateDto.getUserUnit());
+	  }
+	  
+	  if(mmsUserCreateDto.getUserRoles() == RoleTypeConstants.TECHNICIAN) {
+		  mmsUserMemebrOf = mmsTechTeamMemberService.addTeamMember(mmsUserSaved, mmsUserCreateDto.getUserTeam());
+	  }
 	  
 	  
 	  String iSMessegaeSent = emailUtilService.sendSimpleMail(MmsComposeEmailUtil.composerNewAccountEmail("ethioteste@gmail.com", mmsUserSaved.getActivationId()));
       
       return MmsUserMapper.INSTANCE.mapToUserDto(mmsUserSaved);
   }
+  
+  
   
   @Override
   public MmsUserDTO updateUser(MmsUserUpdateDTO mmsUserUpdateDTO) throws ResourceNotFoundException { 

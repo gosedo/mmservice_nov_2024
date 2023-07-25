@@ -12,6 +12,7 @@ import com.mmsystem.property.mapper.MmsPropertyMapper;
 import com.mmsystem.property.mapper.MmsUnitMapper;
 import com.mmsystem.property.model.MmsProperty;
 import com.mmsystem.property.model.MmsUnit;
+import com.mmsystem.property.repo.MmsUnitsJPARepository;
 import com.mmsystem.property.repo.MmsUnitsRepository;
 
 
@@ -23,6 +24,16 @@ public class MmsUnitServiceImpl implements MmsUnitService {
 	
 	@Autowired  
 	private MmsUnitsRepository mmsUnitsRepo; 
+	
+	@Autowired
+	private MmsUnitsJPARepository mmsUnitsJPARepository;
+	
+	//Start JPA
+	@Override
+	public MmsUnit findById(int unitId) {
+		
+		return mmsUnitsJPARepository.findById(unitId).get();
+	}
 	
 	
 	public MmsUnitDTO saveMmsUnit(MmsUnitDTO mmsUnitDTO) {

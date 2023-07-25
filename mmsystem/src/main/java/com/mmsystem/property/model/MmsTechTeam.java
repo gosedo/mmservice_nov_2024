@@ -20,16 +20,18 @@ import lombok.Setter;
 @Table(name="mmstechteams")
 public class MmsTechTeam {
 	
-	@Override
-	public int hashCode() {
-		return Objects.hash(techTeamDescr, techTeamId);
-	}
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int techTeamId;
 	
 	private String techTeamDescr;
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(techTeamDescr, techTeamId);
+	}
+
 	
 	
 }

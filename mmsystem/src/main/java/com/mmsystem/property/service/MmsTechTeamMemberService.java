@@ -3,6 +3,7 @@ package com.mmsystem.property.service;
 import java.util.List;
 import com.mmsystem.property.dto.MmsTechTeamMemberDTO;
 import com.mmsystem.property.model.MmsTechTeamMember;
+import com.mmsystem.property.model.MmsUser;
 
 
 public interface MmsTechTeamMemberService {
@@ -18,5 +19,7 @@ public interface MmsTechTeamMemberService {
 	MmsTechTeamMember findByUserId(int userId);
 		
 	MmsTechTeamMember update(MmsTechTeamMember pojo);
+
+	MmsTechTeamMemberDTO addTeamMember(MmsUser mmsuser, int techTeamId);
 
 }

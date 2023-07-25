@@ -24,6 +24,10 @@ public class MmsUserCreateDTO {
 	private String userLastname;
 	private String userPhone;
 	private int userRoles;
+	private int userTeam;
+	private int userUnit;
 	
 }
+
+
 
