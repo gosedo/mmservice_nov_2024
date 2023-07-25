@@ -23,6 +23,7 @@ import com.mmsystem.property.model.MmsUser;
 import com.mmsystem.property.service.MmsUserService;
 import com.mmsystem.property.util.IssuesPageConstants;
 import com.mmsystem.property.util.MmsPageParam;
+import com.mmsystem.property.util.UsersPageConstants;
 
 import jakarta.validation.Valid;
 
@@ -65,13 +66,13 @@ public class UserController {
 	
 	@GetMapping("mmsuser-list-paged")
 	public MmsUsersResponse getMmsUserByNameAndEmailPaged(
-					@RequestParam(value = "userFirstname",  required = false) String userFirstname,
-					@RequestParam(value = "userLastname",  required = false) String userLastname,
-		            @RequestParam(value = "userEmail", required = false) String userEmail,
-					@RequestParam(value = "pageNo", defaultValue = IssuesPageConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
-		            @RequestParam(value = "pageSize", defaultValue = IssuesPageConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
-		            @RequestParam(value = "sortBy", defaultValue = IssuesPageConstants.DEFAULT_SORT_BY, required = false) String sortBy,
-		            @RequestParam(value = "sortDir", defaultValue = IssuesPageConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+					@RequestParam(value = "userFirstname",defaultValue = UsersPageConstants.DEFAULT_FIRST_NAME,  required = false) String userFirstname,
+					@RequestParam(value = "userLastname",defaultValue = UsersPageConstants.DEFAULT_LAST_NAME,  required = false) String userLastname,
+		            @RequestParam(value = "userEmail",defaultValue = UsersPageConstants.DEFAULT_USER_EMAIL, required = false) String userEmail,
+					@RequestParam(value = "pageNo", defaultValue = UsersPageConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+		            @RequestParam(value = "pageSize", defaultValue = UsersPageConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+		            @RequestParam(value = "sortBy", defaultValue = UsersPageConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+		            @RequestParam(value = "sortDir", defaultValue = UsersPageConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
 			) {
 		MmsPageParam pageParam = new MmsPageParam(pageNo,pageSize,sortBy,sortDir);
 		

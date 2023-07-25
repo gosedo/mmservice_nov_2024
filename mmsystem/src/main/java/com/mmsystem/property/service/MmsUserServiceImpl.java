@@ -134,17 +134,28 @@ public class MmsUserServiceImpl implements MmsUserService {
 	  Set<MmsUserRole> userRoles = mmsUserRoleServiceImpl.getUserRoles(mmsUserUpdateDTO.getUserRoles());
 	  MmsUserStatus mmsUserStatus =mmsUserStatusServiceImpl.getUserStatusById(mmsUserUpdateDTO.getUserStatus());
 	  
+	  
 	  userToUpdate.setUserEmail(mmsUserUpdateDTO.getUserEmail());
-	  userToUpdate.setUserPassword(mmsUserUpdateDTO.getUserPassword());
 	  userToUpdate.setUserFirstname(mmsUserUpdateDTO.getUserFirstname());
 	  userToUpdate.setUserLastname(mmsUserUpdateDTO.getUserLastname());
 	  userToUpdate.setUserPhone(mmsUserUpdateDTO.getUserPhone());
 	  userToUpdate.setUserRoles(userRoles);
 	  userToUpdate.setUserStatus(mmsUserStatus);
 	  
-	  String passwd= userToUpdate.getUserPassword();
-	  String encodedPasswod = passwordEncoder.encode(passwd);
-	  userToUpdate.setUserPassword(encodedPasswod);
+	  //Password change business logic Don't change if length less than 5 and encrypt length > 5 
+	  if(mmsUserUpdateDTO.getUserPassword() !=null ) {
+		  
+		  if(mmsUserUpdateDTO.getUserPassword().length() > 5) {
+			  
+			  userToUpdate.setUserPassword(mmsUserUpdateDTO.getUserPassword());
+			  
+			  String passwd= userToUpdate.getUserPassword();
+			  String encodedPasswod = passwordEncoder.encode(passwd);
+			  userToUpdate.setUserPassword(encodedPasswod);
+			  
+		  }
+		 
+	  }
 	  
 	  MmsUser mmsUserUpdated = mmspUserJpaRepo.save(userToUpdate);
 	  
