@@ -15,7 +15,9 @@ import com.mmsystem.property.dto.MmsUnitDTO;
 import com.mmsystem.property.model.MmsUnit;
 import com.mmsystem.property.service.MmsUnitService;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api/mmsunit")

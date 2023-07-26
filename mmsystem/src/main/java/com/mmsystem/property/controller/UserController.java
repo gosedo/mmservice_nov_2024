@@ -12,21 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mmsystem.property.dto.MmsIssueResponse;
 import com.mmsystem.property.dto.MmsUserActivationDTO;
 import com.mmsystem.property.dto.MmsUserCreateDTO;
 import com.mmsystem.property.dto.MmsUserDTO;
 import com.mmsystem.property.dto.MmsUserUpdateDTO;
 import com.mmsystem.property.dto.MmsUsersResponse;
 import com.mmsystem.property.model.MmsUser;
-
 import com.mmsystem.property.service.MmsUserService;
-import com.mmsystem.property.util.IssuesPageConstants;
 import com.mmsystem.property.util.MmsPageParam;
 import com.mmsystem.property.util.UsersPageConstants;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api/mmsuser")
@@ -40,16 +39,10 @@ public class UserController {
 		return "The result from Gosa";
 
 	}
-
-	/*
-	 * @PostMapping("user-save") public boolean saveUser() { return
-	 * true;//mmsUserService.saveUser(mmsUser);
-	 * 
-	 * }
-	 */
 	
-	@PostMapping("mmsuser-create") 
+	@PostMapping(value="/mmsuser-create") 
 	public MmsUserDTO createUser(@RequestBody MmsUserCreateDTO mmsUserCreateDto){ 
+		
 		 return mmsUserService.createUser(mmsUserCreateDto);
 	}
 	

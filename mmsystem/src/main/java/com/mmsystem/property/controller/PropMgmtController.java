@@ -18,8 +18,10 @@ import com.mmsystem.property.exception.ResourceNotFoundException;
 import com.mmsystem.property.model.MmsPropertyManagement;
 import com.mmsystem.property.service.MmsPropMgmtService;
 
+import lombok.extern.slf4j.Slf4j;
 
 
+@Slf4j
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api/propmgmt")

@@ -26,6 +26,9 @@ import com.mmsystem.property.service.MmsTechTaskService;
 
 import com.mmsystem.property.util.IssuesPageConstants;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api/task")

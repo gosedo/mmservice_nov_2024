@@ -181,7 +181,14 @@ public class MmsUserServiceImpl implements MmsUserService {
 		 
 	  }
 	  
+	  UUID uuid = UUID.randomUUID();
+	  userToUpdate.setActivationId(uuid.toString());
+	  
+	  
 	  MmsUser mmsUserUpdated = mmspUserJpaRepo.save(userToUpdate);
+	  
+	  
+	  String iSMessegaeSent = emailUtilService.sendSimpleMail(MmsComposeEmailUtil.composerNewAccountEmail("ethioteste@gmail.com", mmsUserUpdated.getActivationId()));
 	  
 	  MmsUserDTO returnUserDTO = MmsUserMapper.INSTANCE.mapToUserDto(mmsUserUpdated);
 	  
