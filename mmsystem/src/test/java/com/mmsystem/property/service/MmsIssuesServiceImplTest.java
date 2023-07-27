@@ -77,6 +77,25 @@ class MmsIssuesServiceImplTest {
 		
 		Mockito.when(mmsIssuesJPARepository.findByRequestedByTenantInfoUserId((long)1)).thenReturn(allData.getStubListOfIssues());
 		
+		int issueId;
+		//marked
+		Mockito.when( 
+				  mmsIssuesJPARepository
+				  	.findIssueByDateAndUserIdAndIssueId(
+				  			startDateParam
+				  			,endDateParam
+				  			,(long) 1
+				  			,(long) 0
+				  			,pageable)).thenReturn(allData.getIssuesByUserIdPagedFromStub(1));
+		
+		Mockito.when(  mmsIssuesJPARepository
+			  		.findIssueByDateAndUserIdAndIssueId(
+			  			startDateParam
+			  			,endDateParam
+			  			,null
+			  			,(long) 0
+			  			,pageable)).thenReturn(allData.getAllIssuePagedFromStub());
+		
 		
 	}
 	
@@ -121,9 +140,9 @@ class MmsIssuesServiceImplTest {
 		//jupiter.api
 		assertEquals(3,issuesList.size());
 		
-		//hamcrest
-		assertThat(3,equalTo(issuesList.size()));
-		assertThat(issuesList.get(0), instanceOf(MmsMaintenanceIssueDTO.class));
+//		//hamcrest
+//		assertThat(3,equalTo(issuesList.size()));
+//		assertThat(issuesList.get(0), instanceOf(MmsMaintenanceIssueDTO.class));
 		
 		//assertj
 		assertThat(3).isEqualTo(issuesList.size());

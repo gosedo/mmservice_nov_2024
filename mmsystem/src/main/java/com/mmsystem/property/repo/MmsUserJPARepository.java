@@ -1,6 +1,8 @@
 package com.mmsystem.property.repo;
 
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,5 +25,8 @@ public interface MmsUserJPARepository extends JpaRepository<MmsUser, Integer>{
 		,@Param("userLastname") String userLastname
 		,@Param("userEmail") String userEmail
 		,Pageable pageable);
+	
+	@Query("FROM MmsUser c WHERE c.userEmail like 'mmstestemail%' ORDER BY c.userId desc limit 1 ")
+	List<MmsUser> findLastTestUserWithtestEmail() ;
 
 }

@@ -55,8 +55,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 			MmsUser user = opt.get();
 			return new org.springframework.security.core.userdetails.User(
 					user.getUserEmail(),
-					passwordEncoder.encode(user.getUserPassword()),
-					//user.getUserPassword(),
+					//passwordEncoder.encode(user.getUserPassword()),
+					user.getUserPassword(),
 					roleList
 					.stream()
 					.map(role -> new SimpleGrantedAuthority(ROLE_PREFIX + role.getUsrRoleCode()))

@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -86,6 +88,23 @@ public class MmsIssuesRepositoryJPATest {
 		
 		Sort sort = Sort.by("issueId").ascending();
 		int pageSize =3;
+		int pageNumber = 1;
+	           
+	    Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+	    
+	    List<MmsMaintenanceIssue> pagedListOfIssues = mmsIssuesJPARepository.findIssueByDateAndUserIdAndIssueId(null,null,null,(long)0,pageable).getContent();
+		
+		
+		assertThat(pagedListOfIssues).isNotNull();
+        assertThat(pagedListOfIssues.size()).isEqualTo(pageSize);
+		
+	}
+	@ParameterizedTest
+	@ValueSource(ints = {3, 4, 5})
+	public void givenDifferentPageSize_whenGetPagedIssues_ReturnsNumberOfIssueEqPageSize(int pageSizeInput) {
+		
+		Sort sort = Sort.by("issueId").ascending();
+		int pageSize =pageSizeInput;
 		int pageNumber = 1;
 	           
 	    Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);

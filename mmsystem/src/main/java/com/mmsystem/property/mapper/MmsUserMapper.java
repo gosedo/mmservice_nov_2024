@@ -18,5 +18,8 @@ public interface MmsUserMapper {
 	MmsUserDTO mapToUserDto(MmsUser mmsuser);
 
 	MmsUser mapToUser(MmsUserDTO mmsuserDto);
+	
+	@Mapping(target = "userId", ignore = true)
+	MmsUser mapToUserToNoId(MmsUser mmsuser);
 	 
 }
