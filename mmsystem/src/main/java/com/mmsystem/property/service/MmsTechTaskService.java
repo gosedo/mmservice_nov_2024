@@ -29,4 +29,6 @@ public interface MmsTechTaskService {
 	MmsTechTaskDTO createMmsTechTask(MmsTechTaskCreateDTO mmsTechTaskCreateDTO);
 	
 	MmsTechTaskDTO updateMmsTechTask(MmsTechTaskUpdateDTO mmsTechTaskUpdateDTO);
+
+	int delete(int mmsTechTask_id);
 }

@@ -86,10 +86,16 @@ public class MmsTechTaskController {
     }
 	
 	
-	@DeleteMapping("delete-mmstechtask/{mmstechtask_id}")
+	@DeleteMapping("delete-mmstechtask")
 	public boolean deleteMmsTechTask(@PathVariable("mmstechtask_id") int mmsTechTask_id, MmsTechTask mmsTechTask) {
 		mmsTechTask.setTechTaskId(mmsTechTask_id);
 		return mmsTechTaskService.delete(mmsTechTask);
+	}
+	
+	@DeleteMapping("mmstechtask-delete/{mmstechtask_id}")
+	public int deleteMmsTechTaskById(@PathVariable("mmstechtask_id") int mmsTechTask_id) {
+		
+		return mmsTechTaskService.delete(mmsTechTask_id);
 	}
 
 	@GetMapping("mmstechtask/{mmstechtask_id}")
@@ -99,7 +105,7 @@ public class MmsTechTaskController {
 
 	}
 
-	@PostMapping("update-mmstechtask/{mmstechtask_id}")
+	@PostMapping("mmstechtask-update/{mmstechtask_id}")
 	public boolean updateMmsIssue(@RequestBody MmsTechTask mmsTechTask, @PathVariable("mmstechtask_id") int mmsTechTask_id) {
 		mmsTechTask.setTechTaskId(mmsTechTask_id);
 		mmsTechTaskService.update(mmsTechTask);

@@ -1,5 +1,7 @@
 package com.mmsystem.property.security;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,12 +46,12 @@ public class CustomSecurityConfig {
    CorsConfigurationSource corsConfigurationSource() {
    	CorsConfiguration configuration = new CorsConfiguration();
    	configuration.setAllowCredentials(true);
-   	configuration.addAllowedOrigin("*");
+   	//configuration.setAllowedOrigins(Arrays.asList("*"));
    	
    	//Gosa Uncomment below after testing==============================================
    	//============================================
    	//***************************************************************
-   	//configuration.addAllowedOrigin("http://localhost:4200/");
+   	configuration.addAllowedOrigin("http://localhost:4200/");
    	configuration.addAllowedMethod("*");
    	configuration.addAllowedHeader("*");
    	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -102,7 +104,8 @@ public class CustomSecurityConfig {
         .authorizeHttpRequests(	authorize -> 
         						authorize.requestMatchers("api/task/mmstechtask-list").authenticated()
         								 .requestMatchers("api/task/mmstechtask-create").hasRole("MGMT")
-        								 .requestMatchers("api/task/mmstechtask-update").authenticated());
+        								 .requestMatchers("api/task/mmstechtask-update").authenticated()
+        								 .requestMatchers("api/task/mmstechtask-delete").authenticated());
         
         http   
         .authorizeHttpRequests(	authorize -> 

@@ -212,4 +212,12 @@ public class MmsTechTaskServiceImpl implements MmsTechTaskService {
 		
 		return MmsTechTaskMapper.INSTANCE.mapToMmsTechTaskDto(savedTechTask);
 	}
+
+	@Override
+	public int delete(int mmsTechTask_id) {
+		
+		 mmsTechTaskJPARepository.deleteById((long)mmsTechTask_id);
+		 
+		 return mmsTechTask_id;
+	}
 }

@@ -77,13 +77,12 @@ public class MmsIssueController {
 	
 	@PostMapping("mmsissue-update") 
 	public MmsMaintenanceIssueDTO updateMmsIssue(@RequestBody MmsIssueUpdateDTO issueCreateDto){ 
-		log.info("Request URI: Gosaye from update mmsissue==================" );
+		
 		 return mmsIssuesService.updateMmsIssue(issueCreateDto);
 	}
 	
 	@GetMapping("mmsissue-list")
 	public List<MmsMaintenanceIssue> allIssues() {
-		log.info("Request URI: Gosaye" );
 		
 		return mmsIssuesService.getMmsIssue();
 

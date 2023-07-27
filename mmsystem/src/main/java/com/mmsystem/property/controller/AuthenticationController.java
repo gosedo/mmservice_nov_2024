@@ -28,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
+
 @RequestMapping(path = "api/auth")
 public class AuthenticationController {
 	
