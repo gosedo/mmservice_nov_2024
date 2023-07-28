@@ -13,7 +13,11 @@ import com.mmsystem.property.model.MmsIssueStatus;
 
 import jakarta.transaction.Transactional;
   
-
+/**
+ * Still in migration to JPA but used with custom config.
+ * It used SessionFactory bean for hibernate for database related operations. 
+ * Used for issues statuse
+ * */
 
 @Repository 
 public class MmsIssueStausRepository  implements IMmspRepository<MmsIssueStatus> {  

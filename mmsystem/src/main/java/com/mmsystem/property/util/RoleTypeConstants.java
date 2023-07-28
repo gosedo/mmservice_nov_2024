@@ -1,5 +1,9 @@
 package com.mmsystem.property.util;
 
+/**
+ * Used in codes when roleId are being compared. Just descriptive name.
+ * */
+
 public class RoleTypeConstants {
 	
 	public static final int TENANT = 1;

@@ -6,6 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mmsystem.property.dto.MmsStaticDataDTO;
 
+/**
+ * Used to get static data for client application not to make multiple rounds
+ * */
 
 @Service  
 @Transactional 

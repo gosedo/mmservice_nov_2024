@@ -12,7 +12,10 @@ import org.apache.commons.dbcp.PoolableConnectionFactory;
 import org.apache.commons.dbcp.PoolingDataSource;
 import org.apache.commons.pool.impl.GenericObjectPool;
  
-
+/**
+ * This class is used for log4j database appender.
+ * It provides the datasource with configuration.
+ * */
  
 public class ConnectionFactory {
     private static interface Singleton {

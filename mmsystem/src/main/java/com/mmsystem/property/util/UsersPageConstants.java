@@ -1,5 +1,8 @@
 package com.mmsystem.property.util;
 
+/**
+ * Used by user services to pass values UserJPARepository for default values in the query.
+ * */
 public class UsersPageConstants {
 	
 //	public static final String DEFAULT_START_DATE = LocalDateTime.now().minusDays(15).toString();

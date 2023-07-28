@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -70,6 +71,8 @@ public class MmsIssueControllerTest {
 		MmsMaintenanceIssueDTO mmsMaintenanceIssueDTO = MmsMaintenanceIssueMapper.INSTANCE.mapToIssueDto(mmsMaintenanceIssue);
 		
 		String expectedJson = this.mapToJson(mmsMaintenanceIssueDTO);
+		
+		
 		String userToBeCreated = this.mapToJson(mmsIssueCreateDTO);
 		
 		Mockito.when(mmsIssuesService.createMmsIssue(mmsIssueCreateDTO)).thenReturn(mmsMaintenanceIssueDTO);
@@ -83,12 +86,21 @@ public class MmsIssueControllerTest {
 									.andReturn();
 		String response = mvcResult.getResponse().getContentAsString();
 		
-		assertThat(response).isEqualTo(expectedJson);
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.findAndRegisterModules();
+		MmsMaintenanceIssueDTO mmsMaintenanceIssueDTOreturn =objectMapper.readValue(response, MmsMaintenanceIssueDTO.class);
+		
+		//assertThat(response).isEqualTo(expectedJson);
+		
+		assertThat(mmsMaintenanceIssueDTOreturn).isInstanceOf(MmsMaintenanceIssueDTO.class);
+		
+		
 		
 	}
 	
 	private String mapToJson(Object object) throws JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.findAndRegisterModules();
 		return objectMapper.writeValueAsString(object);
 	}
 

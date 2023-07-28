@@ -1,12 +1,15 @@
 package com.mmsystem.property.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
+/**
+ *Used to take in the necessary information to create tasks 
+ * */
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class MmsTechTaskCreateDTO {

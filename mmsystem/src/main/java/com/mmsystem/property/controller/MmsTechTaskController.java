@@ -27,6 +27,11 @@ import com.mmsystem.property.service.MmsTechTaskService;
 import com.mmsystem.property.util.IssuesPageConstants;
 
 import lombok.extern.slf4j.Slf4j;
+/**
+ * Task related request and response handled here.
+ * create, select, update and delete request and response
+ * 
+ * */
 
 @Slf4j
 @RestController

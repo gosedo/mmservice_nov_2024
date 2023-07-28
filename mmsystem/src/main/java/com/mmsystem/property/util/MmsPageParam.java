@@ -5,6 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * It is just acting as dto but for just parameters.
+ * Rather  than sending multiple parameter, putting them in one object and pass them.
+ * 
+ * */
+
+
 @Getter
 @Setter
 @NoArgsConstructor

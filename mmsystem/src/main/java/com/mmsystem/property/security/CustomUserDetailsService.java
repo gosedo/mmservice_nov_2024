@@ -19,7 +19,14 @@ import com.mmsystem.property.model.MmsUserRole;
 import com.mmsystem.property.repo.UserRepository;
 import com.mmsystem.property.service.MmsUserService;
 
-//public class CustomUserDetailsService {
+/**
+ * This is a custom user detail service that implements spring UserDetailsService
+ * and provide user information(user detail) based on the username (which is the email) of the user
+ * to the custom authentication provider. The provider relies on loadUserByUsername()
+ * method of the user detail service for authentication.
+ * 
+ * */
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService{
 	
@@ -30,13 +37,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 	private BCryptPasswordEncoder passwordEncoder;
 
 	
-//	public boolean saveUser(MmsUserDTO mmsUserDto) {
-//		String passwd= mmsUserDto.getUserPassword();
-//		String encodedPasswod = passwordEncoder.encode(passwd);
-//		mmsUserDto.setUserPassword(encodedPasswod);
-//		//user = userRepo.save(user);
-//		return userService.saveUser(mmsUserDto);
-//	}
+
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) 
@@ -46,7 +47,6 @@ public class CustomUserDetailsService implements UserDetailsService{
 		
 		Optional<MmsUser> opt = Optional.of(userService.getByEmail(email));
 		List<MmsUserRole> roleList = new ArrayList<MmsUserRole>();
-		//roleList.addAll(opt.get().getUserRoles());
 		roleList.addAll(opt.get().getUserRoles());
 						
 		if(opt.isEmpty())
@@ -65,4 +65,12 @@ public class CustomUserDetailsService implements UserDetailsService{
 		}
 		
 	}
+	
+	//	public boolean saveUser(MmsUserDTO mmsUserDto) {
+	//	String passwd= mmsUserDto.getUserPassword();
+	//	String encodedPasswod = passwordEncoder.encode(passwd);
+	//	mmsUserDto.setUserPassword(encodedPasswod);
+	//	//user = userRepo.save(user);
+	//	return userService.saveUser(mmsUserDto);
+	//}
 }

@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Uses javaMailSender to send email when email detail provided.
+ * */
 
 @Service
 @Slf4j 

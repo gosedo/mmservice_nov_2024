@@ -16,6 +16,12 @@ import com.mmsystem.property.model.MmsMaintenanceIssue;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Still in migration to JPA but used with custom config.
+ * It used SessionFactory bean for hibernate for database related operations. 
+ * Used for issues 
+ * */
+
 @Slf4j 
 @Repository
 public class MmsIssuesRepository implements IMmspRepository<MmsMaintenanceIssue>{

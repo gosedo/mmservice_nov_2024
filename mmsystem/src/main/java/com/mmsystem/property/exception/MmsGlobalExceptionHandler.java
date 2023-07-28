@@ -12,7 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-
+/**
+ * This is a global exception handler to centralize the exception handling in spring boot application.
+ * Help us have a generic exception handlers but message are localized to make them specific and
+ * application related. And also have control the type of http status that will be in response.
+ * 
+ * */
 
 @Slf4j(topic = "GLOBAL_EXCEPTION_HANDLER")
 @ControllerAdvice

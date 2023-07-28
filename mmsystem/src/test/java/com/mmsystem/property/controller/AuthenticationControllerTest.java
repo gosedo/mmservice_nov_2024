@@ -14,7 +14,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -66,10 +65,11 @@ public class AuthenticationControllerTest {
 		
 		String url = "/api/auth/signin";
 		
-		MvcResult mvcResult = mockMvc.perform(get(url).with(httpBasic("hfosterwed@randatmail.com","edbsg6"))
-				
-							
-							).andExpect(status().isUnauthorized()).andReturn();
+		MvcResult mvcResult = mockMvc.perform(get(url)
+								.header("Authorization", "Basic aGZvc3RlcndlZEByYW5kYXRtYWlsLmNvbTplZGJzZzY=")
+								//.with(httpBasic("hfosterwed@randatmail.com","123qwe")
+						)
+						.andExpect(status().isUnauthorized()).andReturn();
 		var response = mvcResult.getResponse().getStatus();//HttpStatus.UNAUTHORIZED
 		
 		//assertThat(response, equalTo(401));

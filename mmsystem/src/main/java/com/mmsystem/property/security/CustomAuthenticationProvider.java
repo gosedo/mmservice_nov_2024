@@ -11,6 +11,14 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+/**
+ * This bean presents itself as provider so that the authentication manager will use it 
+ * as authentication provider. As AuthManger provided by spring boot which will be used by 
+ * the custom filter will go through possible candidates of auth provide  which this is one of them.
+ * authenticate method uses loadUserByUsername()of user detail service to get user password
+ * and matches with the incoming one, if equal, returns Authentication object
+ * 
+ * */
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {

@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mmsystem.property.dto.MmsStaticDataDTO;
 import com.mmsystem.property.service.MmsStaticDataService;
 
+/**
+ * This just for angular client application to provide static data/non frequent changing data
+ * so that the angular application don't have to make multiple trip to the api to get non changing data.   
+ * */
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")

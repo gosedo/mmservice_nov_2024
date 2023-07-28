@@ -3,11 +3,15 @@ package com.mmsystem.property.dto;
 import java.util.Date;
 import java.util.Set;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+/**
+ * Used as transfer object by the authentication controller to send response with bearer token and user information
+ * */
+
+@Data
 public class AuthInformationDTO {
 	
 	private int userId;

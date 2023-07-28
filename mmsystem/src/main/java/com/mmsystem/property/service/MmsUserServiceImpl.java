@@ -1,7 +1,6 @@
 package com.mmsystem.property.service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -9,20 +8,18 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;  
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mmsystem.property.dto.AuthInformationDTO;
-import com.mmsystem.property.dto.MmsIssueResponse;
-import com.mmsystem.property.dto.MmsMaintenanceIssueDTO;
+
 import com.mmsystem.property.dto.MmsTechTeamMemberDTO;
 import com.mmsystem.property.dto.MmsTenantDTO;
 import com.mmsystem.property.dto.MmsUserActivationDTO;
@@ -32,16 +29,12 @@ import com.mmsystem.property.dto.MmsUserUpdateDTO;
 import com.mmsystem.property.dto.MmsUsersResponse;
 import com.mmsystem.property.exception.ResourceAlreadyExistsException;
 import com.mmsystem.property.exception.ResourceNotFoundException;
-import com.mmsystem.property.mapper.MmsMaintenanceIssueMapper;
-import com.mmsystem.property.mapper.MmsTechTaskMapper;
+
+
 import com.mmsystem.property.mapper.MmsUserMapper;
-import com.mmsystem.property.model.MmsMaintenanceIssue;
-import com.mmsystem.property.model.MmsTechTask;
-import com.mmsystem.property.model.MmsTenant;
 import com.mmsystem.property.model.MmsUser;
 import com.mmsystem.property.model.MmsUserRole;
 import com.mmsystem.property.model.MmsUserStatus;
-import com.mmsystem.property.repo.MmsIssuesRepository;
 import com.mmsystem.property.repo.MmsUserJPARepository;
 import com.mmsystem.property.repo.UserRepository;
 import com.mmsystem.property.util.EmailUtil;
@@ -52,6 +45,15 @@ import com.mmsystem.property.util.UserStatusesConstants;
 import com.mmsystem.property.util.YesOrNoConstants;
 
 import lombok.extern.slf4j.Slf4j;
+
+/**
+ * User related operation. 
+ * Registration, updating user information, calling other services to make user a tenant
+ * , team member, email notification when new registration or update on existing user. 
+ * Create, find, update
+ * 
+ * */
+
 
 @Slf4j 
 @Service  

@@ -19,6 +19,13 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+/**
+ * Spring boot uses this custom configuration for custom security filter chain,
+ * for setting/providing security bean like passwordEncoder, CORS configuration,spring auth managers
+ * authorization to requests, etc... 
+ *   
+ * */
+
 @Configuration
 @EnableWebSecurity
 public class CustomSecurityConfig {

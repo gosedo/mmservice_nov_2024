@@ -26,6 +26,11 @@ import com.mmsystem.property.util.MmsPageParam;
 
 import lombok.extern.slf4j.Slf4j;
 
+/***
+ * Maintenance Issue related service request will be handled with this controller.
+ * will be able to create, select, update issues. Paged requests and responses are handled
+ * 
+ * */
 @Slf4j 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")

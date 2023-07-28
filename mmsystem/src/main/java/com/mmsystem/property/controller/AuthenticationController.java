@@ -24,11 +24,17 @@ import com.mmsystem.property.security.SecurityConstants;
 import com.mmsystem.property.security.TokenUtils;
 import com.mmsystem.property.service.MmsUserService;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * In this the API, jwt bearer token will be generated based on the 
+ * username/email and security key, and a response will be composed as
+ *  AuthInformationDTO which has user information and token and token expiration date. 
+ * 
+ * */
 @Slf4j
 @RestController
-
 @RequestMapping(path = "api/auth")
 public class AuthenticationController {
 	
@@ -36,22 +42,18 @@ public class AuthenticationController {
 	@Autowired
 	private MmsUserService mmsUserService;
 	
-	private final Log logger = LogFactory.getLog(getClass());
+	//private final Log logger = LogFactory.getLog(getClass());
 
 	    @GetMapping(value = "/signin")
-	    public ResponseEntity<AuthInformationDTO> signIn(jakarta.servlet.http.HttpServletResponse response)  {
+	    public ResponseEntity<AuthInformationDTO> signIn(HttpServletResponse response)  {
 
 	        try {
 
 	            String uname = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	    
-	            logger.info("Principal/Username obtained from SecurityContextHolder: " + uname);
-	            logger.info("Is Authenticated? : " + SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
-	    
-	            String msg = "OK " + uname + " ! You have been Logged In!";
 	            String token = TokenUtils.generateJWTUserToken(uname);  
-	            logger.info("Generated JWT Token: " + token);
-	            logger.warn("Generated JWT Token for: " + uname);
+	            log.info("Generated JWT Token: " + token);
+	            log.warn("Generated JWT Token for: " + uname);
 
 	            response.addHeader(SecurityConstants.AUTH_HEADER, SecurityConstants.BEARER_TOKEN_PREFIX + token);
 	            
@@ -65,7 +67,7 @@ public class AuthenticationController {
 	            return new ResponseEntity<>(responseBody, HttpStatus.OK);    
 
 	        } catch (Exception ex) {
-	            logger.info("Exception error: " + ex.getMessage()); 
+	            log.info("Exception error: " + ex.getMessage()); 
 	            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 	        }
 	    }

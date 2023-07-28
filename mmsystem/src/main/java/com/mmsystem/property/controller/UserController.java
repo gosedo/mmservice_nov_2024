@@ -25,6 +25,10 @@ import com.mmsystem.property.util.UsersPageConstants;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * User related request and response are handled here.
+ * create, select, update and delete can be handled her.
+ * */
 @Slf4j
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")

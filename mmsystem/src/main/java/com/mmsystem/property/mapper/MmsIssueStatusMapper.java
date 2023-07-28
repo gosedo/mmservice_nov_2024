@@ -8,7 +8,9 @@ import org.mapstruct.factory.Mappers;
 import com.mmsystem.property.dto.MmsIssueStatusDTO;
 
 import com.mmsystem.property.model.MmsIssueStatus;
-
+/**
+ * MmsIssueStatus <-> MmsIssueStatusDTO mapper 
+ * */
 
 @Mapper
 public interface MmsIssueStatusMapper {

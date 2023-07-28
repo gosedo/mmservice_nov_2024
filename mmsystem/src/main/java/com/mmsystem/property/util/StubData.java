@@ -1,6 +1,7 @@
 package com.mmsystem.property.util;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -30,6 +31,9 @@ import com.mmsystem.property.model.MmsUserStatus;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * sample data for testing purpose
+ * */
 
 @Getter
 @Setter
@@ -155,6 +159,8 @@ public class StubData {
 		stubListOfUsers.add(userEight);
 		stubListOfUsers.add(userNine);
 		stubListOfUsers.add(userTen);
+		
+		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 		
 		MmsTenant tenantOne = new MmsTenant(1,userOne,unitOne ,true, LocalDateTime.now(), LocalDateTime.now());
 		MmsTenant tenantTwo = new MmsTenant(1,userTwo,unitTwo ,true, LocalDateTime.now(), LocalDateTime.now());

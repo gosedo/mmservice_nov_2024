@@ -49,7 +49,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
-
+/**
+ * This is a service that provides task related operation.
+ * It can be used to create, find, update and delete task/s. 
+ * */
 
 @Service  
 @Transactional 

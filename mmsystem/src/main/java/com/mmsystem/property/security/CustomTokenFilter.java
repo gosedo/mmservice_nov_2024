@@ -15,8 +15,21 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import  org.springframework.security.core.Authentication;
 
+/**
+ * This custom filter when added to the filter list it will be responsible for security
+ * related actions.
+ * It handles basic and bearer token authentication. If basic authentication it extract user information base64
+ * token and do authentication. If bearer token it checks the validity of the token. And then set the security context 
+ * with authenticate. The security context will be used for the authorization of access to the resources.
+ * */
 
 @Component
 public class CustomTokenFilter extends OncePerRequestFilter {
@@ -38,9 +51,9 @@ public class CustomTokenFilter extends OncePerRequestFilter {
 
 
 	  @Override
-	  protected void doFilterInternal(jakarta.servlet.http.HttpServletRequest request,
-	                                  jakarta.servlet.http.HttpServletResponse response,
-	                                  jakarta.servlet.FilterChain filterChain) throws jakarta.servlet.ServletException, IOException {
+	  protected void doFilterInternal(HttpServletRequest request,
+	                                  HttpServletResponse response,
+	                                  FilterChain filterChain) throws ServletException, IOException {
 
 		  String uname ="";
 		  String upassw ="";

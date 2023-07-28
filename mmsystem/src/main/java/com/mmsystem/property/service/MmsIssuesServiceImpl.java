@@ -29,7 +29,11 @@ import com.mmsystem.property.util.MmsPageParam;
 import com.mmsystem.property.util.RoleTypeConstants;
 
 
-
+/**
+ * This is services uses many other services to do its job related to issues.
+ * used to create, find, update and delete issues.
+ * It also has paged issue find method.
+ * */
 @Service  
 @Transactional 
 public class MmsIssuesServiceImpl implements MmsIssuesService {

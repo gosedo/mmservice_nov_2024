@@ -1,5 +1,11 @@
 package com.mmsystem.property.util;
 
+/**
+ * Used to compose different email content. E.g New Account Registration
+ * Updated Account notification.
+ * 
+ * */
+
 public class MmsComposeEmailUtil {
 	
 	public static EmailDetails composerNewAccountEmail( String email, String verificationId) {
