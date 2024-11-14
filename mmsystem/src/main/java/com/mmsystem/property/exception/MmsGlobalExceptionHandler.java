@@ -44,7 +44,8 @@ public class MmsGlobalExceptionHandler {
 			
 	        return MmsCustomResponseBuilder.build(err);
 	    }
-
+		
+		
 	 	//@ExceptionHandler(value = Exception.class)
 	    public ResponseEntity<Object> databaseConnectionFailsException(Exception ex) {
 	 		

@@ -29,6 +29,21 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 public class CustomSecurityConfig {
+	
+	private static final String[] AUTH_WHITELIST = {
+            // -- Swagger UI v2
+//            "/v2/api-docs",
+//            "/swagger-resources",
+//            "/swagger-resources/**",
+//            "/configuration/ui",
+//            "/configuration/security",
+//            "/swagger-ui.html",
+//            "/webjars/**",
+            // -- Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+            // other public endpoints of your API may be appended to this array
+    };
 
     @Autowired
     private AuthenticationConfiguration authenticationConfiguration;
@@ -83,11 +98,21 @@ public class CustomSecurityConfig {
                 exceptions
                     .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
                     .accessDeniedHandler(new BearerTokenAccessDeniedHandler()));
+        
+        http   
+        .authorizeHttpRequests(	authorize -> 
+        						authorize
+        								 .requestMatchers(AUTH_WHITELIST ).permitAll()
+        								 
+        								 );
        
         http   
         .authorizeHttpRequests(	authorize -> 
         						authorize.requestMatchers("api/auth/signin").authenticated()
-        								 .requestMatchers("api/auth/signup").authenticated());
+        								 .requestMatchers("api/auth/signup").authenticated()
+        								 .requestMatchers("api-docs").permitAll()
+        								 .requestMatchers("swagger-ui/**").permitAll()
+        								 .requestMatchers("v3/api-docs.yaml").permitAll());
         
         
         http
@@ -116,7 +141,7 @@ public class CustomSecurityConfig {
         
         http   
         .authorizeHttpRequests(	authorize -> 
-        						authorize.requestMatchers("api/mmsuser/mmsuser-create").authenticated()
+        						authorize.requestMatchers("api/mmsuser/mmsuser-create").permitAll()
         								 .requestMatchers("api/mmsuser/mmsuser-list").authenticated()
         								 .requestMatchers("api/mmsuser/mmsuser-update").authenticated()
         								 .requestMatchers("api/mmsuser/mmsuser-list-paged").authenticated()

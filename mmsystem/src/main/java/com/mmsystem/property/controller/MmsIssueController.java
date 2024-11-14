@@ -82,8 +82,9 @@ public class MmsIssueController {
 	
 	@PostMapping("mmsissue-update") 
 	public MmsMaintenanceIssueDTO updateMmsIssue(@RequestBody MmsIssueUpdateDTO issueCreateDto){ 
-		
-		 return mmsIssuesService.updateMmsIssue(issueCreateDto);
+			
+			return mmsIssuesService.updateMmsIssueJPA(issueCreateDto);
+		 //return mmsIssuesService.updateMmsIssue(issueCreateDto);
 	}
 	
 	@GetMapping("mmsissue-list")
@@ -92,6 +93,7 @@ public class MmsIssueController {
 		return mmsIssuesService.getMmsIssue();
 
 	}
+	
 	
 	@GetMapping("mmsissue/list/{mmsuser_id}")
 	public List<MmsMaintenanceIssueDTO> getMmsIssueByUserID(@PathVariable("mmsuser_id") int mmsuser_id) {

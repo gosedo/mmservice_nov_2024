@@ -38,4 +38,6 @@ public interface MmsIssuesService {
 	
 		boolean updateMmsIssue(MmsMaintenanceIssue pojo);
 
+		MmsMaintenanceIssueDTO updateMmsIssueJPA(MmsIssueUpdateDTO mmsIssueUpdateDTO);
+
 }

@@ -31,8 +31,9 @@ import lombok.extern.slf4j.Slf4j;
  * */
 @Slf4j
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(value = "/api/mmsuser")
+//@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "http://localhost:4200") 
+@RequestMapping(value = "api/mmsuser") //api/mmsuser/mmsuser-create
 public class UserController {
 
 	@Autowired
@@ -44,9 +45,10 @@ public class UserController {
 
 	}
 	
-	@PostMapping(value="/mmsuser-create") 
+	@PostMapping("mmsuser-create") 
 	public MmsUserDTO createUser(@RequestBody MmsUserCreateDTO mmsUserCreateDto){ 
 		
+		 log.info("User created"+ mmsUserCreateDto.getUserEmail());
 		 return mmsUserService.createUser(mmsUserCreateDto);
 	}
 	

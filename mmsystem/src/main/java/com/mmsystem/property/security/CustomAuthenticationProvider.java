@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 /**
  * This bean presents itself as provider so that the authentication manager will use it 
  * as authentication provider. As AuthManger provided by spring boot which will be used by 
- * the custom filter will go through possible candidates of auth provide  which this is one of them.
+ * the custom filter will go through possible candidates of auth providers which this is one of them.
  * authenticate method uses loadUserByUsername()of user detail service to get user password
  * and matches with the incoming one, if equal, returns Authentication object
  * 
@@ -51,8 +51,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (user == null) return null; 
         //throw new UsernameNotFoundException(String.format("Username not found"));
     
-        //if (user.getPassword().equals(upassw)) { replaced this 
-        if (passwordEncoder.matches(upassw,user.getPassword())) {
+        if (user.getPassword().equals(upassw)) { 
+        //replaced above to encrypt the password 
+        //if (passwordEncoder.matches(upassw,user.getPassword())) {
             authToken = new UsernamePasswordAuthenticationToken(user.getUsername(), null, user.getAuthorities());
         }    
         return authToken;

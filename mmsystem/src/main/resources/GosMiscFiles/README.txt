@@ -3,7 +3,8 @@ Maintenance Management Service (MMService)
 This is one of the microservices that is planned to be included in the whole system that will serve as a property management system.
 The Property management system will have Maintenance Management Service, Inventory Management Service, Contract/Lease Management Service and Billing Service.
 
-MMService at the current implementation stage (which is done for capstone) just has the feature necessary to meet the capstone requirement. But when the whole project gets completed, it will have more features and gives more services than what it has at this moment. 
+MMService at the current implementation stage (which is done for capstone) just has the feature necessary to meet the capstone requirement. 
+But when the whole project gets completed, it will have more features and gives more services than what it has at this moment. 
 
 Current Features
 	Maintenance Issue Management Feature

@@ -1,3 +1,4 @@
+
 package com.mmsystem.property.service;
 
 import java.time.LocalDateTime;
@@ -23,6 +24,8 @@ import com.mmsystem.property.model.MmsMaintenanceIssue;
 import com.mmsystem.property.model.MmsTenant;
 import com.mmsystem.property.model.MmsUser;
 import com.mmsystem.property.model.MmsUserRole;
+import com.mmsystem.property.repo.MmsIssueStausJPARepository;
+import com.mmsystem.property.repo.MmsIssueTypeJPARepository;
 import com.mmsystem.property.repo.MmsIssuesJPARepository;
 import com.mmsystem.property.repo.MmsIssuesRepository;
 import com.mmsystem.property.util.MmsPageParam;
@@ -44,6 +47,12 @@ public class MmsIssuesServiceImpl implements MmsIssuesService {
 	
 	@Autowired  
 	private MmsUserRoleService mmsUserRoleService;
+	
+	@Autowired
+	private MmsIssueTypeJPARepository mmsIssueTypeJPARepository;
+	
+	@Autowired
+	private MmsIssueStausJPARepository mmsIssueStausJPARepository;
 		
 	@Autowired  
 	private MmsUserService mmsUserService; 
@@ -72,9 +81,9 @@ public class MmsIssuesServiceImpl implements MmsIssuesService {
 		mmsIssue.setRequestedBy(requestByTenant);
 		mmsIssue.setCreatedOnDate(LocalDateTime.now());
 		
-		mmsIssuesJPARepository.save(mmsIssue); 
+		MmsMaintenanceIssue savedIssue = mmsIssuesJPARepository.save(mmsIssue); 
 		
-		return MmsMaintenanceIssueMapper.INSTANCE.mapToIssueDto(mmsIssue);
+		return MmsMaintenanceIssueMapper.INSTANCE.mapToIssueDto(savedIssue);
 		
 	}
 
@@ -214,6 +223,22 @@ public class MmsIssuesServiceImpl implements MmsIssuesService {
         return mmsIssueResponse;
         
         
+	}
+	
+	@Override
+	public MmsMaintenanceIssueDTO updateMmsIssueJPA(MmsIssueUpdateDTO mmsIssueUpdateDTO) {
+		
+		
+		MmsMaintenanceIssue mmsIssue = mmsIssuesJPARepository.findById((long)mmsIssueUpdateDTO.getIssueId()).get();
+		MmsIssueType issueTypeDto = mmsIssueTypeJPARepository.findById(mmsIssueUpdateDTO.getIssueTypeId()).get();
+		MmsIssueStatus issueStatus = mmsIssueStausJPARepository.findById(mmsIssueUpdateDTO.getIssueStatusId()).get();
+		
+		mmsIssue.setIssueType(issueTypeDto);
+		mmsIssue.setIssueStatus(issueStatus);
+				
+		MmsMaintenanceIssue savedIssue = mmsIssuesJPARepository.save(mmsIssue); 
+		
+		return MmsMaintenanceIssueMapper.INSTANCE.mapToIssueDto(savedIssue);
 	}
 	
 	//End using JPA Repository

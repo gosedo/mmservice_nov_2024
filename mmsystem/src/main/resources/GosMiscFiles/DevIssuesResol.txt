@@ -1,10 +1,24 @@
+07/24/2024
+Issue: trying to create wrong user posting from postman was returning 401 unauthorized response. 
+Diagnosis: No information was shown in the console as an issue but unauthorized response in postman.
+exception/warning supposed to be shown for mapping issue between the user object sent and the expected object type.
+reason: was using log4j2 custom logger rather than the default logger
+solution: testing by removing the dependency of log4j2 and seeing the exception/warn of mapping issue in the console.
+		change <Root>  ===> <Root level="info" >
+		<Root level="info" >
+		            <AppenderRef ref="Console" level="info"/>
+		     		<AppenderRef ref="Console-Extensions" level="info"/>
+		            <AppenderRef ref="databaseAppender" level="warn"/>
+		</Root>
+
+
 05/14/2023
 //mysql password old = provide@48R
 Issue: no status with users was returned 
 diagnosis : checked relation exists data was available
 reason: not getter or setter was generated for userStatusId
-solution: Generate getter and setter for userStatusId filed.
-		For the fileds of the entity you want the controller to include in the response generate getter and setter
+solution: Generate getter and setter for userStatusId field.
+		For the fields of the entity you want the controller to include in the response generate getter and setter
 
 05/12/2023
 Issue: Can't connect to any URI error while commiting code from Eclipse to Git Repository
